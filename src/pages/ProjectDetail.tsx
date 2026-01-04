@@ -25,7 +25,8 @@ export const ProjectDetail = () => {
 
   // Fetch README content if available
   useEffect(() => {
-    if (!project?.["README Path"]) {
+    const readmePath = project?.["README Path"];
+    if (!readmePath) {
       setReadmeContent(null);
       return;
     }
@@ -34,7 +35,7 @@ export const ProjectDetail = () => {
       setReadmeLoading(true);
       setReadmeError(false);
       try {
-        const response = await fetch(project["README Path"]);
+        const response = await fetch(readmePath);
         if (!response.ok) throw new Error("Failed to fetch README");
         const text = await response.text();
         setReadmeContent(text);

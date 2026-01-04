@@ -19,7 +19,7 @@ export const useProjects = () => {
           setProjects(results.data.filter((p) => p.Repo)); // Filter out empty rows
           setLoading(false);
         },
-        error: (error) => {
+        error: (error: Error) => {
           setError(error.message);
           setLoading(false);
         },
