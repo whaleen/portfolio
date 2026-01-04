@@ -33,7 +33,7 @@ const __dirname = dirname(__filename);
 
 // Configuration
 const PROJECTS_DIR = '/Users/josh/Projects';
-const CSV_PATH = join(__dirname, '../src/data/projects.csv');
+const CSV_PATH = join(__dirname, '../public/data/projects.csv');
 const SOCIAL_PREVIEW_PATHS = [
   '.github/social-preview.png',
   '.github/og-image.png',

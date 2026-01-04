@@ -9,7 +9,7 @@ Clean the CSV:
 import csv
 from pathlib import Path
 
-CSV_PATH = Path(__file__).parent.parent / "src/data/projects.csv"
+CSV_PATH = Path(__file__).parent.parent / "public/data/projects.csv"
 BACKUP_PATH = CSV_PATH.with_suffix('.csv.backup')
 
 def main():

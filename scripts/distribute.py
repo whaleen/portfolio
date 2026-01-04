@@ -10,7 +10,7 @@ from pathlib import Path
 # Configuration
 SOURCE = Path("/Users/josh/Projects/_nothingdao/earth/.github/social-preview.png")
 PROJECTS_DIR = Path("/Users/josh/Projects")
-CSV_PATH = Path(__file__).parent.parent / "src/data/projects.csv"
+CSV_PATH = Path(__file__).parent.parent / "public/data/projects.csv"
 
 # Org to directory mapping
 ORG_DIRS = {

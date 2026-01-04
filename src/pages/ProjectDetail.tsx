@@ -19,6 +19,9 @@ export const ProjectDetail = () => {
   const [readmeLoading, setReadmeLoading] = useState(false);
   const [readmeError, setReadmeError] = useState(false);
 
+  // Only show update buttons in development
+  const isDev = import.meta.env.DEV;
+
   const project = projects.find(
     (p) => p["GitHub Org"] === org && p.Repo === repo
   );
@@ -124,26 +127,28 @@ export const ProjectDetail = () => {
                 </a>
               </Button>
             )}
-            <Button
-              variant="outline"
-              onClick={async () => {
-                setUpdating(true);
-                try {
-                  await updateGitHubData(`${project["GitHub Org"]}/${project.Repo}`);
-                  await refresh();
-                } catch (error) {
-                  console.error('Failed to update:', error);
-                  alert(`Failed to update: ${error instanceof Error ? error.message : 'Unknown error'}`);
-                } finally {
-                  setUpdating(false);
-                }
-              }}
-              disabled={updating}
-            >
-              <RefreshCw className={`mr-2 h-4 w-4 ${updating ? 'animate-spin' : ''}`} />
-              Update from GitHub
-            </Button>
-            {(project.Homepage || project["Live URL"]) && (
+            {isDev && (
+              <Button
+                variant="outline"
+                onClick={async () => {
+                  setUpdating(true);
+                  try {
+                    await updateGitHubData(`${project["GitHub Org"]}/${project.Repo}`);
+                    await refresh();
+                  } catch (error) {
+                    console.error('Failed to update:', error);
+                    alert(`Failed to update: ${error instanceof Error ? error.message : 'Unknown error'}`);
+                  } finally {
+                    setUpdating(false);
+                  }
+                }}
+                disabled={updating}
+              >
+                <RefreshCw className={`mr-2 h-4 w-4 ${updating ? 'animate-spin' : ''}`} />
+                Update from GitHub
+              </Button>
+            )}
+            {isDev && (project.Homepage || project["Live URL"]) && (
               <Button
                 variant="outline"
                 onClick={async () => {

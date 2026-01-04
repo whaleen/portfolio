@@ -16,7 +16,7 @@ const __dirname = dirname(__filename);
 
 // Configuration
 const PROJECTS_DIR = '/Users/josh/Projects';
-const CSV_PATH = join(__dirname, '../src/data/projects.csv');
+const CSV_PATH = join(__dirname, '../public/data/projects.csv');
 const SOURCE_IMAGE = '/Users/josh/Projects/_nothingdao/earth/.github/social-preview.png';
 
 // Parse command line arguments

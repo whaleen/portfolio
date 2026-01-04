@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
 # Configuration
-CSV_PATH = Path(__file__).parent.parent / "src/data/projects.csv"
+CSV_PATH = Path(__file__).parent.parent / "public/data/projects.csv"
 BACKUP_PATH = CSV_PATH.with_suffix('.csv.backup')
 
 # Open Graph fields to extract and store

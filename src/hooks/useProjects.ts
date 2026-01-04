@@ -10,7 +10,7 @@ export const useProjects = () => {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/src/data/projects.csv");
+      const response = await fetch("/data/projects.csv");
       const text = await response.text();
 
       Papa.parse<Project>(text, {

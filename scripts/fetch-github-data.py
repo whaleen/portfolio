@@ -19,7 +19,7 @@ from pathlib import Path
 from datetime import datetime
 
 # Configuration
-CSV_PATH = Path(__file__).parent.parent / "src/data/projects.csv"
+CSV_PATH = Path(__file__).parent.parent / "public/data/projects.csv"
 BACKUP_PATH = CSV_PATH.with_suffix('.csv.backup')
 README_DIR = Path(__file__).parent.parent / "public/readmes"
 
