@@ -15,6 +15,7 @@ import subprocess
 import sys
 import argparse
 import base64
+import requests
 from pathlib import Path
 from datetime import datetime
 
@@ -22,6 +23,7 @@ from datetime import datetime
 CSV_PATH = Path(__file__).parent.parent / "public/data/projects.csv"
 BACKUP_PATH = CSV_PATH.with_suffix('.csv.backup')
 README_DIR = Path(__file__).parent.parent / "public/readmes"
+SOCIAL_PREVIEW_DIR = Path(__file__).parent.parent / "public/social-previews"
 
 # All GitHub API fields to add to CSV
 NEW_FIELDS = [
@@ -104,6 +106,24 @@ def run_gh_api(endpoint, accept_header=None):
         print("❌ GitHub CLI (gh) not found. Please install: brew install gh")
         sys.exit(1)
 
+def run_gh_graphql(query):
+    """Run GitHub CLI GraphQL query"""
+    try:
+        cmd = ["gh", "api", "graphql", "-f", f"query={query}"]
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        return json.loads(result.stdout)
+    except subprocess.CalledProcessError as e:
+        print(f"  ⚠️  GraphQL error: {e.stderr.strip()}")
+        return None
+    except FileNotFoundError:
+        print("❌ GitHub CLI (gh) not found. Please install: brew install gh")
+        sys.exit(1)
+
 def save_readme(org, repo, readme_data):
     """Save README content to public/readmes/{org}/{repo}.md
 
@@ -135,6 +155,46 @@ def save_readme(org, repo, readme_data):
         return f"/readmes/{org}/{repo}.md"
     except Exception as e:
         print(f"  ⚠️  Failed to save README: {e}")
+        return ""
+
+def save_social_preview(org, repo, social_preview_url):
+    """Download and save social preview image to public/social-previews/{org}/{repo}.png
+
+    Args:
+        org: GitHub organization
+        repo: Repository name
+        social_preview_url: URL to the social preview image
+
+    Returns:
+        Path to social preview image relative to public/ or empty string if failed
+    """
+    if not social_preview_url:
+        return ""
+
+    try:
+        # Download image
+        print(f"  🖼️  Downloading social preview...")
+        response = requests.get(social_preview_url, timeout=10)
+        response.raise_for_status()
+
+        # Create org directory
+        org_dir = SOCIAL_PREVIEW_DIR / org
+        org_dir.mkdir(parents=True, exist_ok=True)
+
+        # Save image
+        image_path = org_dir / f"{repo}.png"
+        with open(image_path, 'wb') as f:
+            f.write(response.content)
+
+        print(f"  ✅ Saved social preview ({len(response.content) // 1024} KB)")
+
+        # Return path relative to public/
+        return f"/social-previews/{org}/{repo}.png"
+    except requests.RequestException as e:
+        print(f"  ⚠️  Failed to download social preview: {e}")
+        return ""
+    except Exception as e:
+        print(f"  ⚠️  Failed to save social preview: {e}")
         return ""
 
 def fetch_repo_data(org, repo):
@@ -177,12 +237,23 @@ def fetch_repo_data(org, repo):
     # Extract all useful data from GitHub API
     license_obj = repo_data.get("license", {})
     default_branch = repo_data.get("default_branch", "main")
-    
-    # Build social preview URL
-    # GitHub uses: https://opengraph.githubassets.com/{hash}/{owner}/{repo}
-    # We can use the default branch or a simple hash
-    social_preview_url = f"https://opengraph.githubassets.com/1/{org}/{repo}"
-    
+
+    # Get the actual social preview URL (custom or default) via GraphQL
+    graphql_query = f'''
+    {{
+      repository(owner: "{org}", name: "{repo}") {{
+        openGraphImageUrl
+      }}
+    }}
+    '''
+    graphql_data = run_gh_graphql(graphql_query)
+    social_preview_url = ""
+    if graphql_data and "data" in graphql_data and graphql_data["data"]["repository"]:
+        social_preview_url = graphql_data["data"]["repository"].get("openGraphImageUrl", "")
+
+    # Download and save social preview image
+    save_social_preview(org, repo, social_preview_url)
+
     data = {
         # Stats
         "Stars": repo_data.get("stargazers_count", 0),

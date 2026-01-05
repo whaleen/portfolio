@@ -90,6 +90,8 @@ export interface Project {
   "OG URL"?: string;
   "OG Site Name"?: string;
   Favicon?: string;
+  // Portfolio management fields
+  Hidden?: string;
 }
 
 export type ProjectStatus = "active" | "archived" | "needs-work" | "";

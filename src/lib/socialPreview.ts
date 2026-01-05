@@ -19,29 +19,13 @@ export function getSocialPreviewUrl(
 }
 
 /**
- * List of repos that have social preview images
- * This can be auto-generated or manually maintained
- */
-export const REPOS_WITH_SOCIAL_PREVIEW = [
-  "whaleen/video-tiling",
-  "whaleen/ephemeral-text",
-  "nothingdao/earth",
-  "nothingdao/studio-sites",
-  "nothingdao/shadcn-solana",
-  "orthfx/orthfx",
-  "orthfx/jpb",
-  "orthfx/orthodox-reader",
-  "orthfx/orthobot",
-  "orthfx/orthodox-nkjv",
-];
-
-/**
  * Check if a repo has a social preview image
+ * Since images are downloaded automatically by fetch-github-data.py,
+ * we'll always return true and let the image component handle errors gracefully
  * @param org - GitHub organization
  * @param repo - Repository name
- * @returns true if the repo has a social preview
+ * @returns true - always attempt to load, component handles errors
  */
 export function hasSocialPreview(org: string, repo: string): boolean {
-  const fullName = `${org}/${repo}`;
-  return REPOS_WITH_SOCIAL_PREVIEW.includes(fullName);
+  return !!(org && repo);
 }

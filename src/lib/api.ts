@@ -57,3 +57,20 @@ export async function updateOGData(repo: string) {
   return response.json();
 }
 
+export async function toggleHidden(repo: string, hidden: boolean) {
+  const response = await fetch(`${API_BASE}/project/toggle-hidden`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ repo, hidden }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to toggle hidden status');
+  }
+
+  return response.json();
+}
+

@@ -1,20 +1,35 @@
-import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useState, useMemo, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useProjects } from "@/hooks/useProjects";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SocialPreview } from "@/components/SocialPreview";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, Star } from "lucide-react";
 import { updateGitHubData } from "@/lib/api";
 
 export const Projects = () => {
+  const { org: orgParam } = useParams<{ org?: string }>();
+  const navigate = useNavigate();
   const { projects, loading, refresh } = useProjects();
   const [selectedOrg, setSelectedOrg] = useState<string>("all");
   const [selectedType, setSelectedType] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [showResumeWorthy, setShowResumeWorthy] = useState(false);
+  const [showHidden, setShowHidden] = useState(false);
+
+  // Only show hidden toggle in development
+  const isDev = import.meta.env.DEV;
+
+  // Sync selectedOrg with URL param
+  useEffect(() => {
+    if (orgParam) {
+      setSelectedOrg(orgParam);
+    } else {
+      setSelectedOrg("all");
+    }
+  }, [orgParam]);
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
@@ -31,10 +46,12 @@ export const Projects = () => {
         project["Key Tags"]?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesResumeWorthy =
         !showResumeWorthy || project["Resume Worthy"] === "yes";
+      const matchesHidden =
+        showHidden || project.Hidden !== "yes";
 
-      return matchesOrg && matchesType && matchesSearch && matchesResumeWorthy;
+      return matchesOrg && matchesType && matchesSearch && matchesResumeWorthy && matchesHidden;
     });
-  }, [projects, selectedOrg, selectedType, searchTerm, showResumeWorthy]);
+  }, [projects, selectedOrg, selectedType, searchTerm, showResumeWorthy, showHidden]);
 
   const orgs = ["all", "whaleen", "nothingdao", "orthfx", "boringprotocol"];
   const types = ["all", "app", "library", "tool", "game", "website"];
@@ -73,12 +90,20 @@ export const Projects = () => {
     );
   };
 
+  const getPageTitle = () => {
+    if (selectedOrg !== "all") {
+      return `${selectedOrg} Projects`;
+    }
+    return "All Projects";
+  };
+
   return (
     <div className="space-y-8">
       <div className="space-y-3">
-        <h1 className="text-5xl font-bold">All Projects</h1>
+        <h1 className="text-5xl font-bold">{getPageTitle()}</h1>
         <p className="text-xl text-muted-foreground">
-          {filteredProjects.length} of {projects.length} repositories
+          {filteredProjects.length} {selectedOrg !== "all" ? `${selectedOrg}` : ""} repositories
+          {selectedOrg !== "all" && ` (${projects.length} total)`}
         </p>
       </div>
 
@@ -94,7 +119,14 @@ export const Projects = () => {
               <label className="text-sm font-medium">Organization</label>
               <select
                 value={selectedOrg}
-                onChange={(e) => setSelectedOrg(e.target.value)}
+                onChange={(e) => {
+                  const org = e.target.value;
+                  if (org === "all") {
+                    navigate("/projects");
+                  } else {
+                    navigate(`/projects/${org}`);
+                  }
+                }}
                 className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
               >
                 {orgs.map((org) => (
@@ -130,7 +162,7 @@ export const Projects = () => {
               />
             </div>
 
-            <div className="flex items-end">
+            <div className="flex flex-col items-start gap-3">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -140,6 +172,17 @@ export const Projects = () => {
                 />
                 <span className="text-sm font-medium">Resume Worthy Only</span>
               </label>
+              {isDev && (
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={showHidden}
+                    onChange={(e) => setShowHidden(e.target.checked)}
+                    className="w-4 h-4 rounded border-input"
+                  />
+                  <span className="text-sm font-medium">Show Hidden</span>
+                </label>
+              )}
             </div>
           </div>
         </CardContent>
@@ -191,8 +234,9 @@ export const Projects = () => {
                     <Badge variant="outline">{project["Project Type"]}</Badge>
                   )}
                   {project["Featured Project"] === "yes" && (
-                    <Badge className="bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500/30">
-                      ⭐ Featured
+                    <Badge className="bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500/30 flex items-center gap-1">
+                      <Star className="h-3 w-3" />
+                      Featured
                     </Badge>
                   )}
                   {project.PWA === "yes" && (

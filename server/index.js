@@ -200,6 +200,66 @@ app.post('/api/og/update', async (req, res) => {
   }
 });
 
+// Toggle project hidden status
+app.post('/api/project/toggle-hidden', async (req, res) => {
+  const { repo, hidden } = req.body;
+
+  if (!repo) {
+    return res.status(400).json({ error: 'Repo parameter is required (e.g., "whaleen/astrds" or "astrds")' });
+  }
+
+  try {
+    const scriptPath = join(__dirname, '../scripts/toggle-hidden.py');
+    const args = ['--repo', repo, '--hidden', hidden ? 'yes' : 'no'];
+
+    const pythonProcess = spawn('python3', [scriptPath, ...args], {
+      cwd: join(__dirname, '..'),
+      stdio: ['pipe', 'pipe', 'pipe']
+    });
+
+    let stdout = '';
+    let stderr = '';
+
+    pythonProcess.stdout.on('data', (data) => {
+      stdout += data.toString();
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+      stderr += data.toString();
+    });
+
+    pythonProcess.on('close', (code) => {
+      if (code === 0) {
+        res.json({
+          success: true,
+          message: `Successfully toggled hidden status for ${repo}`,
+          output: stdout
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          error: `Script failed with code ${code}`,
+          stderr: stderr,
+          stdout: stdout
+        });
+      }
+    });
+
+    pythonProcess.on('error', (error) => {
+      res.status(500).json({
+        success: false,
+        error: `Failed to spawn process: ${error.message}`
+      });
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 API server running on http://localhost:${PORT}`);
 });

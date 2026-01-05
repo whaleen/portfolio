@@ -4,8 +4,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SocialPreview } from "@/components/SocialPreview";
-import { ArrowLeft, ExternalLink, Github, Globe, RefreshCw } from "lucide-react";
-import { updateGitHubData, updateOGData } from "@/lib/api";
+import { ArrowLeft, ExternalLink, Github, Globe, RefreshCw, Star, GitFork, Eye, EyeOff, CircleDot, Smartphone, CheckCircle, Wallet, Briefcase, Settings } from "lucide-react";
+import { updateGitHubData, updateOGData, toggleHidden } from "@/lib/api";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -14,12 +21,11 @@ export const ProjectDetail = () => {
   const { org, repo } = useParams<{ org: string; repo: string }>();
   const { projects, loading, refresh } = useProjects();
   const [updating, setUpdating] = useState(false);
-  const [updatingOG, setUpdatingOG] = useState(false);
   const [readmeContent, setReadmeContent] = useState<string | null>(null);
   const [readmeLoading, setReadmeLoading] = useState(false);
   const [readmeError, setReadmeError] = useState(false);
 
-  // Only show update buttons in development
+  // Only show settings in development
   const isDev = import.meta.env.DEV;
 
   const project = projects.find(
@@ -65,13 +71,15 @@ export const ProjectDetail = () => {
     return <Navigate to="/projects" replace />;
   }
 
+  const backUrl = org ? `/projects/${org}` : "/projects";
+
   return (
     <div className="space-y-8">
       {/* Back Button */}
       <Button variant="ghost" asChild>
-        <Link to="/projects">
+        <Link to={backUrl}>
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Projects
+          Back to {org} Projects
         </Link>
       </Button>
 
@@ -128,46 +136,80 @@ export const ProjectDetail = () => {
               </Button>
             )}
             {isDev && (
-              <Button
-                variant="outline"
-                onClick={async () => {
-                  setUpdating(true);
-                  try {
-                    await updateGitHubData(`${project["GitHub Org"]}/${project.Repo}`);
-                    await refresh();
-                  } catch (error) {
-                    console.error('Failed to update:', error);
-                    alert(`Failed to update: ${error instanceof Error ? error.message : 'Unknown error'}`);
-                  } finally {
-                    setUpdating(false);
-                  }
-                }}
-                disabled={updating}
-              >
-                <RefreshCw className={`mr-2 h-4 w-4 ${updating ? 'animate-spin' : ''}`} />
-                Update from GitHub
-              </Button>
-            )}
-            {isDev && (project.Homepage || project["Live URL"]) && (
-              <Button
-                variant="outline"
-                onClick={async () => {
-                  setUpdatingOG(true);
-                  try {
-                    await updateOGData(`${project["GitHub Org"]}/${project.Repo}`);
-                    await refresh();
-                  } catch (error) {
-                    console.error('Failed to update OG data:', error);
-                    alert(`Failed to update OG data: ${error instanceof Error ? error.message : 'Unknown error'}`);
-                  } finally {
-                    setUpdatingOG(false);
-                  }
-                }}
-                disabled={updatingOG}
-              >
-                <RefreshCw className={`mr-2 h-4 w-4 ${updatingOG ? 'animate-spin' : ''}`} />
-                Update Open Graph
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" disabled={updating}>
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onClick={async () => {
+                      setUpdating(true);
+                      try {
+                        await updateGitHubData(`${project["GitHub Org"]}/${project.Repo}`);
+                        await refresh();
+                      } catch (error) {
+                        console.error('Failed to update:', error);
+                        alert(`Failed to update: ${error instanceof Error ? error.message : 'Unknown error'}`);
+                      } finally {
+                        setUpdating(false);
+                      }
+                    }}
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                    Update from GitHub
+                  </DropdownMenuItem>
+                  {(project.Homepage || project["Live URL"]) && (
+                    <DropdownMenuItem
+                      onClick={async () => {
+                        setUpdating(true);
+                        try {
+                          await updateOGData(`${project["GitHub Org"]}/${project.Repo}`);
+                          await refresh();
+                        } catch (error) {
+                          console.error('Failed to update OG data:', error);
+                          alert(`Failed to update OG data: ${error instanceof Error ? error.message : 'Unknown error'}`);
+                        } finally {
+                          setUpdating(false);
+                        }
+                      }}
+                    >
+                      <Globe className="h-4 w-4" />
+                      Update Open Graph
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={async () => {
+                      const isHidden = project.Hidden === "yes";
+                      setUpdating(true);
+                      try {
+                        await toggleHidden(`${project["GitHub Org"]}/${project.Repo}`, !isHidden);
+                        await refresh();
+                      } catch (error) {
+                        console.error('Failed to toggle hidden:', error);
+                        alert(`Failed to toggle hidden: ${error instanceof Error ? error.message : 'Unknown error'}`);
+                      } finally {
+                        setUpdating(false);
+                      }
+                    }}
+                  >
+                    {project.Hidden === "yes" ? (
+                      <>
+                        <Eye className="h-4 w-4" />
+                        Show Project
+                      </>
+                    ) : (
+                      <>
+                        <EyeOff className="h-4 w-4" />
+                        Hide Project
+                      </>
+                    )}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </div>
         </div>
@@ -238,25 +280,37 @@ export const ProjectDetail = () => {
             {project.Stars !== undefined && project.Stars !== "" && (
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Stars</span>
-                <span className="font-medium">⭐ {project.Stars}</span>
+                <span className="font-medium flex items-center gap-1">
+                  <Star className="h-4 w-4" />
+                  {project.Stars}
+                </span>
               </div>
             )}
             {project.Forks !== undefined && project.Forks !== "" && (
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Forks</span>
-                <span className="font-medium">🍴 {project.Forks}</span>
+                <span className="font-medium flex items-center gap-1">
+                  <GitFork className="h-4 w-4" />
+                  {project.Forks}
+                </span>
               </div>
             )}
             {project.Watchers !== undefined && project.Watchers !== "" && project.Watchers !== "0" && (
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Watchers</span>
-                <span className="font-medium">👀 {project.Watchers}</span>
+                <span className="font-medium flex items-center gap-1">
+                  <Eye className="h-4 w-4" />
+                  {project.Watchers}
+                </span>
               </div>
             )}
             {project["Open Issues"] !== undefined && project["Open Issues"] !== "" && project["Open Issues"] !== "0" && (
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Open Issues</span>
-                <span className="font-medium">📋 {project["Open Issues"]}</span>
+                <span className="font-medium flex items-center gap-1">
+                  <CircleDot className="h-4 w-4" />
+                  {project["Open Issues"]}
+                </span>
               </div>
             )}
             {project["Last Updated"] && (
@@ -371,27 +425,41 @@ export const ProjectDetail = () => {
           <CardHeader>
             <CardTitle>Features</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="flex flex-wrap gap-2">
             {project.PWA === "yes" && (
-              <Badge variant="outline">📱 PWA</Badge>
+              <Badge variant="outline" className="flex items-center gap-1">
+                <Smartphone className="h-3 w-3" />
+                PWA
+              </Badge>
             )}
             {project["Has Tests"] === "yes" && (
-              <Badge variant="outline">✅ Tests</Badge>
+              <Badge variant="outline" className="flex items-center gap-1">
+                <CheckCircle className="h-3 w-3" />
+                Tests
+              </Badge>
             )}
             {project["Has CI/CD"] === "yes" && (
-              <Badge variant="outline">🔄 CI/CD</Badge>
+              <Badge variant="outline" className="flex items-center gap-1">
+                <RefreshCw className="h-3 w-3" />
+                CI/CD
+              </Badge>
             )}
             {project["Wallet Integration"] === "yes" && (
-              <Badge variant="outline">👛 Web3 Wallet</Badge>
+              <Badge variant="outline" className="flex items-center gap-1">
+                <Wallet className="h-3 w-3" />
+                Web3 Wallet
+              </Badge>
             )}
             {project["Resume Worthy"] === "yes" && (
-              <Badge className="bg-green-500/20 text-green-700 dark:text-green-400">
-                💼 Resume Worthy
+              <Badge className="bg-green-500/20 text-green-700 dark:text-green-400 flex items-center gap-1">
+                <Briefcase className="h-3 w-3" />
+                Resume Worthy
               </Badge>
             )}
             {project["Featured Project"] === "yes" && (
-              <Badge className="bg-yellow-500/20 text-yellow-700 dark:text-yellow-400">
-                ⭐ Featured
+              <Badge className="bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 flex items-center gap-1">
+                <Star className="h-3 w-3" />
+                Featured
               </Badge>
             )}
           </CardContent>
