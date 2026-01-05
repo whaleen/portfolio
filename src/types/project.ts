@@ -92,6 +92,10 @@ export interface Project {
   Favicon?: string;
   // Portfolio management fields
   Hidden?: string;
+  Pinned?: string;
+  // NPM Package fields
+  "NPM Package URL"?: string;
+  "NPM Package Name"?: string;
 }
 
 export type ProjectStatus = "active" | "archived" | "needs-work" | "";

@@ -1,11 +1,11 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { useProjects } from "@/hooks/useProjects";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SocialPreview } from "@/components/SocialPreview";
-import { ArrowLeft, ExternalLink, Github, Globe, RefreshCw, Star, GitFork, Eye, EyeOff, CircleDot, Smartphone, CheckCircle, Wallet, Briefcase, Settings } from "lucide-react";
-import { updateGitHubData, updateOGData, toggleHidden } from "@/lib/api";
+import { ArrowLeft, ExternalLink, Github, Globe, RefreshCw, Star, GitFork, Eye, EyeOff, CircleDot, Smartphone, CheckCircle, Wallet, Pin, Settings, Package, Trash2 } from "lucide-react";
+import { updateGitHubData, updateOGData, toggleHidden, deleteProject } from "@/lib/api";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,11 +19,13 @@ import remarkGfm from "remark-gfm";
 
 export const ProjectDetail = () => {
   const { org, repo } = useParams<{ org: string; repo: string }>();
+  const navigate = useNavigate();
   const { projects, loading, refresh } = useProjects();
   const [updating, setUpdating] = useState(false);
   const [readmeContent, setReadmeContent] = useState<string | null>(null);
   const [readmeLoading, setReadmeLoading] = useState(false);
   const [readmeError, setReadmeError] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Only show settings in development
   const isDev = import.meta.env.DEV;
@@ -123,7 +125,7 @@ export const ProjectDetail = () => {
                 GitHub
               </a>
             </Button>
-            {(project.Homepage || project["Live URL"]) && (
+            {(project.Homepage || project["Live URL"]) && !project["NPM Package URL"] && (
               <Button asChild>
                 <a
                   href={project.Homepage || project["Live URL"]}
@@ -132,6 +134,18 @@ export const ProjectDetail = () => {
                 >
                   <Globe className="mr-2 h-4 w-4" />
                   Live Demo
+                </a>
+              </Button>
+            )}
+            {project["NPM Package URL"] && (
+              <Button asChild>
+                <a
+                  href={project["NPM Package URL"]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Package className="mr-2 h-4 w-4" />
+                  View on NPM
                 </a>
               </Button>
             )}
@@ -208,6 +222,14 @@ export const ProjectDetail = () => {
                       </>
                     )}
                   </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="text-red-600 dark:text-red-400"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    Delete Project
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
@@ -221,6 +243,45 @@ export const ProjectDetail = () => {
           className="h-96 rounded-lg"
         />
       </div>
+
+      {/* Delete Confirmation */}
+      {showDeleteConfirm && (
+        <Card className="border-red-500 dark:border-red-900">
+          <CardHeader>
+            <CardTitle className="text-red-600 dark:text-red-400">Delete Project?</CardTitle>
+            <CardDescription>
+              Are you sure you want to delete {project.Repo}? This will remove it from the CSV database.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex gap-3">
+            <Button
+              variant="destructive"
+              onClick={async () => {
+                setUpdating(true);
+                try {
+                  await deleteProject(`${project["GitHub Org"]}/${project.Repo}`);
+                  navigate('/projects');
+                } catch (error) {
+                  console.error('Failed to delete project:', error);
+                  alert(`Failed to delete project: ${error instanceof Error ? error.message : 'Unknown error'}`);
+                  setUpdating(false);
+                  setShowDeleteConfirm(false);
+                }
+              }}
+              disabled={updating}
+            >
+              Yes, Delete
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteConfirm(false)}
+              disabled={updating}
+            >
+              No, Cancel
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Project Info Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -450,10 +511,10 @@ export const ProjectDetail = () => {
                 Web3 Wallet
               </Badge>
             )}
-            {project["Resume Worthy"] === "yes" && (
+            {project.Pinned === "yes" && (
               <Badge className="bg-green-500/20 text-green-700 dark:text-green-400 flex items-center gap-1">
-                <Briefcase className="h-3 w-3" />
-                Resume Worthy
+                <Pin className="h-3 w-3" />
+                Pinned
               </Badge>
             )}
             {project["Featured Project"] === "yes" && (
@@ -534,7 +595,7 @@ export const ProjectDetail = () => {
         )}
 
         {/* Links */}
-        {project.Homepage && (
+        {project.Homepage && !project["NPM Package URL"] && (
           <Card>
             <CardHeader>
               <CardTitle>Homepage</CardTitle>

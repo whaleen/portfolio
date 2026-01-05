@@ -83,6 +83,9 @@ NEW_FIELDS = [
     "Latest Commit Message",
     "Latest Commit Date",
     "Latest Commit Author",
+    # NPM Package
+    "NPM Package URL",
+    "NPM Package Name",
 ]
 
 def run_gh_api(endpoint, accept_header=None):
@@ -254,6 +257,20 @@ def fetch_repo_data(org, repo):
     # Download and save social preview image
     save_social_preview(org, repo, social_preview_url)
 
+    # Detect NPM package
+    homepage = repo_data.get("homepage", "")
+    npm_package_url = ""
+    npm_package_name = ""
+    if homepage and "npmjs.com/package/" in homepage:
+        npm_package_url = homepage
+        # Extract package name from URL
+        # URL format: https://www.npmjs.com/package/package-name
+        try:
+            npm_package_name = homepage.split("/package/")[-1].strip("/")
+            print(f"  📦 Detected NPM package: {npm_package_name}")
+        except:
+            pass
+
     data = {
         # Stats
         "Stars": repo_data.get("stargazers_count", 0),
@@ -311,6 +328,9 @@ def fetch_repo_data(org, repo):
         "Latest Commit Message": commits_data[0].get("commit", {}).get("message", "") if commits_data and len(commits_data) > 0 else "",
         "Latest Commit Date": commits_data[0].get("commit", {}).get("committer", {}).get("date", "") if commits_data and len(commits_data) > 0 else "",
         "Latest Commit Author": commits_data[0].get("commit", {}).get("author", {}).get("name", "") if commits_data and len(commits_data) > 0 else "",
+        # NPM Package
+        "NPM Package URL": npm_package_url,
+        "NPM Package Name": npm_package_name,
     }
 
     # Get primary language percentage if languages available
@@ -425,6 +445,13 @@ def update_csv(repo_filter=None):
             # Debug: show if value actually changed
             if str(old_value) != str(value) and key in ["Description", "Topics", "Stars", "Forks", "Last Updated"]:
                 print(f"     {key}: '{old_value}' → '{value}'")
+
+        # Auto-set Project Type to "library" if NPM package and type is empty
+        if github_data.get("NPM Package URL"):
+            current_type = row.get("Project Type", "").strip().lower()
+            if not current_type or current_type == "none" or current_type == "":
+                row["Project Type"] = "library"
+                print(f"     Project Type: auto-set to 'library' (NPM package)")
 
         # Clean the row - remove invalid keys, but keep all valid fieldnames
         # Update in place to maintain reference to rows list

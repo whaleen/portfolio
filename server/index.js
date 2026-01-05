@@ -260,6 +260,66 @@ app.post('/api/project/toggle-hidden', async (req, res) => {
   }
 });
 
+// Delete project
+app.post('/api/project/delete', async (req, res) => {
+  const { repo } = req.body;
+
+  if (!repo) {
+    return res.status(400).json({ error: 'Repo parameter is required (e.g., "whaleen/astrds")' });
+  }
+
+  try {
+    const scriptPath = join(__dirname, '../scripts/delete-project.py');
+    const args = ['--repo', repo];
+
+    const pythonProcess = spawn('python3', [scriptPath, ...args], {
+      cwd: join(__dirname, '..'),
+      stdio: ['pipe', 'pipe', 'pipe']
+    });
+
+    let stdout = '';
+    let stderr = '';
+
+    pythonProcess.stdout.on('data', (data) => {
+      stdout += data.toString();
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+      stderr += data.toString();
+    });
+
+    pythonProcess.on('close', (code) => {
+      if (code === 0) {
+        res.json({
+          success: true,
+          message: `Successfully deleted ${repo}`,
+          output: stdout
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          error: `Script failed with code ${code}`,
+          stderr: stderr,
+          stdout: stdout
+        });
+      }
+    });
+
+    pythonProcess.on('error', (error) => {
+      res.status(500).json({
+        success: false,
+        error: `Failed to spawn process: ${error.message}`
+      });
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 API server running on http://localhost:${PORT}`);
 });

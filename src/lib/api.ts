@@ -74,3 +74,20 @@ export async function toggleHidden(repo: string, hidden: boolean) {
   return response.json();
 }
 
+export async function deleteProject(repo: string) {
+  const response = await fetch(`${API_BASE}/project/delete`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ repo }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to delete project');
+  }
+
+  return response.json();
+}
+

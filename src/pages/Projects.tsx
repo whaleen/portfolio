@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SocialPreview } from "@/components/SocialPreview";
-import { RefreshCw, Star } from "lucide-react";
+import { RefreshCw, Pin, Package, Github, ExternalLink } from "lucide-react";
 import { updateGitHubData } from "@/lib/api";
 
 export const Projects = () => {
@@ -16,10 +16,10 @@ export const Projects = () => {
   const [selectedOrg, setSelectedOrg] = useState<string>("all");
   const [selectedType, setSelectedType] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const [showResumeWorthy, setShowResumeWorthy] = useState(false);
+  const [showPinned, setShowPinned] = useState(false);
   const [showHidden, setShowHidden] = useState(false);
 
-  // Only show hidden toggle in development
+  // Only show filters in development
   const isDev = import.meta.env.DEV;
 
   // Sync selectedOrg with URL param
@@ -44,14 +44,14 @@ export const Projects = () => {
         project.Notes?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         project.Topics?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         project["Key Tags"]?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesResumeWorthy =
-        !showResumeWorthy || project["Resume Worthy"] === "yes";
+      const matchesPinned =
+        !showPinned || project.Pinned === "yes";
       const matchesHidden =
-        showHidden || project.Hidden !== "yes";
+        showHidden ? project.Hidden === "yes" : project.Hidden !== "yes";
 
-      return matchesOrg && matchesType && matchesSearch && matchesResumeWorthy && matchesHidden;
+      return matchesOrg && matchesType && matchesSearch && matchesPinned && matchesHidden;
     });
-  }, [projects, selectedOrg, selectedType, searchTerm, showResumeWorthy, showHidden]);
+  }, [projects, selectedOrg, selectedType, searchTerm, showPinned, showHidden]);
 
   const orgs = ["all", "whaleen", "nothingdao", "orthfx", "boringprotocol"];
   const types = ["all", "app", "library", "tool", "game", "website"];
@@ -163,25 +163,27 @@ export const Projects = () => {
             </div>
 
             <div className="flex flex-col items-start gap-3">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={showResumeWorthy}
-                  onChange={(e) => setShowResumeWorthy(e.target.checked)}
-                  className="w-4 h-4 rounded border-input"
-                />
-                <span className="text-sm font-medium">Resume Worthy Only</span>
-              </label>
               {isDev && (
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={showHidden}
-                    onChange={(e) => setShowHidden(e.target.checked)}
-                    className="w-4 h-4 rounded border-input"
-                  />
-                  <span className="text-sm font-medium">Show Hidden</span>
-                </label>
+                <>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={showPinned}
+                      onChange={(e) => setShowPinned(e.target.checked)}
+                      className="w-4 h-4 rounded border-input"
+                    />
+                    <span className="text-sm font-medium">Pinned Only</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={showHidden}
+                      onChange={(e) => setShowHidden(e.target.checked)}
+                      className="w-4 h-4 rounded border-input"
+                    />
+                    <span className="text-sm font-medium">Show Only Hidden</span>
+                  </label>
+                </>
               )}
             </div>
           </div>
@@ -233,14 +235,20 @@ export const Projects = () => {
                   {project["Project Type"] && (
                     <Badge variant="outline">{project["Project Type"]}</Badge>
                   )}
-                  {project["Featured Project"] === "yes" && (
+                  {project.Pinned === "yes" && (
                     <Badge className="bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500/30 flex items-center gap-1">
-                      <Star className="h-3 w-3" />
-                      Featured
+                      <Pin className="h-3 w-3" />
+                      Pinned
                     </Badge>
                   )}
                   {project.PWA === "yes" && (
                     <Badge variant="outline">PWA</Badge>
+                  )}
+                  {project["NPM Package Name"] && (
+                    <Badge variant="outline" className="flex items-center gap-1">
+                      <Package className="h-3 w-3" />
+                      NPM
+                    </Badge>
                   )}
                 </div>
               </CardHeader>
@@ -281,10 +289,28 @@ export const Projects = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
+                    <Github className="mr-2 h-4 w-4" />
                     Code
                   </a>
                 </Button>
-                {(project.Homepage || project["Live URL"]) && (
+                {project["NPM Package URL"] && (
+                  <Button
+                    size="sm"
+                    asChild
+                    className="flex-1"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <a
+                      href={project["NPM Package URL"]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Package className="mr-2 h-4 w-4" />
+                      NPM
+                    </a>
+                  </Button>
+                )}
+                {!project["NPM Package URL"] && (project.Homepage || project["Live URL"]) && (
                   <Button
                     size="sm"
                     asChild
@@ -296,6 +322,7 @@ export const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
+                      <ExternalLink className="mr-2 h-4 w-4" />
                       Demo
                     </a>
                   </Button>
