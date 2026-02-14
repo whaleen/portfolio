@@ -15,7 +15,8 @@
     "social:distribute": "node scripts/distribute-social-preview.js",
     "social:distribute:dry": "node scripts/distribute-social-preview.js --dry-run",
     "github:fetch": "python3 scripts/fetch-github-data.py",
-    "og:fetch": "python3 scripts/fetch-og-data.py"
+    "og:fetch": "python3 scripts/fetch-og-data.py",
+    "data:sync": "npm run github:fetch && npm run social:sync"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.16",

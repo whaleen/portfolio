@@ -1,34 +1,25 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useProjects } from "@/hooks/useProjects";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { SocialPreview } from "@/components/SocialPreview";
-import { RefreshCw, Pin, Package, Github, ExternalLink } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import { updateGitHubData } from "@/lib/api";
+import { SocialPreview } from "@/components/SocialPreview";
+import { hasSocialPreview } from "@/lib/socialPreview";
 
 export const Projects = () => {
   const { org: orgParam } = useParams<{ org?: string }>();
   const navigate = useNavigate();
   const { projects, loading, refresh } = useProjects();
+  const isDev = import.meta.env.DEV;
   const [selectedOrg, setSelectedOrg] = useState<string>("all");
   const [selectedType, setSelectedType] = useState<string>("all");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [showPinned, setShowPinned] = useState(false);
-  const [showHidden, setShowHidden] = useState(false);
 
-  // Only show filters in development
-  const isDev = import.meta.env.DEV;
-
-  // Sync selectedOrg with URL param
   useEffect(() => {
     if (orgParam) {
       setSelectedOrg(orgParam);
-    } else {
-      setSelectedOrg("all");
+      return;
     }
+    setSelectedOrg("all");
   }, [orgParam]);
 
   const filteredProjects = useMemo(() => {
@@ -37,315 +28,239 @@ export const Projects = () => {
         selectedOrg === "all" || project["GitHub Org"] === selectedOrg;
       const matchesType =
         selectedType === "all" || project["Project Type"] === selectedType;
-      const matchesSearch =
-        searchTerm === "" ||
-        project.Repo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.Description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.Notes?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.Topics?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project["Key Tags"]?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesPinned =
-        !showPinned || project.Pinned === "yes";
-      const matchesHidden =
-        showHidden ? project.Hidden === "yes" : project.Hidden !== "yes";
+      const notHidden = project.Hidden !== "yes";
 
-      return matchesOrg && matchesType && matchesSearch && matchesPinned && matchesHidden;
+      return matchesOrg && matchesType && notHidden;
     });
-  }, [projects, selectedOrg, selectedType, searchTerm, showPinned, showHidden]);
+  }, [projects, selectedOrg, selectedType]);
 
   const orgs = ["all", "whaleen", "nothingdao", "orthfx", "boringprotocol"];
-  const types = ["all", "app", "library", "tool", "game", "website"];
+  const availableTypes = useMemo(() => {
+    const types = new Set<string>();
+    projects.forEach((project) => {
+      const matchesOrg =
+        selectedOrg === "all" || project["GitHub Org"] === selectedOrg;
+      const notHidden = project.Hidden !== "yes";
+      if (matchesOrg && notHidden && project["Project Type"]) {
+        types.add(project["Project Type"]);
+      }
+    });
 
-  // Update button component
-  const UpdateButton = ({ org, repo }: { org: string; repo: string }) => {
+    return Array.from(types).sort((a, b) => a.localeCompare(b));
+  }, [projects, selectedOrg]);
+
+  useEffect(() => {
+    if (!availableTypes.includes(selectedType)) {
+      setSelectedType("all");
+    }
+  }, [availableTypes, selectedType]);
+
+  const UpdateLink = ({ org, repo }: { org: string; repo: string }) => {
     const [updating, setUpdating] = useState(false);
 
     const handleUpdate = async (e: React.MouseEvent) => {
       e.preventDefault();
-      e.stopPropagation();
       setUpdating(true);
       try {
         await updateGitHubData(`${org}/${repo}`);
-        // Refresh projects data
         await refresh();
       } catch (error) {
-        console.error('Failed to update:', error);
-        alert(`Failed to update: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        console.error("Failed to update:", error);
+        alert(
+          `Failed to update: ${
+            error instanceof Error ? error.message : "Unknown error"
+          }`
+        );
       } finally {
         setUpdating(false);
       }
     };
 
     return (
-      <Button
-        variant="ghost"
-        size="sm"
+      <button
+        type="button"
         onClick={handleUpdate}
         disabled={updating}
-        className="px-2"
-        title="Update from GitHub"
+        className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground disabled:opacity-50"
+        title="Refresh from GitHub"
       >
-        <RefreshCw className={`h-4 w-4 ${updating ? 'animate-spin' : ''}`} />
-      </Button>
+        <RefreshCw className={`h-3.5 w-3.5 ${updating ? "animate-spin" : ""}`} />
+        <span className="text-sm">refresh</span>
+      </button>
     );
   };
 
-  const getPageTitle = () => {
-    if (selectedOrg !== "all") {
-      return `${selectedOrg} Projects`;
-    }
-    return "All Projects";
-  };
+  const pageTitle = selectedOrg === "all" ? "Projects" : `${selectedOrg} Projects`;
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-3">
-        <h1 className="text-5xl font-bold">{getPageTitle()}</h1>
-        <p className="text-xl text-muted-foreground">
-          {filteredProjects.length} {selectedOrg !== "all" ? `${selectedOrg}` : ""} repositories
-          {selectedOrg !== "all" && ` (${projects.length} total)`}
+    <div className="max-w-5xl mx-auto space-y-10">
+      <header className="space-y-3 pt-10">
+        <h1 className="text-5xl font-semibold tracking-tight">{pageTitle}</h1>
+        <p className="text-muted-foreground">
+          {filteredProjects.length} repositories
+          {selectedOrg !== "all" && ` · ${projects.length} total in dataset`}
         </p>
-      </div>
+      </header>
 
-      {/* Filters */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Filter Projects</CardTitle>
-          <CardDescription>Narrow down by organization, type, or search</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Organization</label>
-              <select
-                value={selectedOrg}
-                onChange={(e) => {
-                  const org = e.target.value;
-                  if (org === "all") {
-                    navigate("/projects");
-                  } else {
-                    navigate(`/projects/${org}`);
-                  }
-                }}
-                className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-              >
-                {orgs.map((org) => (
-                  <option key={org} value={org}>
-                    {org === "all" ? "All Organizations" : org}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Project Type</label>
-              <select
-                value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value)}
-                className="w-full px-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-              >
-                {types.map((type) => (
-                  <option key={type} value={type}>
-                    {type === "all" ? "All Types" : type}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Search</label>
-              <Input
-                type="text"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col items-start gap-3">
-              {isDev && (
-                <>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={showPinned}
-                      onChange={(e) => setShowPinned(e.target.checked)}
-                      className="w-4 h-4 rounded border-input"
-                    />
-                    <span className="text-sm font-medium">Pinned Only</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={showHidden}
-                      onChange={(e) => setShowHidden(e.target.checked)}
-                      className="w-4 h-4 rounded border-input"
-                    />
-                    <span className="text-sm font-medium">Show Only Hidden</span>
-                  </label>
-                </>
-              )}
-            </div>
+      <section className="space-y-4 border-y border-border py-5">
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center gap-2 text-base">
+            <span className="text-muted-foreground">Org</span>
+            <span className="text-muted-foreground">|</span>
+            {orgs.map((org, index) => {
+              const active = selectedOrg === org;
+              return (
+                <span key={org} className="inline-flex items-center gap-2">
+                  {index > 0 && <span className="text-muted-foreground">·</span>}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (org === "all") {
+                        navigate("/projects");
+                      } else {
+                        navigate(`/projects/${org}`);
+                      }
+                    }}
+                    className={
+                      active
+                        ? "text-foreground underline underline-offset-4"
+                        : "text-muted-foreground hover:text-foreground"
+                    }
+                  >
+                    {org === "all" ? "All projects" : org}
+                  </button>
+                </span>
+              );
+            })}
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Projects Grid */}
-      {loading ? (
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
-            <Link
-              key={project.Repo}
-              to={`/projects/${project["GitHub Org"]}/${project.Repo}`}
-              className="block"
-            >
-              <Card className="hover:shadow-lg transition-shadow overflow-hidden h-full">
-                <SocialPreview
-                  org={project["GitHub Org"]}
-                  repo={project.Repo}
-                  className="h-48 rounded-t-lg"
-                />
-                <CardHeader>
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    {project.Favicon && (
-                      <img
-                        src={project.Favicon}
-                        alt=""
-                        className="w-5 h-5 rounded"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    )}
-                    <CardTitle className="text-lg">{project.Repo}</CardTitle>
-                  </div>
-                  {(project["Primary Language"] || project.Language) && (
-                    <Badge variant="secondary" className="whitespace-nowrap">
-                      {project["Primary Language"] || project.Language}
-                    </Badge>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  <Badge variant="outline">{project["GitHub Org"]}</Badge>
-                  {project["Project Type"] && (
-                    <Badge variant="outline">{project["Project Type"]}</Badge>
-                  )}
-                  {project.Pinned === "yes" && (
-                    <Badge className="bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500/30 flex items-center gap-1">
-                      <Pin className="h-3 w-3" />
-                      Pinned
-                    </Badge>
-                  )}
-                  {project.PWA === "yes" && (
-                    <Badge variant="outline">PWA</Badge>
-                  )}
-                  {project["NPM Package Name"] && (
-                    <Badge variant="outline" className="flex items-center gap-1">
-                      <Package className="h-3 w-3" />
-                      NPM
-                    </Badge>
-                  )}
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-3">
-                {(project.Description || project.Notes) && (
-                  <CardDescription className="line-clamp-2 min-h-[2.5rem]">
-                    {project.Description || project.Notes}
-                  </CardDescription>
-                )}
-
-                {/* Show GitHub Topics first, fallback to Key Tags */}
-                {(project.Topics || project["Key Tags"]) && (
-                  <div className="flex flex-wrap gap-1">
-                    {(project.Topics || project["Key Tags"] || "")
-                      .split(",")
-                      .filter(tag => tag.trim())
-                      .slice(0, 4)
-                      .map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag.trim()}
-                        </Badge>
-                      ))}
-                  </div>
-                )}
-              </CardContent>
-
-              <CardFooter className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  asChild
-                  className="flex-1"
-                  onClick={(e) => e.stopPropagation()}
+          <div className="flex flex-wrap items-center gap-2 text-sm">
+            <span className="text-muted-foreground">Type</span>
+            <span className="text-muted-foreground">|</span>
+            {availableTypes.map((type, index) => {
+              const active = selectedType === type;
+              return (
+                <span key={type} className="inline-flex items-center gap-2">
+                  {index > 0 && <span className="text-muted-foreground">·</span>}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedType(type)}
+                    className={
+                      active
+                        ? "text-foreground underline underline-offset-4"
+                        : "text-muted-foreground hover:text-foreground"
+                    }
+                  >
+                    {type}
+                  </button>
+                </span>
+              );
+            })}
+            {selectedType !== "all" && (
+              <span className="inline-flex items-center gap-2">
+                <span className="text-muted-foreground">·</span>
+                <button
+                  type="button"
+                  onClick={() => setSelectedType("all")}
+                  className="text-muted-foreground hover:text-foreground underline underline-offset-4"
                 >
-                  <a
-                    href={`https://github.com/${project["GitHub Org"]}/${project.Repo}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github className="mr-2 h-4 w-4" />
-                    Code
-                  </a>
-                </Button>
-                {project["NPM Package URL"] && (
-                  <Button
-                    size="sm"
-                    asChild
-                    className="flex-1"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <a
-                      href={project["NPM Package URL"]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Package className="mr-2 h-4 w-4" />
-                      NPM
-                    </a>
-                  </Button>
-                )}
-                {!project["NPM Package URL"] && (project.Homepage || project["Live URL"]) && (
-                  <Button
-                    size="sm"
-                    asChild
-                    className="flex-1"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <a
-                      href={project.Homepage || project["Live URL"]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Demo
-                    </a>
-                  </Button>
-                )}
-                <UpdateButton
-                  org={project["GitHub Org"]}
-                  repo={project.Repo}
-                />
-              </CardFooter>
-            </Card>
-            </Link>
-          ))}
+                  Clear
+                </button>
+              </span>
+            )}
+          </div>
         </div>
-      )}
+      </section>
 
-      {filteredProjects.length === 0 && !loading && (
-        <Card className="border-dashed">
-          <CardContent className="py-12 text-center">
-            <p className="text-muted-foreground">
-              No projects found matching your filters. Try adjusting your search criteria.
-            </p>
-          </CardContent>
-        </Card>
+      {loading ? (
+        <p className="text-muted-foreground">Loading projects...</p>
+      ) : filteredProjects.length === 0 ? (
+        <p className="text-muted-foreground">
+          No projects match the current filters.
+        </p>
+      ) : (
+        <ul className="divide-y divide-border border-y border-border">
+          {filteredProjects.map((project) => {
+            const externalUrl =
+              project["NPM Package URL"] ||
+              project.Homepage ||
+              project["Live URL"] ||
+              "";
+
+            return (
+              <li key={project.Repo} className="py-5">
+                <article className="space-y-3">
+                  {hasSocialPreview(project["GitHub Org"], project.Repo) && (
+                    <Link
+                      to={`/projects/${project["GitHub Org"]}/${project.Repo}`}
+                      className="block w-[220px] sm:w-[260px] overflow-hidden border border-border"
+                    >
+                      <SocialPreview
+                        org={project["GitHub Org"]}
+                        repo={project.Repo}
+                        className="aspect-[1200/630]"
+                      />
+                    </Link>
+                  )}
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <Link
+                      to={`/projects/${project["GitHub Org"]}/${project.Repo}`}
+                      className="text-xl font-medium underline underline-offset-4"
+                    >
+                      {project.Repo}
+                    </Link>
+                    <p className="text-sm text-muted-foreground">
+                      {project["GitHub Org"]}
+                      {project["Project Type"] && ` · ${project["Project Type"]}`}
+                      {(project["Primary Language"] || project.Language) &&
+                        ` · ${project["Primary Language"] || project.Language}`}
+                      {project.Pinned === "yes" && " · pinned"}
+                    </p>
+                  </div>
+
+                  {(project.Description || project.Notes) && (
+                    <p className="text-muted-foreground leading-relaxed">
+                      {project.Description || project.Notes}
+                    </p>
+                  )}
+
+                  {(project.Topics || project["Key Tags"]) && (
+                    <p className="text-sm text-muted-foreground">
+                      {(project.Topics || project["Key Tags"] || "")
+                        .split(",")
+                        .filter((tag) => tag.trim())
+                        .slice(0, 5)
+                        .join(" · ")}
+                    </p>
+                  )}
+
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1 text-sm">
+                    <a
+                      href={`https://github.com/${project["GitHub Org"]}/${project.Repo}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-4"
+                    >
+                      Code
+                    </a>
+                    {externalUrl && (
+                      <a
+                        href={externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline underline-offset-4"
+                      >
+                        {project["NPM Package URL"] ? "NPM" : "Live"}
+                      </a>
+                    )}
+                    {isDev && (
+                      <UpdateLink org={project["GitHub Org"]} repo={project.Repo} />
+                    )}
+                  </div>
+                </article>
+              </li>
+            );
+          })}
+        </ul>
       )}
     </div>
   );

@@ -1,196 +1,83 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-
 export const About = () => {
   return (
-    <div className="max-w-4xl mx-auto space-y-16">
-      <div className="space-y-4 text-center">
-        <div className="flex justify-center mb-6">
-          <img
-            src="/pfp.png"
-            alt="Joshua Vaage"
-            className="w-32 h-32 rounded-full border-4 border-border shadow-lg"
-          />
-        </div>
-        <h1 className="text-5xl font-bold">About Me</h1>
-        <p className="text-2xl text-muted-foreground">
-          Full-stack developer specializing in Web3/Solana development
+    <div className="max-w-4xl mx-auto space-y-14">
+      <header className="space-y-4 pt-10">
+        <h1 className="text-5xl font-semibold tracking-tight">About</h1>
+        <p className="text-xl text-muted-foreground">
+          Full-stack developer with strong Web3/Solana experience.
         </p>
-      </div>
+      </header>
 
-      {/* Summary */}
-      <section className="space-y-4">
+      <section className="space-y-3">
         <h2 className="text-2xl font-semibold">Summary</h2>
-        <p className="text-muted-foreground">
-          Full-stack developer specializing in Web3/Solana development with a
-          focus on React, TypeScript, and decentralized applications. Builder of
-          developer tools, AI workflow systems, and blockchain-integrated
-          applications. Active contributor to the Solana ecosystem with multiple
-          open-source projects.
+        <p className="text-muted-foreground leading-8">
+          I build production software with a focus on React, TypeScript,
+          developer tooling, and practical product delivery. A substantial part
+          of my work has been in decentralized apps and the Solana ecosystem,
+          but my core approach is product engineering across the stack.
         </p>
       </section>
 
-      {/* Tech Skills */}
-      <section className="space-y-8">
-        <h2 className="text-3xl font-semibold text-center">Technical Skills</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">Frontend</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                <Badge>React</Badge>
-                <Badge>Next.js</Badge>
-                <Badge>Vite</Badge>
-                <Badge>TypeScript</Badge>
-                <Badge>JavaScript</Badge>
-                <Badge>Tailwind CSS</Badge>
-                <Badge>shadcn/ui</Badge>
-                <Badge>DaisyUI</Badge>
-                <Badge>Mobile-first</Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">Blockchain/Web3</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                <Badge>Solana</Badge>
-                <Badge>Web3.js</Badge>
-                <Badge>Wallet Adapters</Badge>
-                <Badge>Smart Contracts</Badge>
-                <Badge>NFT platforms</Badge>
-                <Badge>Token economics</Badge>
-                <Badge>Phantom</Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">Backend & Tools</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                <Badge>Node.js</Badge>
-                <Badge>PostgreSQL</Badge>
-                <Badge>Git</Badge>
-                <Badge>GitHub Actions</Badge>
-                <Badge>CLI Development</Badge>
-                <Badge>AI/LLM</Badge>
-                <Badge>Helius SDK</Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">Other</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                <Badge>Python</Badge>
-                <Badge>Rust</Badge>
-                <Badge>Tauri</Badge>
-                <Badge>Jekyll</Badge>
-                <Badge>11ty</Badge>
-              </div>
-            </CardContent>
-          </Card>
+      <section className="space-y-5">
+        <h2 className="text-2xl font-semibold">Technical Focus</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+          <div className="space-y-2">
+            <h3 className="font-semibold">Frontend</h3>
+            <p className="text-muted-foreground">
+              React, Next.js, Vite, TypeScript, JavaScript, Tailwind CSS
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-semibold">Backend and Tooling</h3>
+            <p className="text-muted-foreground">
+              Node.js, PostgreSQL, GitHub Actions, CLI development, AI/LLM tools
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-semibold">Web3</h3>
+            <p className="text-muted-foreground">
+              Solana, Web3.js, wallet adapters, smart contract integration
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-semibold">Additional Stack</h3>
+            <p className="text-muted-foreground">
+              Python, Rust, Tauri, Jekyll, 11ty
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Organizations */}
-      <section className="space-y-8">
-        <h2 className="text-3xl font-semibold text-center">Organizations</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>nothingdao</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Web3, Solana Development - Building tools for the Solana ecosystem
-              </p>
-              <Button variant="outline" asChild className="w-full">
-                <a
-                  href="https://github.com/nothingdao"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View on GitHub
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>orthfx</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Orthodox Christian digital resources - Building PWAs for prayer and scripture
-              </p>
-              <Button variant="outline" asChild className="w-full">
-                <a
-                  href="https://github.com/orthfx"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View on GitHub
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>boringprotocol</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Decentralized VPN on Solana - Contributing to Web3 infrastructure
-              </p>
-              <Button variant="outline" asChild className="w-full">
-                <a
-                  href="https://github.com/boringprotocol"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View on GitHub
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold">Organizations</h2>
+        <ul className="divide-y divide-border border-y border-border">
+          <li className="py-4">
+            <p className="font-medium">nothingdao</p>
+            <p className="text-sm text-muted-foreground">
+              Web3 and Solana product work
+            </p>
+          </li>
+          <li className="py-4">
+            <p className="font-medium">orthfx</p>
+            <p className="text-sm text-muted-foreground">
+              Orthodox Christian digital resources and PWAs
+            </p>
+          </li>
+          <li className="py-4">
+            <p className="font-medium">boringprotocol</p>
+            <p className="text-sm text-muted-foreground">
+              Decentralized VPN and network tooling
+            </p>
+          </li>
+        </ul>
       </section>
 
-      {/* Education */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">Education & Background</h2>
-        <p className="text-muted-foreground">
-          Self-taught developer with extensive experience in full-stack web
-          development, blockchain integration, and developer tooling. Strong
-          focus on building practical, user-facing applications that solve real
-          problems.
-        </p>
-      </section>
-
-      {/* Interests */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">Interests</h2>
-        <p className="text-muted-foreground">
-          Web3 infrastructure, decentralized applications, developer experience,
-          AI-assisted development workflows, game development, religious/spiritual
-          technology applications
+      <section className="space-y-3 pb-4">
+        <h2 className="text-2xl font-semibold">Working Style</h2>
+        <p className="text-muted-foreground leading-8">
+          I prefer clear requirements, direct communication, and iterative
+          delivery. I focus on maintainable code, useful documentation, and
+          reliable product behavior.
         </p>
       </section>
     </div>

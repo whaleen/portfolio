@@ -1,63 +1,73 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { ModeToggle } from "./mode-toggle";
 
 export const Layout = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <nav className="border-b border-border">
-        <div className="container mx-auto px-4 py-4">
+        <div className="max-w-5xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
               <img
                 src="/pfp.png"
                 alt="Joshua Vaage"
-                className="w-10 h-10 rounded-full border-2 border-border"
+                className="w-9 h-9 rounded-full border border-border"
               />
-              <span className="text-xl font-bold">Joshua Vaage</span>
+              <span className="text-lg font-semibold">Joshua Vaage</span>
             </Link>
-            <div className="flex gap-6">
-              <Link
+            <div className="flex flex-wrap items-center justify-end gap-5 text-base">
+              <NavLink
                 to="/"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                end
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-foreground underline underline-offset-4"
+                    : "text-muted-foreground hover:text-foreground"
+                }
               >
                 Home
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/projects"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-foreground underline underline-offset-4"
+                    : "text-muted-foreground hover:text-foreground"
+                }
               >
                 Projects
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/about"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-foreground underline underline-offset-4"
+                    : "text-muted-foreground hover:text-foreground"
+                }
               >
                 About
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/contact"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-foreground underline underline-offset-4"
+                    : "text-muted-foreground hover:text-foreground"
+                }
               >
                 Contact
-              </Link>
+              </NavLink>
               <ModeToggle />
             </div>
           </div>
         </div>
       </nav>
-      <main className="container mx-auto px-4 py-8">
+      <main className="px-4 py-6">
         <Outlet />
       </main>
       <footer className="border-t border-border mt-16">
-        <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">
-          <div className="flex justify-center mb-4">
-            <img
-              src="/pfp.png"
-              alt="Joshua Vaage"
-              className="w-12 h-12 rounded-full border-2 border-border"
-            />
-          </div>
-          <p>© 2026 Joshua Vaage. All rights reserved.</p>
+        <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-muted-foreground">
+          <p>© 2026 Joshua Vaage</p>
         </div>
       </footer>
     </div>

@@ -1,11 +1,32 @@
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { useProjects } from "@/hooks/useProjects";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { SocialPreview } from "@/components/SocialPreview";
-import { ArrowLeft, ExternalLink, Github, Globe, RefreshCw, Star, GitFork, Eye, EyeOff, CircleDot, Smartphone, CheckCircle, Wallet, Pin, Settings, Package, Trash2 } from "lucide-react";
-import { updateGitHubData, updateOGData, toggleHidden, deleteProject } from "@/lib/api";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Github,
+  Globe,
+  RefreshCw,
+  Star,
+  GitFork,
+  Eye,
+  EyeOff,
+  CircleDot,
+  Smartphone,
+  CheckCircle,
+  Wallet,
+  Pin,
+  Settings,
+  Package,
+  Trash2,
+} from "lucide-react";
+import {
+  updateGitHubData,
+  updateOGData,
+  toggleHidden,
+  deleteProject,
+} from "@/lib/api";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,15 +47,12 @@ export const ProjectDetail = () => {
   const [readmeLoading, setReadmeLoading] = useState(false);
   const [readmeError, setReadmeError] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-
-  // Only show settings in development
   const isDev = import.meta.env.DEV;
 
   const project = projects.find(
     (p) => p["GitHub Org"] === org && p.Repo === repo
   );
 
-  // Fetch README content if available
   useEffect(() => {
     const readmePath = project?.["README Path"];
     if (!readmePath) {
@@ -62,11 +80,7 @@ export const ProjectDetail = () => {
   }, [project?.["README Path"]]);
 
   if (loading) {
-    return (
-      <div className="text-center py-12">
-        <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    );
+    return <p className="text-muted-foreground py-10">Loading project...</p>;
   }
 
   if (!project) {
@@ -74,99 +88,111 @@ export const ProjectDetail = () => {
   }
 
   const backUrl = org ? `/projects/${org}` : "/projects";
+  const chipClass = "rounded-none";
 
   return (
-    <div className="space-y-8">
-      {/* Back Button */}
-      <Button variant="ghost" asChild>
-        <Link to={backUrl}>
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to {org} Projects
-        </Link>
-      </Button>
+    <div className="max-w-5xl mx-auto space-y-10">
+      <Link
+        to={backUrl}
+        className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground underline underline-offset-4"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to {org} projects
+      </Link>
 
-      {/* Hero Section */}
-      <div className="space-y-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="space-y-2">
+      <header className="space-y-5">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="space-y-3">
             <div className="flex items-center gap-3">
               {project.Favicon && (
                 <img
                   src={project.Favicon}
                   alt=""
-                  className="w-12 h-12 rounded"
+                  className="w-11 h-11 rounded-none"
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.style.display = "none";
                   }}
                 />
               )}
-              <h1 className="text-5xl font-bold">{project.Repo}</h1>
+              <h1 className="text-5xl font-semibold tracking-tight">{project.Repo}</h1>
             </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Badge variant="outline">{project["GitHub Org"]}</Badge>
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="outline" className={chipClass}>
+                {project["GitHub Org"]}
+              </Badge>
               {(project["Primary Language"] || project.Language) && (
-                <Badge variant="secondary">{project["Primary Language"] || project.Language}</Badge>
+                <Badge variant="secondary" className={chipClass}>
+                  {project["Primary Language"] || project.Language}
+                </Badge>
               )}
               {project["Project Type"] && (
-                <Badge variant="outline">{project["Project Type"]}</Badge>
+                <Badge variant="outline" className={chipClass}>
+                  {project["Project Type"]}
+                </Badge>
               )}
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-2">
-            <Button variant="outline" asChild>
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+            <a
+              href={`https://github.com/${project["GitHub Org"]}/${project.Repo}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 underline underline-offset-4"
+            >
+              <Github className="h-4 w-4" />
+              GitHub
+            </a>
+            {(project.Homepage || project["Live URL"]) && !project["NPM Package URL"] && (
               <a
-                href={`https://github.com/${project["GitHub Org"]}/${project.Repo}`}
+                href={project.Homepage || project["Live URL"]}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 underline underline-offset-4"
               >
-                <Github className="mr-2 h-4 w-4" />
-                GitHub
+                <Globe className="h-4 w-4" />
+                Live
               </a>
-            </Button>
-            {(project.Homepage || project["Live URL"]) && !project["NPM Package URL"] && (
-              <Button asChild>
-                <a
-                  href={project.Homepage || project["Live URL"]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Globe className="mr-2 h-4 w-4" />
-                  Live Demo
-                </a>
-              </Button>
             )}
             {project["NPM Package URL"] && (
-              <Button asChild>
-                <a
-                  href={project["NPM Package URL"]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Package className="mr-2 h-4 w-4" />
-                  View on NPM
-                </a>
-              </Button>
+              <a
+                href={project["NPM Package URL"]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 underline underline-offset-4"
+              >
+                <Package className="h-4 w-4" />
+                NPM
+              </a>
             )}
             {isDev && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" disabled={updating}>
-                    <Settings className="mr-2 h-4 w-4" />
+                  <button
+                    type="button"
+                    disabled={updating}
+                    className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground disabled:opacity-50 underline underline-offset-4"
+                  >
+                    <Settings className="h-4 w-4" />
                     Settings
-                  </Button>
+                  </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem
                     onClick={async () => {
                       setUpdating(true);
                       try {
-                        await updateGitHubData(`${project["GitHub Org"]}/${project.Repo}`);
+                        await updateGitHubData(
+                          `${project["GitHub Org"]}/${project.Repo}`
+                        );
                         await refresh();
                       } catch (error) {
-                        console.error('Failed to update:', error);
-                        alert(`Failed to update: ${error instanceof Error ? error.message : 'Unknown error'}`);
+                        console.error("Failed to update:", error);
+                        alert(
+                          `Failed to update: ${
+                            error instanceof Error ? error.message : "Unknown error"
+                          }`
+                        );
                       } finally {
                         setUpdating(false);
                       }
@@ -180,11 +206,17 @@ export const ProjectDetail = () => {
                       onClick={async () => {
                         setUpdating(true);
                         try {
-                          await updateOGData(`${project["GitHub Org"]}/${project.Repo}`);
+                          await updateOGData(
+                            `${project["GitHub Org"]}/${project.Repo}`
+                          );
                           await refresh();
                         } catch (error) {
-                          console.error('Failed to update OG data:', error);
-                          alert(`Failed to update OG data: ${error instanceof Error ? error.message : 'Unknown error'}`);
+                          console.error("Failed to update OG data:", error);
+                          alert(
+                            `Failed to update OG data: ${
+                              error instanceof Error ? error.message : "Unknown error"
+                            }`
+                          );
                         } finally {
                           setUpdating(false);
                         }
@@ -200,11 +232,18 @@ export const ProjectDetail = () => {
                       const isHidden = project.Hidden === "yes";
                       setUpdating(true);
                       try {
-                        await toggleHidden(`${project["GitHub Org"]}/${project.Repo}`, !isHidden);
+                        await toggleHidden(
+                          `${project["GitHub Org"]}/${project.Repo}`,
+                          !isHidden
+                        );
                         await refresh();
                       } catch (error) {
-                        console.error('Failed to toggle hidden:', error);
-                        alert(`Failed to toggle hidden: ${error instanceof Error ? error.message : 'Unknown error'}`);
+                        console.error("Failed to toggle hidden:", error);
+                        alert(
+                          `Failed to toggle hidden: ${
+                            error instanceof Error ? error.message : "Unknown error"
+                          }`
+                        );
                       } finally {
                         setUpdating(false);
                       }
@@ -236,205 +275,327 @@ export const ProjectDetail = () => {
           </div>
         </div>
 
-        {/* Social Preview */}
         <SocialPreview
           org={project["GitHub Org"]}
           repo={project.Repo}
-          className="h-96 rounded-lg"
+          className="w-full max-w-[640px] border border-border rounded-none aspect-[1200/630]"
         />
-      </div>
+      </header>
 
-      {/* Delete Confirmation */}
       {showDeleteConfirm && (
-        <Card className="border-red-500 dark:border-red-900">
-          <CardHeader>
-            <CardTitle className="text-red-600 dark:text-red-400">Delete Project?</CardTitle>
-            <CardDescription>
-              Are you sure you want to delete {project.Repo}? This will remove it from the CSV database.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex gap-3">
-            <Button
-              variant="destructive"
+        <section className="border border-red-500 dark:border-red-900 p-4 space-y-3">
+          <h2 className="text-red-600 dark:text-red-400 font-semibold">Delete project?</h2>
+          <p className="text-sm text-muted-foreground">
+            Are you sure you want to delete {project.Repo}? This removes it from
+            the CSV database.
+          </p>
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+            <button
+              type="button"
               onClick={async () => {
                 setUpdating(true);
                 try {
                   await deleteProject(`${project["GitHub Org"]}/${project.Repo}`);
-                  navigate('/projects');
+                  navigate("/projects");
                 } catch (error) {
-                  console.error('Failed to delete project:', error);
-                  alert(`Failed to delete project: ${error instanceof Error ? error.message : 'Unknown error'}`);
+                  console.error("Failed to delete project:", error);
+                  alert(
+                    `Failed to delete project: ${
+                      error instanceof Error ? error.message : "Unknown error"
+                    }`
+                  );
                   setUpdating(false);
                   setShowDeleteConfirm(false);
                 }
               }}
               disabled={updating}
+              className="text-red-600 dark:text-red-400 underline underline-offset-4 disabled:opacity-50"
             >
-              Yes, Delete
-            </Button>
-            <Button
-              variant="outline"
+              Yes, delete
+            </button>
+            <button
+              type="button"
               onClick={() => setShowDeleteConfirm(false)}
               disabled={updating}
+              className="underline underline-offset-4 disabled:opacity-50"
             >
-              No, Cancel
-            </Button>
-          </CardContent>
-        </Card>
+              Cancel
+            </button>
+          </div>
+        </section>
       )}
 
-      {/* Project Info Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Description */}
+      <section className="space-y-8 border-y border-border py-6">
         {(project.Notes || project.Description) && (
-          <Card className="md:col-span-2 lg:col-span-3">
-            <CardHeader>
-              <CardTitle>About</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-lg">
-                {project.Description || project.Notes}
-              </p>
-            </CardContent>
-          </Card>
+          <article className="space-y-2">
+            <h2 className="text-2xl font-semibold">About</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              {project.Description || project.Notes}
+            </p>
+          </article>
         )}
 
-        {/* Tech Stack */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Tech Stack</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {project.Framework && (
-              <div>
-                <p className="text-sm text-muted-foreground">Framework</p>
-                <p className="font-medium">{project.Framework}</p>
-              </div>
-            )}
-            {project.Styling && (
-              <div>
-                <p className="text-sm text-muted-foreground">Styling</p>
-                <p className="font-medium">{project.Styling}</p>
-              </div>
-            )}
-            {project.Backend && project.Backend !== "none" && (
-              <div>
-                <p className="text-sm text-muted-foreground">Backend</p>
-                <p className="font-medium">{project.Backend}</p>
-              </div>
-            )}
-            {project.Database && project.Database !== "none" && (
-              <div>
-                <p className="text-sm text-muted-foreground">Database</p>
-                <p className="font-medium">{project.Database}</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Stats */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Stats</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {project.Stars !== undefined && project.Stars !== "" && (
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Stars</span>
-                <span className="font-medium flex items-center gap-1">
-                  <Star className="h-4 w-4" />
-                  {project.Stars}
-                </span>
-              </div>
-            )}
-            {project.Forks !== undefined && project.Forks !== "" && (
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Forks</span>
-                <span className="font-medium flex items-center gap-1">
-                  <GitFork className="h-4 w-4" />
-                  {project.Forks}
-                </span>
-              </div>
-            )}
-            {project.Watchers !== undefined && project.Watchers !== "" && project.Watchers !== "0" && (
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Watchers</span>
-                <span className="font-medium flex items-center gap-1">
-                  <Eye className="h-4 w-4" />
-                  {project.Watchers}
-                </span>
-              </div>
-            )}
-            {project["Open Issues"] !== undefined && project["Open Issues"] !== "" && project["Open Issues"] !== "0" && (
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Open Issues</span>
-                <span className="font-medium flex items-center gap-1">
-                  <CircleDot className="h-4 w-4" />
-                  {project["Open Issues"]}
-                </span>
-              </div>
-            )}
-            {project["Last Updated"] && (
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Updated</span>
-                <span className="font-medium text-sm">
-                  {new Date(project["Last Updated"]).toLocaleDateString()}
-                </span>
-              </div>
-            )}
-            {project.Status && (
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Status</span>
-                <Badge variant={project.Status === "active" ? "default" : "secondary"}>
-                  {project.Status}
-                </Badge>
-              </div>
-            )}
-            {project["Latest Commit Date"] && (
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Last Commit</span>
-                <span className="font-medium text-sm">
-                  {new Date(project["Latest Commit Date"]).toLocaleDateString()}
-                </span>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Latest Commit Message */}
-        {project["Latest Commit Message"] && (
-          <Card className="md:col-span-2 lg:col-span-3">
-            <CardHeader>
-              <CardTitle>Latest Commit</CardTitle>
-              {project["Latest Commit Author"] && (
-                <CardDescription>
-                  by {project["Latest Commit Author"]}
-                  {project["Latest Commit Date"] && (
-                    <> on {new Date(project["Latest Commit Date"]).toLocaleDateString()}</>
-                  )}
-                </CardDescription>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <article className="space-y-3">
+            <h3 className="text-xl font-semibold">Tech Stack</h3>
+            <dl className="space-y-2 text-sm">
+              {project.Framework && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">Framework</dt>
+                  <dd>{project.Framework}</dd>
+                </div>
               )}
-            </CardHeader>
-            <CardContent>
+              {project.Styling && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">Styling</dt>
+                  <dd>{project.Styling}</dd>
+                </div>
+              )}
+              {project.Backend && project.Backend !== "none" && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">Backend</dt>
+                  <dd>{project.Backend}</dd>
+                </div>
+              )}
+              {project.Database && project.Database !== "none" && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">Database</dt>
+                  <dd>{project.Database}</dd>
+                </div>
+              )}
+            </dl>
+          </article>
+
+          <article className="space-y-3">
+            <h3 className="text-xl font-semibold">Stats</h3>
+            <dl className="space-y-2 text-sm">
+              {project.Stars !== undefined && project.Stars !== "" && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">Stars</dt>
+                  <dd className="inline-flex items-center gap-1">
+                    <Star className="h-4 w-4" />
+                    {project.Stars}
+                  </dd>
+                </div>
+              )}
+              {project.Forks !== undefined && project.Forks !== "" && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">Forks</dt>
+                  <dd className="inline-flex items-center gap-1">
+                    <GitFork className="h-4 w-4" />
+                    {project.Forks}
+                  </dd>
+                </div>
+              )}
+              {project.Watchers &&
+                project.Watchers !== "0" && (
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-muted-foreground">Watchers</dt>
+                    <dd className="inline-flex items-center gap-1">
+                      <Eye className="h-4 w-4" />
+                      {project.Watchers}
+                    </dd>
+                  </div>
+                )}
+              {project["Open Issues"] &&
+                project["Open Issues"] !== "0" && (
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-muted-foreground">Open Issues</dt>
+                    <dd className="inline-flex items-center gap-1">
+                      <CircleDot className="h-4 w-4" />
+                      {project["Open Issues"]}
+                    </dd>
+                  </div>
+                )}
+              {project["Last Updated"] && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">Updated</dt>
+                  <dd>{new Date(project["Last Updated"]).toLocaleDateString()}</dd>
+                </div>
+              )}
+              {project["Latest Commit Date"] && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">Last Commit</dt>
+                  <dd>
+                    {new Date(project["Latest Commit Date"]).toLocaleDateString()}
+                  </dd>
+                </div>
+              )}
+              {project.Status && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">Status</dt>
+                  <dd>
+                    <Badge
+                      variant={project.Status === "active" ? "default" : "secondary"}
+                      className={chipClass}
+                    >
+                      {project.Status}
+                    </Badge>
+                  </dd>
+                </div>
+              )}
+            </dl>
+          </article>
+        </div>
+
+        {(project.PWA === "yes" ||
+          project["Has Tests"] === "yes" ||
+          project["Has CI/CD"] === "yes" ||
+          project["Wallet Integration"] === "yes" ||
+          project.Pinned === "yes" ||
+          project["Featured Project"] === "yes") && (
+          <article className="space-y-3">
+            <h3 className="text-xl font-semibold">Features</h3>
+            <div className="flex flex-wrap gap-2">
+              {project.PWA === "yes" && (
+                <Badge variant="outline" className={`flex items-center gap-1 ${chipClass}`}>
+                  <Smartphone className="h-3 w-3" />
+                  PWA
+                </Badge>
+              )}
+              {project["Has Tests"] === "yes" && (
+                <Badge variant="outline" className={`flex items-center gap-1 ${chipClass}`}>
+                  <CheckCircle className="h-3 w-3" />
+                  Tests
+                </Badge>
+              )}
+              {project["Has CI/CD"] === "yes" && (
+                <Badge variant="outline" className={`flex items-center gap-1 ${chipClass}`}>
+                  <RefreshCw className="h-3 w-3" />
+                  CI/CD
+                </Badge>
+              )}
+              {project["Wallet Integration"] === "yes" && (
+                <Badge variant="outline" className={`flex items-center gap-1 ${chipClass}`}>
+                  <Wallet className="h-3 w-3" />
+                  Web3 Wallet
+                </Badge>
+              )}
+              {project.Pinned === "yes" && (
+                <Badge
+                  className={`bg-green-500/20 text-green-700 dark:text-green-400 flex items-center gap-1 ${chipClass}`}
+                >
+                  <Pin className="h-3 w-3" />
+                  Pinned
+                </Badge>
+              )}
+              {project["Featured Project"] === "yes" && (
+                <Badge
+                  className={`bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 flex items-center gap-1 ${chipClass}`}
+                >
+                  <Star className="h-3 w-3" />
+                  Featured
+                </Badge>
+              )}
+            </div>
+          </article>
+        )}
+
+        {project.Topics && (
+          <article className="space-y-3">
+            <h3 className="text-xl font-semibold">Topics</h3>
+            <div className="flex flex-wrap gap-2">
+              {project.Topics.split(",").map((topic) => (
+                <Badge key={topic} variant="outline" className={chipClass}>
+                  {topic.trim()}
+                </Badge>
+              ))}
+            </div>
+          </article>
+        )}
+
+        {!project.Topics && project["Key Tags"] && (
+          <article className="space-y-3">
+            <h3 className="text-xl font-semibold">Tags</h3>
+            <div className="flex flex-wrap gap-2">
+              {project["Key Tags"].split(",").map((tag) => (
+                <Badge key={tag} variant="secondary" className={chipClass}>
+                  {tag.trim()}
+                </Badge>
+              ))}
+            </div>
+          </article>
+        )}
+
+        {project.Blockchain && project.Blockchain !== "none" && (
+          <article className="space-y-3">
+            <h3 className="text-xl font-semibold">Web3 / Blockchain</h3>
+            <p className="text-sm text-muted-foreground">
+              Blockchain: <span className="text-foreground">{project.Blockchain}</span>
+            </p>
+            {project["Wallet Integration"] === "yes" && (
+              <p className="text-sm text-muted-foreground">
+                Includes wallet integration for decentralized transactions.
+              </p>
+            )}
+          </article>
+        )}
+
+        {(project.License || project.Homepage || project["NPM Package URL"]) && (
+          <article className="space-y-3">
+            <h3 className="text-xl font-semibold">Links</h3>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+              {project.License && (
+                <Badge variant="outline" className={chipClass}>
+                  {project.License}
+                </Badge>
+              )}
+              {project.Homepage && !project["NPM Package URL"] && (
+                <a
+                  href={project.Homepage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 underline underline-offset-4"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Website
+                </a>
+              )}
+              {project["NPM Package URL"] && (
+                <a
+                  href={project["NPM Package URL"]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 underline underline-offset-4"
+                >
+                  <Package className="h-4 w-4" />
+                  NPM package
+                </a>
+              )}
+            </div>
+          </article>
+        )}
+      </section>
+
+      {(project["Latest Commit Message"] ||
+        project["OG Title"] ||
+        project["OG Description"] ||
+        project["OG Image"]) && (
+        <section className="space-y-8 border-y border-border py-6">
+          {project["Latest Commit Message"] && (
+            <article className="space-y-2">
+              <h2 className="text-2xl font-semibold">Latest Commit</h2>
+              {(project["Latest Commit Author"] || project["Latest Commit Date"]) && (
+                <p className="text-sm text-muted-foreground">
+                  {project["Latest Commit Author"] && `by ${project["Latest Commit Author"]}`}
+                  {project["Latest Commit Date"] &&
+                    ` on ${new Date(project["Latest Commit Date"]).toLocaleDateString()}`}
+                </p>
+              )}
               <p className="font-mono text-sm whitespace-pre-wrap">
                 {project["Latest Commit Message"]}
               </p>
-            </CardContent>
-          </Card>
-        )}
+            </article>
+          )}
 
-        {/* Open Graph Data */}
-        {(project["OG Title"] || project["OG Description"] || project["OG Image"]) && (
-          <Card className="md:col-span-2 lg:col-span-3">
-            <CardHeader>
-              <CardTitle>Live Site Preview</CardTitle>
+          {(project["OG Title"] || project["OG Description"] || project["OG Image"]) && (
+            <article className="space-y-3">
+              <h2 className="text-2xl font-semibold">Live Site Preview</h2>
               {project["OG Site Name"] && (
-                <CardDescription>{project["OG Site Name"]}</CardDescription>
+                <p className="text-sm text-muted-foreground">{project["OG Site Name"]}</p>
               )}
-            </CardHeader>
-            <CardContent className="space-y-4">
               {project["OG Image"] && (
-                <div className="rounded-lg overflow-hidden border">
+                <div className="border border-border rounded-none overflow-hidden">
                   <img
                     src={project["OG Image"]}
                     alt={project["OG Title"] || "Site preview"}
@@ -442,212 +603,54 @@ export const ProjectDetail = () => {
                   />
                 </div>
               )}
-              <div className="space-y-2">
-                {project["OG Title"] && (
-                  <h3 className="text-lg font-semibold">{project["OG Title"]}</h3>
-                )}
-                {project["OG Description"] && (
-                  <p className="text-muted-foreground">{project["OG Description"]}</p>
-                )}
-                {project["OG URL"] && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    {project.Favicon ? (
-                      <img
-                        src={project.Favicon}
-                        alt=""
-                        className="w-4 h-4 rounded"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <Globe className="h-4 w-4" />
-                    )}
-                    <a
-                      href={project["OG URL"]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      {project["OG URL"]}
-                    </a>
-                  </div>
-                )}
-                {project["OG Type"] && (
-                  <Badge variant="secondary">{project["OG Type"]}</Badge>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Features */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Features</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-wrap gap-2">
-            {project.PWA === "yes" && (
-              <Badge variant="outline" className="flex items-center gap-1">
-                <Smartphone className="h-3 w-3" />
-                PWA
-              </Badge>
-            )}
-            {project["Has Tests"] === "yes" && (
-              <Badge variant="outline" className="flex items-center gap-1">
-                <CheckCircle className="h-3 w-3" />
-                Tests
-              </Badge>
-            )}
-            {project["Has CI/CD"] === "yes" && (
-              <Badge variant="outline" className="flex items-center gap-1">
-                <RefreshCw className="h-3 w-3" />
-                CI/CD
-              </Badge>
-            )}
-            {project["Wallet Integration"] === "yes" && (
-              <Badge variant="outline" className="flex items-center gap-1">
-                <Wallet className="h-3 w-3" />
-                Web3 Wallet
-              </Badge>
-            )}
-            {project.Pinned === "yes" && (
-              <Badge className="bg-green-500/20 text-green-700 dark:text-green-400 flex items-center gap-1">
-                <Pin className="h-3 w-3" />
-                Pinned
-              </Badge>
-            )}
-            {project["Featured Project"] === "yes" && (
-              <Badge className="bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 flex items-center gap-1">
-                <Star className="h-3 w-3" />
-                Featured
-              </Badge>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* GitHub Topics (preferred over Key Tags) */}
-        {project.Topics && (
-          <Card className="md:col-span-2 lg:col-span-3">
-            <CardHeader>
-              <CardTitle>Topics</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {project.Topics.split(",").map((topic) => (
-                  <Badge key={topic} variant="outline">
-                    {topic.trim()}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Key Tags (fallback if no Topics) */}
-        {!project.Topics && project["Key Tags"] && (
-          <Card className="md:col-span-2 lg:col-span-3">
-            <CardHeader>
-              <CardTitle>Tags</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {project["Key Tags"].split(",").map((tag) => (
-                  <Badge key={tag} variant="secondary">
-                    {tag.trim()}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Blockchain */}
-        {project.Blockchain && project.Blockchain !== "none" && (
-          <Card className="md:col-span-2 lg:col-span-3">
-            <CardHeader>
-              <CardTitle>Web3 / Blockchain</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div>
-                <p className="text-sm text-muted-foreground">Blockchain</p>
-                <p className="font-medium">{project.Blockchain}</p>
-              </div>
-              {project["Wallet Integration"] === "yes" && (
-                <p className="text-sm text-muted-foreground">
-                  Includes wallet integration for decentralized transactions
-                </p>
+              {project["OG Title"] && (
+                <h3 className="text-lg font-semibold">{project["OG Title"]}</h3>
               )}
-            </CardContent>
-          </Card>
-        )}
-
-        {/* License */}
-        {project.License && (
-          <Card>
-            <CardHeader>
-              <CardTitle>License</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Badge variant="outline">{project.License}</Badge>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Links */}
-        {project.Homepage && !project["NPM Package URL"] && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Homepage</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Button variant="outline" size="sm" asChild className="w-full">
+              {project["OG Description"] && (
+                <p className="text-muted-foreground">{project["OG Description"]}</p>
+              )}
+              {project["OG URL"] && (
                 <a
-                  href={project.Homepage}
+                  href={project["OG URL"]}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm underline underline-offset-4"
                 >
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  Visit Website
+                  {project.Favicon ? (
+                    <img
+                      src={project.Favicon}
+                      alt=""
+                      className="w-4 h-4 rounded-none"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    <Globe className="h-4 w-4" />
+                  )}
+                  {project["OG URL"]}
                 </a>
-              </Button>
-            </CardContent>
-          </Card>
+              )}
+              {project["OG Type"] && (
+                <Badge variant="secondary" className={chipClass}>
+                  {project["OG Type"]}
+                </Badge>
+              )}
+            </article>
+          )}
+        </section>
+      )}
+
+      <section className="space-y-4 border-y border-border py-6">
+        <h2 className="text-2xl font-semibold">README</h2>
+        {readmeLoading && <p className="text-muted-foreground">Loading README...</p>}
+        {readmeError && <p className="text-muted-foreground">Failed to load README.</p>}
+        {readmeContent && !readmeLoading && (
+          <div className="prose prose-neutral dark:prose-invert max-w-none">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{readmeContent}</ReactMarkdown>
+          </div>
         )}
-      </div>
-
-      {/* README Section */}
-      {readmeLoading && (
-        <Card>
-          <CardContent className="py-12 text-center">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            <p className="mt-4 text-muted-foreground">Loading README...</p>
-          </CardContent>
-        </Card>
-      )}
-
-      {readmeError && (
-        <Card className="border-dashed">
-          <CardContent className="py-8 text-center">
-            <p className="text-muted-foreground">Failed to load README</p>
-          </CardContent>
-        </Card>
-      )}
-
-      {readmeContent && !readmeLoading && (
-        <Card>
-          <CardHeader>
-            <CardTitle>README</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="prose prose-neutral dark:prose-invert max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {readmeContent}
-              </ReactMarkdown>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      </section>
     </div>
   );
 };

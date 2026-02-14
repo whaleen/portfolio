@@ -1,6 +1,6 @@
 # Joshua Vaage
 **Location**: PST
-**Phone**: 916 204 6014
+**Telegram (Preferred)**: https://t.me/jvaage
 **GitHub**: https://github.com/whaleen
 **Twitter/X**: @4A_6F_73_68
 
