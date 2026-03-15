@@ -1,3 +1,0 @@
-# motherbored
-
-oh yes henlo

@@ -47,6 +47,10 @@ export default function (eleventyConfig) {
         return projects.filter(p => !p.topics || !p.topics.includes(topic));
     });
 
+    eleventyConfig.addFilter("findProject", (projects, org, name) => {
+        return projects.find(p => p.org === org && p.name === name);
+    });
+
     return {
         dir: {
             input: ".",

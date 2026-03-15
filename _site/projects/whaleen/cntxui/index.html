@@ -65,362 +65,122 @@
         <div class="flex flex-row justify-around bt bb border-vesper pv4 mv5 tc">
             <div class="flex flex-column items-center">
                 <span class="f7 ttu tracked color-vesper-muted mb1">Language</span>
-                <span class="f3 fw7 color-vesper-fg">JavaScript</span>
+                <span class="f3 fw7 color-vesper-fg">TypeScript</span>
             </div>
             <div class="flex flex-column items-center">
                 <span class="f7 ttu tracked color-vesper-muted mb1">Last Pushed</span>
-                <span class="f3 fw7 color-vesper-fg">7/1/2025</span>
+                <span class="f3 fw7 color-vesper-fg">2/28/2026</span>
             </div>
         </div><div class="mv4">
             <div class="flex flex-wrap gap2 mt2"><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">ai</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">bundling</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">codebase</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">development-tools</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">file-management</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">ai-development</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">ai-workflow</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">claude-desktop</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">cli-tool</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">context-management</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">file-aggregation</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">file-bundling</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">llm-tools</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">mcp-server</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">model-context-protocol</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">react</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">websocket</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">codebase-bundling</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">project-context</span></div>
         </div><div class="markdown-body mt5 bt border-vesper pt5">
             <h1>cntx-ui</h1>
-<p>Minimal file bundling and tagging tool for AI development with web interface.</p>
-<h2>Features</h2>
+<p>Semantic code analysis and context management for AI agents. Turns a codebase into searchable, structured context that agents can navigate efficiently.</p>
+<h2>What it does</h2>
 <ul>
-<li>File bundling and organization for AI development workflows</li>
-<li>Web-based UI for managing bundles and configurations</li>
-<li><strong>Model Context Protocol (MCP) server</strong> for AI integration</li>
-<li>Hidden files management</li>
-<li>Cursor rules integration</li>
-<li>WebSocket-based real-time updates</li>
-<li>CLI tools for automation</li>
+<li><strong>Semantic analysis</strong> — parses your code at the function level using tree-sitter, extracts purpose, complexity, and relationships</li>
+<li><strong>Local vector search</strong> — embeds code chunks locally (all-MiniLM-L6-v2 via Transformers.js) for semantic similarity search with no external API calls</li>
+<li><strong>Bundle system</strong> — group files into logical bundles (by feature, layer, or pattern) for structured context delivery</li>
+<li><strong>MCP server</strong> — exposes 28+ tools to Claude Code, Claude Desktop, or any MCP-compatible client</li>
+<li><strong>Web dashboard</strong> — visual interface at localhost:3333 for managing bundles, browsing semantic analysis, and editing agent rules</li>
+<li><strong>Real-time sync</strong> — watches for file changes and keeps analysis, bundles, and embeddings current</li>
 </ul>
-<h2>Installation</h2>
-<h3>Global Installation (Recommended)</h3>
+<h2>Install</h2>
 <pre><code class="language-bash">npm install -g cntx-ui
 </code></pre>
-<h3>Local Development Installation</h3>
-<pre><code class="language-bash">git clone https://github.com/nothingdao/cntx-ui.git
-cd cntx-ui
-npm install
-</code></pre>
 <h2>Usage</h2>
-<h3>Initialize a Project</h3>
-<pre><code class="language-bash"># Initialize cntx-ui in your project
-cntx-ui init
-
-# Start the web interface
-cntx-ui watch
-
-# Visit http://localhost:3333 to access the web UI
+<pre><code class="language-bash">cntx-ui init          # scaffold .cntx directory, generate .mcp.json
+cntx-ui watch         # start web server on port 3333
+cntx-ui mcp           # start MCP server on stdio
+cntx-ui bundle &lt;name&gt; # regenerate a specific bundle
+cntx-ui status        # show project health and bundle state
+cntx-ui setup-mcp     # configure Claude Desktop integration
 </code></pre>
-<h3>CLI Commands</h3>
-<pre><code class="language-bash"># Generate bundles
-cntx-ui bundle &lt;name&gt;
-
-# Check project status
-cntx-ui status
-
-# Start web server on custom port
-cntx-ui watch [port]
-
-# Start web server with MCP status tracking
-cntx-ui watch --with-mcp
-
-# Start MCP server for AI integration
-cntx-ui mcp
-
-# Add project to Claude Desktop MCP configuration
-cntx-ui setup-mcp
-</code></pre>
-<h3>MCP Integration</h3>
-<p>cntx-ui can function as an MCP (Model Context Protocol) server, providing AI tools with direct access to your project bundles:</p>
-<pre><code class="language-bash"># Start MCP server
-cntx-ui mcp
-</code></pre>
-<p><strong>Available MCP Resources:</strong></p>
-<ul>
-<li><code>cntx://bundle/&lt;name&gt;</code> - Access any bundle as XML content</li>
-<li><code>cntx://file/&lt;path&gt;</code> - Access individual project files</li>
-</ul>
-<p><strong>Available MCP Tools:</strong></p>
-<ul>
-<li><code>list_bundles</code> - List all available bundles</li>
-<li><code>get_bundle</code> - Retrieve specific bundle content</li>
-<li><code>generate_bundle</code> - Regenerate a bundle</li>
-<li><code>get_file_tree</code> - Get project file structure</li>
-<li><code>get_project_status</code> - Get current project status</li>
-</ul>
-<h2>Development</h2>
-<h3>Prerequisites</h3>
-<ul>
-<li>Node.js &gt;= 18.0.0</li>
-<li>npm</li>
-</ul>
-<h3>Setup Development Environment</h3>
-<ol>
-<li>
-<p><strong>Clone and install dependencies:</strong></p>
-<pre><code class="language-bash">git clone https://github.com/nothingdao/cntx-ui.git
-cd cntx-ui
-npm install
-</code></pre>
-</li>
-<li>
-<p><strong>Install web dependencies:</strong></p>
-<pre><code class="language-bash">cd web
-npm install
-cd ..
-</code></pre>
-</li>
-</ol>
-<h3>Development Workflow</h3>
-<h4>Running in Development Mode</h4>
-<ol>
-<li>
-<p><strong>Start the backend server:</strong></p>
-<pre><code class="language-bash">npm run dev
-</code></pre>
-</li>
-<li>
-<p><strong>Start the frontend development server:</strong></p>
-<pre><code class="language-bash">npm run dev:web
-</code></pre>
-<p>The web interface will be available at <code>http://localhost:5173</code> (Vite dev server)</p>
-</li>
-</ol>
-<h4>Building the Project</h4>
-<ol>
-<li>
-<p><strong>Build web interface only:</strong></p>
-<pre><code class="language-bash">npm run build:web
-</code></pre>
-</li>
-<li>
-<p><strong>Build entire project:</strong></p>
-<pre><code class="language-bash">npm run build
-</code></pre>
-</li>
-<li>
-<p><strong>Automated build with validation:</strong></p>
-<pre><code class="language-bash">./build.sh
-</code></pre>
-</li>
-</ol>
-<h3>Project Structure</h3>
-<pre><code>cntx-ui/
-├── bin/                    # CLI executable
-├── web/                    # React frontend
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── hooks/          # Custom hooks
-│   │   ├── utils/          # Utility functions
-│   │   └── lib/            # Libraries and configurations
-│   ├── dist/               # Built frontend (generated)
-│   └── package.json        # Frontend dependencies
-├── server.js               # WebSocket server
-├── package.json            # Main package configuration
-├── build.sh                # Build automation script
-└── test-local.sh           # Local testing script
-</code></pre>
-<h3>Available Scripts</h3>
+<p>After <code>cntx-ui init</code>, agents discover tools automatically via <code>.mcp.json</code>. The <code>.cntx/AGENT.md</code> file provides an onboarding handshake with tool reference and project overview.</p>
+<h2>Agent interface</h2>
+<p>Agents interact through MCP tools or the HTTP API:</p>
 <table>
 <thead>
 <tr>
-<th>Script</th>
-<th>Description</th>
+<th style="text-align:left">MCP Tool</th>
+<th style="text-align:left">What it does</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>npm run dev</code></td>
-<td>Start backend server</td>
+<td style="text-align:left"><code>agent/discover</code></td>
+<td style="text-align:left">Architectural overview of the codebase</td>
 </tr>
 <tr>
-<td><code>npm run dev:web</code></td>
-<td>Start frontend dev server</td>
+<td style="text-align:left"><code>agent/query</code></td>
+<td style="text-align:left">Semantic search — &quot;where is auth handled?&quot;</td>
 </tr>
 <tr>
-<td><code>npm run build</code></td>
-<td>Build entire project</td>
+<td style="text-align:left"><code>agent/investigate</code></td>
+<td style="text-align:left">Find integration points for a new feature</td>
 </tr>
 <tr>
-<td><code>npm run build:web</code></td>
-<td>Build frontend only</td>
+<td style="text-align:left"><code>agent/organize</code></td>
+<td style="text-align:left">Audit and optimize bundle structure</td>
 </tr>
 <tr>
-<td><code>npm test:local</code></td>
-<td>Install and test package locally</td>
+<td style="text-align:left"><code>artifacts/list</code></td>
+<td style="text-align:left">List normalized project artifacts (OpenAPI + Navigation)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>artifacts/get_openapi</code></td>
+<td style="text-align:left">Return OpenAPI artifact summary and payload</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>artifacts/get_navigation</code></td>
+<td style="text-align:left">Return Navigation artifact summary and payload</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>artifacts/summarize</code></td>
+<td style="text-align:left">Compact cross-artifact summary for agents</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>list_bundles</code></td>
+<td style="text-align:left">List all bundles with metadata</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>get_bundle</code></td>
+<td style="text-align:left">Get full bundle content as XML</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>get_semantic_chunks</code></td>
+<td style="text-align:left">Get all analyzed code chunks</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>read_file</code> / <code>write_file</code></td>
+<td style="text-align:left">File operations with bundle context</td>
 </tr>
 </tbody>
 </table>
-<h2>MCP Server Setup</h2>
-<h3>Quick Setup with setup-mcp Command</h3>
-<p>The easiest way to configure cntx-ui for Claude Desktop:</p>
-<pre><code class="language-bash"># Navigate to your project directory
-cd /path/to/your/project
-
-# Initialize cntx-ui if not already done
-cntx-ui init
-
-# Add this project to Claude Desktop MCP configuration
-cntx-ui setup-mcp
-</code></pre>
-<p>This automatically adds your project to Claude Desktop's configuration file and allows you to work with multiple projects simultaneously.</p>
-<h3>Claude Desktop Integration</h3>
-<h4>Multi-Project Setup (Recommended)</h4>
-<p>You can use cntx-ui across multiple projects by running <code>setup-mcp</code> in each project directory:</p>
-<pre><code class="language-bash"># Project 1
-cd /Users/you/project1
-cntx-ui setup-mcp
-
-# Project 2  
-cd /Users/you/project2
-cntx-ui setup-mcp
-</code></pre>
-<p>This creates entries in your Claude Desktop config (<code>~/Library/Application Support/Claude/claude_desktop_config.json</code>):</p>
-<pre><code class="language-json">{
-  &quot;mcpServers&quot;: {
-    &quot;cntx-ui-project1&quot;: {
-      &quot;command&quot;: &quot;sh&quot;,
-      &quot;args&quot;: [&quot;-c&quot;, &quot;cd /Users/you/project1 &amp;&amp; node /path/to/cntx-ui/bin/cntx-ui.js mcp&quot;],
-      &quot;cwd&quot;: &quot;/Users/you/project1&quot;
-    },
-    &quot;cntx-ui-project2&quot;: {
-      &quot;command&quot;: &quot;sh&quot;, 
-      &quot;args&quot;: [&quot;-c&quot;, &quot;cd /Users/you/project2 &amp;&amp; node /path/to/cntx-ui/bin/cntx-ui.js mcp&quot;],
-      &quot;cwd&quot;: &quot;/Users/you/project2&quot;
-    }
-  }
-}
-</code></pre>
-<h4>Manual Configuration</h4>
-<p>For manual setup, add to your Claude Desktop configuration:</p>
-<pre><code class="language-json">{
-  &quot;mcpServers&quot;: {
-    &quot;cntx-ui-projectname&quot;: {
-      &quot;command&quot;: &quot;sh&quot;,
-      &quot;args&quot;: [&quot;-c&quot;, &quot;cd /path/to/your/project &amp;&amp; cntx-ui mcp&quot;],
-      &quot;cwd&quot;: &quot;/path/to/your/project&quot;
-    }
-  }
-}
-</code></pre>
-<h3>Other MCP Clients</h3>
-<p>For other MCP-compatible clients, use:</p>
+<p>Full tool reference with parameters is generated in <code>.cntx/AGENT.md</code> and <code>.cntx/TOOLS.md</code>.</p>
+<p>Artifact HTTP endpoints:</p>
 <ul>
-<li><strong>Command</strong>: <code>cntx-ui mcp</code></li>
-<li><strong>Transport</strong>: stdio</li>
-<li><strong>Working Directory</strong>: Your project root</li>
+<li><code>GET /api/artifacts</code></li>
+<li><code>GET /api/artifacts/openapi</code></li>
+<li><code>GET /api/artifacts/navigation</code></li>
 </ul>
-<h3>MCP Workflow</h3>
+<h2>How it works</h2>
 <ol>
-<li><strong>Setup</strong>: Run <code>cntx-ui setup-mcp</code> in each project you want to use with Claude Desktop</li>
-<li><strong>Visual Configuration</strong>: Use <code>cntx-ui watch</code> to configure bundles via web UI</li>
-<li><strong>AI Integration</strong>: AI clients connect via MCP to access bundles across all configured projects</li>
-<li><strong>Real-time Updates</strong>: Changes in web UI immediately available to AI tools</li>
-<li><strong>Multi-Project</strong>: Claude Desktop can access bundles from all configured projects simultaneously</li>
+<li><strong>tree-sitter</strong> parses source files into AST, extracts functions/types/interfaces</li>
+<li><strong>Heuristics engine</strong> classifies each chunk by purpose, business domain, and technical patterns based on file paths, imports, and naming conventions</li>
+<li><strong>Embeddings</strong> are generated locally and stored in SQLite for persistent vector search</li>
+<li><strong>Bundles</strong> group files by glob patterns — auto-suggested on init based on project structure</li>
+<li><strong>MCP server</strong> and <strong>HTTP API</strong> expose everything to agents with consistent response shapes</li>
 </ol>
-<h2>Testing</h2>
-<h3>Local Testing</h3>
-<ol>
-<li>
-<p><strong>Run automated test suite:</strong></p>
-<pre><code class="language-bash">./test-local.sh
-</code></pre>
-</li>
-<li>
-<p><strong>Manual testing:</strong></p>
-<pre><code class="language-bash"># Build and pack
-npm run build
-npm pack
-
-# Install globally for testing
-npm install -g ./cntx-ui-*.tgz
-
-# Test in a new project
-mkdir test-project &amp;&amp; cd test-project
-cntx-ui init
-cntx-ui watch
-</code></pre>
-</li>
-</ol>
-<h3>Test Coverage</h3>
-<p>The test suite covers:</p>
+<h2>Tech stack</h2>
 <ul>
-<li>Project initialization</li>
-<li>Bundle generation</li>
-<li>Web server functionality</li>
-<li>API endpoints</li>
-<li>File management operations</li>
-</ul>
-<h2>Publishing</h2>
-<h3>Prerequisites for Publishing</h3>
-<ul>
-<li>npm account with publish permissions</li>
-<li>Clean git working directory</li>
-<li>All tests passing</li>
-</ul>
-<h3>Publishing Steps</h3>
-<ol>
-<li>
-<p><strong>Update version:</strong></p>
-<pre><code class="language-bash">npm version patch  # or minor/major
-</code></pre>
-</li>
-<li>
-<p><strong>Build and validate:</strong></p>
-<pre><code class="language-bash">./build.sh
-</code></pre>
-</li>
-<li>
-<p><strong>Test locally:</strong></p>
-<pre><code class="language-bash">./test-local.sh
-</code></pre>
-</li>
-<li>
-<p><strong>Publish to npm:</strong></p>
-<pre><code class="language-bash"># Stable release
-npm publish
-
-# Beta release
-npm publish --tag beta
-</code></pre>
-</li>
-</ol>
-<h3>Automated Publishing Workflow</h3>
-<p>Use the build script for a complete workflow:</p>
-<pre><code class="language-bash">./build.sh
-# Follow prompts for local testing
-# If tests pass, run: npm publish
-</code></pre>
-<h2>Configuration</h2>
-<h3>Environment Variables</h3>
-<ul>
-<li><code>PORT</code> - Override default server port (default: 3333)</li>
-<li><code>NODE_ENV</code> - Set environment (development/production)</li>
-</ul>
-<h3>Project Configuration</h3>
-<p>cntx-ui creates these files in your project:</p>
-<ul>
-<li><code>.cntx/config.json</code> - Main configuration</li>
-<li><code>.cntxignore</code> - Files to ignore</li>
-<li><code>.cursorrules</code> - Cursor editor rules</li>
-</ul>
-<h2>Contributing</h2>
-<ol>
-<li>Fork the repository</li>
-<li>Create a feature branch</li>
-<li>Make changes following the existing code style</li>
-<li>Run tests: <code>./test-local.sh</code></li>
-<li>Submit a pull request</li>
-</ol>
-<h2>Technology Stack</h2>
-<ul>
-<li><strong>Backend:</strong> Node.js, WebSocket (ws)</li>
-<li><strong>Frontend:</strong> React 19, TypeScript, Vite</li>
-<li><strong>UI:</strong> Tailwind CSS, Radix UI</li>
-<li><strong>State Management:</strong> TanStack Query</li>
-<li><strong>Build Tools:</strong> Vite, TypeScript compiler</li>
+<li>Node.js, better-sqlite3, ws (WebSocket)</li>
+<li>tree-sitter (AST parsing), Transformers.js (local embeddings)</li>
+<li>React 19, TypeScript, Vite, Tailwind CSS (web dashboard)</li>
+<li>Model Context Protocol (MCP) via JSON-RPC 2.0</li>
 </ul>
 <h2>License</h2>
 <p>MIT</p>
-<h2>Support</h2>
-<ul>
-<li>GitHub Issues: <a href="https://github.com/nothingdao/cntx-ui/issues">Report bugs or request features</a></li>
-<li>Documentation: Check the web interface for detailed usage guides</li>
-</ul>
 
         </div></div>
 </div>

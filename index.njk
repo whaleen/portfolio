@@ -23,7 +23,7 @@ title: Josh's Projects
 {%- endmacro -%}
 
 {# Find the whaleen/whaleen project for the profile content #}
-{%- set profileProject = projects | selectattr("org", "equalto", "whaleen") | selectattr("name", "equalto", "whaleen") | first -%}
+{%- set profileProject = projects | findProject("whaleen", "whaleen") -%}
 
 {%- if profileProject and profileProject.github.readme -%}
 <section class="mw8 center mb5">

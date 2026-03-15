@@ -69,15 +69,20 @@
             </div>
             <div class="flex flex-column items-center">
                 <span class="f7 ttu tracked color-vesper-muted mb1">Last Pushed</span>
-                <span class="f3 fw7 color-vesper-fg">2/26/2026</span>
+                <span class="f3 fw7 color-vesper-fg">2/27/2026</span>
             </div>
         </div><div class="markdown-body mt5 bt border-vesper pt5">
             <h1>Ephemeral</h1>
-<p>Ephemeral is a minimalist text editor built with Tauri. It intentionally never auto-saves and never prompts on close. Text persists only when you explicitly export it.</p>
-<p>Legacy Electron snapshot:</p>
-<ul>
-<li><a href="https://github.com/whaleen/ephemeral-text/tree/legacy-electron-snapshot">https://github.com/whaleen/ephemeral-text/tree/legacy-electron-snapshot</a></li>
-</ul>
+<p>Ephemeral is a minimalist writing tool built with Tauri. It intentionally never auto-saves and never prompts on close. Text persists only when you explicitly export it.</p>
+<h2>Installation</h2>
+<h3>Download</h3>
+<p>Download the latest version from <a href="https://github.com/whaleen/ephemeral/releases/latest">GitHub Releases</a>.</p>
+<h3>Build from source</h3>
+<p>Requires <a href="https://bun.sh/">Bun</a> and the <a href="https://www.rust-lang.org/tools/install">Rust toolchain</a>.</p>
+<pre><code class="language-bash">bun install
+bun run tauri build
+</code></pre>
+<p>The app bundle will be generated in <code>src-tauri/target/release/bundle/</code>.</p>
 <h2>Screenshots</h2>
 <p><img src="https://raw.githubusercontent.com/whaleen/ephemeral/main/./ephemeral.png" alt="Ephemeral editor">
 <img src="https://raw.githubusercontent.com/whaleen/ephemeral/main/./ephemeral-info.png" alt="Ephemeral info pane"></p>
@@ -90,7 +95,7 @@
 </ul>
 <h2>Features</h2>
 <ul>
-<li>Markdown editing with rich formatting</li>
+<li>Markdown writing with rich formatting</li>
 <li>Export to <code>.md</code> or <code>.txt</code></li>
 <li>Custom filename on export</li>
 <li>Configurable export directory</li>
@@ -118,7 +123,7 @@
 <li>Image: <code>Cmd/Ctrl + Shift + I</code></li>
 <li>Table: <code>Cmd/Ctrl + Shift + X</code></li>
 </ul>
-<p>For development setup, build, and release workflow, see <code>DEVELOPER.md</code>.</p>
+<p>For development setup and release workflow details, see <code>DEVELOPER.md</code>.</p>
 
         </div></div>
 </div>
