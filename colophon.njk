@@ -3,65 +3,95 @@ layout: layouts/base.njk
 title: Colophon | Josh's Portfolio
 ---
 
+{%- macro toolSection(section) -%}
+<section class="mb5">
+    <h2 class="f5 ttu tracked color-vesper-muted bb border-vesper pb2 mb3">{{ section.name }}</h2>
+    {%- if section.description -%}
+    <p class="f5 color-vesper-subtle lh-copy mb3">{{ section.description }}</p>
+    {%- endif -%}
+    {%- if section.items -%}
+    <ul class="list pl0">
+        {%- for item in section.items -%}
+        <li class="flex items-baseline justify-between pv2 bb border-vesper">
+            <div class="flex items-baseline">
+                {%- if item.url -%}
+                <a href="{{ item.url }}" target="_blank" class="f5 fw6 no-underline color-vesper-accent hover-vesper-fg">{{ item.name }}</a>
+                {%- else -%}
+                <span class="f5 fw6 color-vesper-fg">{{ item.name }}</span>
+                {%- endif -%}
+            </div>
+            {%- if item.note -%}
+            <span class="f6 color-vesper-muted ml3 tr" style="flex-shrink: 0;">{{ item.note }}</span>
+            {%- endif -%}
+        </li>
+        {%- endfor -%}
+    </ul>
+    {%- endif -%}
+</section>
+{%- endmacro -%}
+
 <div class="mw8 center pa3 pa4-ns">
-    <header class="tc mv5">
+    <header class="mv5">
         <h1 class="f2 fw8 ma0 mb2 color-vesper-fg">Colophon</h1>
-        <p class="f4 color-vesper-muted ma0">The technical stack and setup behind my work.</p>
+        <p class="f4 color-vesper-muted ma0 lh-copy">The tools and setup behind my work. Environment is version-controlled via <a href="https://github.com/whaleen/dotfiles" target="_blank" class="color-vesper-accent no-underline underline-hover">whaleen/dotfiles</a>.</p>
     </header>
 
-    <section class="mb5">
-        <h2 class="f4 ttu tracked color-vesper-muted bb border-vesper pb2 mb4">Development Stack</h2>
-        <p class="f5 color-vesper-fg mb4">My development environment is version-controlled and managed via <a href="https://github.com/whaleen/dotfiles" target="_blank" class="color-vesper-accent underline dim">whaleen/dotfiles</a>. Below is a snapshot of my primary toolset and global configuration.</p>
-        
-        <div class="flex flex-column gap4">
-            {%- if colophon.brew -%}
-            <div class="mb4">
-                <h3 class="f6 ttu tracked color-vesper-muted mb2">Homebrew</h3>
-                <pre class="f7 code bg-vesper-card border-vesper ba pa3 br3 overflow-auto max-h-400"><code>{{ colophon.brew }}</code></pre>
-            </div>
-            {%- endif -%}
-
-            {%- if colophon.npm -%}
-            <div class="mb4">
-                <h3 class="f6 ttu tracked color-vesper-muted mb2">Global NPM</h3>
-                <pre class="f7 code bg-vesper-card border-vesper ba pa3 br3 overflow-auto max-h-400"><code>{{ colophon.npm }}</code></pre>
-            </div>
-            {%- endif -%}
-
-            {%- if colophon.cargo -%}
-            <div class="mb4">
-                <h3 class="f6 ttu tracked color-vesper-muted mb2">Global Cargo</h3>
-                <pre class="f7 code bg-vesper-card border-vesper ba pa3 br3 overflow-auto max-h-400"><code>{{ colophon.cargo }}</code></pre>
-            </div>
-            {%- endif -%}
+    <div class="flex flex-column flex-row-l gap4">
+        <div class="w-100 w-50-l">
+            {%- if colophon.editors -%}{{ toolSection(colophon.editors) }}{%- endif -%}
+            {%- if colophon.terminals -%}{{ toolSection(colophon.terminals) }}{%- endif -%}
+            {%- if colophon.ai -%}{{ toolSection(colophon.ai) }}{%- endif -%}
+            {%- if colophon.languages -%}{{ toolSection(colophon.languages) }}{%- endif -%}
+            {%- if colophon.databases -%}{{ toolSection(colophon.databases) }}{%- endif -%}
         </div>
-    </section>
+        <div class="w-100 w-50-l">
+            {%- if colophon.shell -%}{{ toolSection(colophon.shell) }}{%- endif -%}
+            {%- if colophon.deployment -%}{{ toolSection(colophon.deployment) }}{%- endif -%}
+            {%- if colophon.security -%}{{ toolSection(colophon.security) }}{%- endif -%}
+            {%- if colophon.media -%}{{ toolSection(colophon.media) }}{%- endif -%}
+        </div>
+    </div>
 
+    {%- if colophon.theme -%}
     <section class="mb5">
-        <h2 class="f4 ttu tracked color-vesper-muted bb border-vesper pb2 mb4">Terminal & Aesthetic</h2>
-        <p class="f5 color-vesper-fg mb4">The site's visual theme is directly derived from my <strong>Ghostty</strong> terminal configuration, specifically the <em>Vesper</em> theme parity.</p>
-        {%- if colophon.ghostty -%}
-        <div>
-            <h3 class="f6 ttu tracked color-vesper-muted mb2">Ghostty Config</h3>
-            <pre class="f7 code bg-vesper-card border-vesper ba pa3 br3 overflow-auto max-h-400"><code>{{ colophon.ghostty }}</code></pre>
+        <h2 class="f5 ttu tracked color-vesper-muted bb border-vesper pb2 mb3">{{ colophon.theme.name }}</h2>
+        <p class="f5 color-vesper-subtle lh-copy mb3">{{ colophon.theme.description }}</p>
+        {%- if colophon.theme.palette -%}
+        <div class="flex flex-wrap gap3">
+            {%- for name, hex in colophon.theme.palette -%}
+            <div class="flex items-center gap2">
+                <div style="width: 2rem; height: 2rem; background: {{ hex }}; border-radius: 4px; border: 1px solid #343434;"></div>
+                <div>
+                    <div class="f7 fw6 color-vesper-fg">{{ name }}</div>
+                    <div class="f7 mono color-vesper-muted">{{ hex }}</div>
+                </div>
+            </div>
+            {%- endfor -%}
         </div>
         {%- endif -%}
     </section>
+    {%- endif -%}
 
-    <section class="mb5 tc">
-        <h2 class="f4 ttu tracked color-vesper-muted bb border-vesper pb2 mb4">Architecture</h2>
-        <ul class="list pl0 f5 color-vesper-fg">
-            <li class="pv2"><strong>Generator:</strong> <a href="https://www.11ty.dev/" target="_blank" class="color-vesper-accent underline dim">Eleventy (11ty)</a></li>
-            <li class="pv2"><strong>Data Source:</strong> GitHub API</li>
-            <li class="pv2"><strong>Styling:</strong> Tachyons CSS (Ghostty Palette)</li>
-            <li class="pv2"><strong>Deployment:</strong> Netlify</li>
-        </ul>
+    {%- if colophon.dotfiles -%}
+    <section class="mb5">
+        <h2 class="f5 ttu tracked color-vesper-muted bb border-vesper pb2 mb3">{{ colophon.dotfiles.name }}</h2>
+        <p class="f5 color-vesper-subtle lh-copy mb3">{{ colophon.dotfiles.description }}</p>
+        {%- if colophon.dotfiles.packages -%}
+        <div class="flex flex-wrap gap2">
+            {%- for pkg in colophon.dotfiles.packages -%}
+            <span class="f7 mono ph2 pv1 br2 color-vesper-accent" style="background: #1C1C1C; border: 1px solid #343434;">{{ pkg }}</span>
+            {%- endfor -%}
+        </div>
+        {%- endif -%}
     </section>
+    {%- endif -%}
+
+    {%- if colophon.site -%}{{ toolSection(colophon.site) }}{%- endif -%}
 </div>
 
 <style>
-    .max-h-400 { max-height: 400px; }
     .gap2 { gap: 0.5rem; }
     .gap3 { gap: 1rem; }
     .gap4 { gap: 2rem; }
+    .underline-hover:hover { text-decoration: underline; }
 </style>

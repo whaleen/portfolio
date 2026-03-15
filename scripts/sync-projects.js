@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 import fetch from 'node-fetch';
+import yaml from 'js-yaml';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -139,14 +140,10 @@ async function sync() {
         enrichedProjects.push(enriched);
     }
 
-    // Special Colophon Fetch from dotfiles
-    console.log(`📡 Fetching Colophon details from whaleen/dotfiles...`);
-    const colophon = {
-        brew: await fetchFileContent('whaleen', 'dotfiles', 'Brewfile'),
-        npm: await fetchFileContent('whaleen', 'dotfiles', 'npm-global.txt'),
-        cargo: await fetchFileContent('whaleen', 'dotfiles', 'cargo-global.txt'),
-        ghostty: await fetchFileContent('whaleen', 'dotfiles', '.config/ghostty/config')
-    };
+    // Fetch structured colophon data from dotfiles
+    console.log(`📡 Fetching Colophon from whaleen/dotfiles...`);
+    const colophonYaml = await fetchFileContent('whaleen', 'dotfiles', 'colophon.yaml');
+    const colophon = colophonYaml ? yaml.load(colophonYaml) : {};
 
     enrichedProjects.sort((a, b) => new Date(b.pushedAt) - new Date(a.pushedAt));
     fs.writeFileSync(DATA_OUTPUT_PATH, JSON.stringify(enrichedProjects, null, 2));
