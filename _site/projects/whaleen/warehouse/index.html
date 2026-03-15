@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+    <style>
+        :root {
+            --bg: #101010;
+            --fg: #ffffff;
+            --accent: #FFC799;
+            --muted: #A0A0A0;
+            --card-bg: #181818;
+            --border: #333333;
+            --tag-bg: #282828;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        /* Custom Vesper Utilities */
+        .color-vesper-bg { background-color: var(--bg); }
+        .color-vesper-fg { color: var(--fg); }
+        .color-vesper-accent { color: var(--accent); }
+        .color-vesper-muted { color: var(--muted); }
+        .bg-vesper-card { background-color: var(--card-bg); }
+        .border-vesper { border-color: var(--border); }
+        .hover-vesper-accent:hover { color: var(--accent); }
+        .hover-vesper-bg-accent:hover { background-color: var(--accent); color: var(--bg); }
+        
+        /* Markdown overrides to play nice with Vesper */
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: var(--accent); margin-top: 2rem; margin-bottom: 1rem; }
+        .markdown-body pre { background: var(--card-bg); padding: 1rem; border-radius: 4px; border: 1px solid var(--border); overflow-x: auto; }
+        .markdown-body code { font-family: monospace; background: var(--tag-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
+        .markdown-body a { color: var(--accent); text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body img { max-width: 100%; height: auto; border-radius: 4px; }
+        .markdown-body blockquote { border-left: 4px solid var(--border); padding-left: 1rem; color: var(--muted); margin-left: 0; }
+    </style>
+</head>
+<body class="w-100 sans-serif">
+    <header class="mw8 center pa4 pt5 pb4">
+        <h1 class="f1 fw8 ma0 mb2"><a href="/" class="no-underline color-vesper-fg hover-vesper-accent">Josh Vaage</a></h1>
+        <p class="f4 color-vesper-muted ma0">Software Engineer. Open Source & Projects.</p>
+    </header>
+    
+    <main class="mw8 center pa4">
+        
+<div class="mw7 center pa3 pa4-ns">
+    <a href="/" class="f6 fw5 color-vesper-muted no-underline hover-vesper-accent">← Back to Projects</a>
+    
+    <header class="flex flex-column flex-row-ns justify-between items-start items-center-ns mv4">
+        <h1 class="f2 fw8 ma0 mb2 mb0-ns color-vesper-fg">warehouse</h1>
+        <div class="flex gap3 f6 fw6">
+            <a href="https://github.com/whaleen/warehouse" target="_blank" class="no-underline color-vesper-accent hover-vesper-fg mr3 bb border-vesper">GitHub</a><a href="https://app.wrhs.pro" target="_blank" class="no-underline color-vesper-accent hover-vesper-fg bb border-vesper">Live Site</a></div>
+    </header><div class="w-100 mb4 border-vesper ba br3 overflow-hidden">
+        <img src="/public/social-previews/whaleen/warehouse.png" alt="warehouse preview" class="w-100 h-auto db">
+    </div><div class="project-content">
+        <p class="f3 lh-copy color-vesper-fg mv4">
+            
+        </p>
+
+        <div class="flex flex-row justify-around bt bb border-vesper pv4 mv5 tc">
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Language</span>
+                <span class="f3 fw7 color-vesper-fg">TypeScript</span>
+            </div>
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Last Pushed</span>
+                <span class="f3 fw7 color-vesper-fg">2/12/2026</span>
+            </div>
+        </div><div class="markdown-body mt5 bt border-vesper pt5">
+            <h1>Warehouse - Inventory Management System</h1>
+<p>A mobile-first React PWA for warehouse inventory management, load tracking, and verification scanning with a Supabase backend.</p>
+<h2>MVP Vision</h2>
+<p>This is an internal tool for warehouse operations. The core workflow:</p>
+<ol>
+<li>
+<p><strong>Product data comes from external systems</strong> - Not entered via scanning. GE ASIS data is synced via a dedicated <code>ge-sync</code> service (Playwright + Supabase). Static files in <code>/public/</code> are legacy/reference only.</p>
+</li>
+<li>
+<p><strong>Loads are managed and prepped</strong> - Loads are mirrored from GE ASIS and enriched locally (friendly name, color, notes, prep checklist).</p>
+</li>
+<li>
+<p><strong>Scanning is for verification (&quot;sanity checks&quot;)</strong> - When a load is ready for pickup, use the Map scanner (Fog of War or Ad-hoc) to verify items are present. Think of it as a &quot;job&quot;: boss says &quot;let's confirm Load Q is all there&quot; → scan each item → get final count → done. This sanity count is part of the prep checklist, typically done day-of pickup as a final stamp of approval.</p>
+</li>
+<li>
+<p><strong>Floor displays show live status</strong> - TV screens on the warehouse floor showing load summaries, parts alerts, and active sessions via Supabase Realtime.</p>
+</li>
+</ol>
+<h2>Feature Status</h2>
+<h3>Done</h3>
+<ul>
+<li>[x] Load management (GE-synced; no manual load creation; prep checklist + status tracking)</li>
+<li>[x] Load prep checklist (tagged, wrapped, pickup date)</li>
+<li>[x] Barcode scanning (camera + manual entry)</li>
+<li>[x] Map scanner (Fog of War + Ad-hoc) for verification counts</li>
+<li>[x] Product database with search</li>
+<li>[x] Floor displays with 6-digit pairing (public, unauthenticated)</li>
+<li>[x] Floor display widgets (loads summary, parts alerts, active sessions, clock, text)</li>
+<li>[x] Supabase Realtime for live updates</li>
+<li>[x] Multi-tenant (companies + locations)</li>
+<li>[x] Dark mode + mobile-first PWA</li>
+<li>[x] GE ASIS sync service (Playwright + Supabase)</li>
+<li>[x] Activity log (sync, wipe, load edits)</li>
+</ul>
+<h3>In Progress</h3>
+<ul>
+<li>[ ] Sanity count as explicit prep checklist item</li>
+<li>[ ] Floor display UI polish</li>
+</ul>
+<h3>Planned</h3>
+<ul>
+<li>[ ] Expand GE sync beyond ASIS</li>
+<li>[ ] Enhanced load conflict tracking</li>
+<li>[ ] Reporting/analytics</li>
+</ul>
+<h2>Tech Stack</h2>
+<ul>
+<li><strong>Frontend</strong>: React 19 + TypeScript + Vite</li>
+<li><strong>UI Framework</strong>: shadcn/ui (Radix primitives) + Tailwind CSS v4</li>
+<li><strong>Database</strong>: Supabase (PostgreSQL + Realtime)</li>
+<li><strong>Barcode Scanning</strong>: html5-qrcode</li>
+<li><strong>Charts</strong>: recharts</li>
+<li><strong>CSV Parsing</strong>: papaparse</li>
+<li><strong>PWA</strong>: vite-plugin-pwa</li>
+<li><strong>Legacy Browser Support</strong>: @vitejs/plugin-legacy (for Samsung TV)</li>
+</ul>
+<h2>Quick Start</h2>
+<h3>Prerequisites</h3>
+<ul>
+<li>Node.js 18+</li>
+<li>pnpm (<code>npm install -g pnpm</code>)</li>
+<li>Supabase account</li>
+</ul>
+<h3>1. Environment Setup</h3>
+<p>Create a <code>.env.local</code> file:</p>
+<pre><code class="language-env">VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+# Optional for initial tenancy
+VITE_ACTIVE_COMPANY_ID=your_company_uuid
+VITE_ACTIVE_LOCATION_ID=your_location_uuid
+# Optional for unlocking company/location manager in Settings
+VITE_SUPERADMIN_USERNAME=your_admin_username
+VITE_SUPERADMIN_PASSWORD=your_admin_password
+# Optional for GE sync service
+VITE_GE_SYNC_URL=http://localhost:3001
+VITE_GE_SYNC_API_KEY=your_api_key
+</code></pre>
+<h4>GE Sync environments (dev vs prod)</h4>
+<ul>
+<li><strong>Local dev</strong>: keep <code>VITE_GE_SYNC_URL=http://localhost:3001</code> in <code>.env.local</code> and run the service locally (<code>services/ge-sync</code>).</li>
+<li><strong>Production</strong>: set <code>VITE_GE_SYNC_URL</code> and <code>VITE_GE_SYNC_API_KEY</code> in your hosted frontend environment (the values are baked at build time). Use your Railway service URL.</li>
+</ul>
+<h3>2. Install &amp; Run</h3>
+<pre><code class="language-bash">pnpm install
+pnpm run dev
+</code></pre>
+<h3>2b. GE Sync Service (ASIS)</h3>
+<p>The GE sync service lives in <code>services/ge-sync</code> and runs separately.</p>
+<pre><code class="language-bash">cd services/ge-sync
+pnpm install
+pnpm exec playwright install chromium
+pnpm run dev
+</code></pre>
+<p>Scaling notes (beta+):</p>
+<ul>
+<li>Syncs run inline (no queue) and there is no per-location lock or global cap yet.</li>
+<li>Avoid overlapping syncs for the same location; heavy parallel syncs can exhaust Playwright resources.</li>
+<li>See <code>services/ge-sync/README.md</code> for planned queue/lock details and beta operational guidance.</li>
+</ul>
+<h3>3. Database Setup</h3>
+<p>Database migrations are managed via Supabase CLI in <code>supabase/migrations/</code>. Use <code>warehouse.sql</code> as a reference schema.</p>
+<p><strong>Key tables:</strong></p>
+<ul>
+<li><code>companies</code>, <code>locations</code>, <code>settings</code></li>
+<li><code>inventory_items</code>, <code>products</code>, <code>load_metadata</code></li>
+<li><code>scanning_sessions</code>, <code>tracked_parts</code>, <code>inventory_counts</code>, <code>trucks</code>, <code>users</code></li>
+<li><code>floor_displays</code> (with Realtime enabled)</li>
+<li><code>activity_log</code> (user actions)</li>
+</ul>
+<h2>Project Structure</h2>
+<pre><code>src/
+├── components/
+│   ├── ui/                 # shadcn/ui components
+│   ├── Auth/               # Login, avatar upload
+│   ├── Activity/           # Activity log
+│   ├── Dashboard/          # Metrics overview
+│   ├── FloorDisplay/       # TV display + widgets
+│   ├── Inventory/          # Inventory + load management
+│   ├── Navigation/         # Header, user menu, location switcher
+│   ├── Products/           # Product search and details
+│   ├── Scanner/            # Barcode scanning + scan overlay
+│   ├── Map/                # Warehouse map + scan view
+│   └── Settings/           # Settings + user manager + display manager
+├── context/
+│   └── AuthContext.tsx     # Authentication state
+├── lib/
+│   ├── supabase.ts         # Supabase client
+│   ├── displayManager.ts   # Floor display CRUD + Realtime
+│   ├── loadManager.ts      # Load data access + updates
+│   ├── sessionManager.ts   # Scan session persistence (scanner-managed)
+│   ├── scanMatcher.ts      # Barcode matching logic
+│   └── utils.ts            # General utilities
+├── types/
+│   ├── inventory.ts        # Inventory &amp; product types
+│   ├── session.ts          # Scan session types
+│   └── display.ts          # Floor display types
+├── App.tsx
+└── main.tsx
+</code></pre>
+<h2>Floor Display Setup</h2>
+<p>Floor displays are public screens that show live warehouse data without authentication.</p>
+<ol>
+<li><strong>Create a display</strong> - Go to Settings → Displays → Create Display</li>
+<li><strong>Get the pairing code</strong> - Note the 6-digit code shown</li>
+<li><strong>On the TV</strong> - Navigate to <code>/display</code> and enter the pairing code</li>
+<li><strong>Configure widgets</strong> - Back in Settings, configure which widgets appear</li>
+</ol>
+<p>Supported widgets:</p>
+<ul>
+<li><strong>Loads Summary</strong> - Count of loads by status</li>
+<li><strong>Parts Alerts</strong> - Low stock warnings</li>
+<li><strong>Active Sessions</strong> - Current scanning sessions</li>
+<li><strong>Clock</strong> - Date and time</li>
+<li><strong>Text</strong> - Custom message</li>
+</ul>
+<h2>Data Flow</h2>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│  External Systems (GE)                                       │
+│  - GE DMS ASIS exports (Report History + per-load CSVs)      │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  GE Sync Service (services/ge-sync)                          │
+│  - Playwright SSO + cookie persistence                        │
+│  - Fetches GE ASIS sheets + merges                            │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Supabase (PostgreSQL)                                       │
+│  - products, inventory_items, load_metadata                  │
+│  - ge_changes, activity_log                                  │
+│  - Realtime enabled for floor_displays                       │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+              ┌────────────┴────────────┐
+              ▼                         ▼
+┌─────────────────────────┐   ┌─────────────────────────┐
+│  Mobile App (Auth)       │   │  Floor Display (Public)  │
+│  - Load management       │   │  - /display route        │
+│  - Map scanner           │   │  - 6-digit pairing       │
+│  - Inventory CRUD        │   │  - Realtime widgets      │
+│  - Display configuration │   │  - No auth required      │
+└─────────────────────────┘   └─────────────────────────┘
+</code></pre>
+<h2>Inventory Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASIS</td>
+<td>As-is/open-box items</td>
+</tr>
+<tr>
+<td>FG</td>
+<td>Finished goods</td>
+</tr>
+<tr>
+<td>LocalStock</td>
+<td>Local warehouse stock</td>
+</tr>
+<tr>
+<td>Parts</td>
+<td>Replacement parts (no loads)</td>
+</tr>
+<tr>
+<td>BackHaul</td>
+<td>Items being returned</td>
+</tr>
+<tr>
+<td>Staged</td>
+<td>Items staged for delivery</td>
+</tr>
+<tr>
+<td>Inbound</td>
+<td>Incoming shipments</td>
+</tr>
+<tr>
+<td>WillCall</td>
+<td>Customer pickup items</td>
+</tr>
+</tbody>
+</table>
+<h2>Available Scripts</h2>
+<pre><code class="language-bash">pnpm run dev      # Start development server
+pnpm run build    # Production build (TypeScript + Vite)
+pnpm run lint     # ESLint validation
+pnpm run preview  # Preview production build
+</code></pre>
+<h2>Production Deployment (Floor Display)</h2>
+<p>For Samsung TV or other legacy browsers:</p>
+<pre><code class="language-bash">pnpm run build
+pnpm exec serve dist -s   # -s flag for SPA routing
+</code></pre>
+<p>The build includes legacy browser support via <code>@vitejs/plugin-legacy</code>.</p>
+<h2>Audience Notes</h2>
+<h3>For Developers</h3>
+<ul>
+<li>This is the high-level product/tech overview. Use <code>docs/INDEX.md</code> for validated docs.</li>
+</ul>
+<h3>For Operators</h3>
+<ul>
+<li>This is a technical overview; daily workflows are in the Docs UI (Warehouse + GE DMS sections).</li>
+</ul>
+<h3>For Agent</h3>
+<ul>
+<li>Treat this as a broad overview only; prefer detailed docs for workflow steps.</li>
+</ul>
+
+        </div></div>
+</div>
+
+    </main>
+
+    <footer class="mw8 center pa4 pt5 pb5">
+        <p class="f6 color-vesper-muted bt border-vesper pt4">
+            Built with 11ty. Updated: 3/14/2026 | <a href="/colophon" class="no-underline color-vesper-accent dim">Colophon</a>
+        </p>
+    </footer>
+</body>
+</html>

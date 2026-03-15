@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+    <style>
+        :root {
+            --bg: #101010;
+            --fg: #ffffff;
+            --accent: #FFC799;
+            --muted: #A0A0A0;
+            --card-bg: #181818;
+            --border: #333333;
+            --tag-bg: #282828;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        /* Custom Vesper Utilities */
+        .color-vesper-bg { background-color: var(--bg); }
+        .color-vesper-fg { color: var(--fg); }
+        .color-vesper-accent { color: var(--accent); }
+        .color-vesper-muted { color: var(--muted); }
+        .bg-vesper-card { background-color: var(--card-bg); }
+        .border-vesper { border-color: var(--border); }
+        .hover-vesper-accent:hover { color: var(--accent); }
+        .hover-vesper-bg-accent:hover { background-color: var(--accent); color: var(--bg); }
+        
+        /* Markdown overrides to play nice with Vesper */
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: var(--accent); margin-top: 2rem; margin-bottom: 1rem; }
+        .markdown-body pre { background: var(--card-bg); padding: 1rem; border-radius: 4px; border: 1px solid var(--border); overflow-x: auto; }
+        .markdown-body code { font-family: monospace; background: var(--tag-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
+        .markdown-body a { color: var(--accent); text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body img { max-width: 100%; height: auto; border-radius: 4px; }
+        .markdown-body blockquote { border-left: 4px solid var(--border); padding-left: 1rem; color: var(--muted); margin-left: 0; }
+    </style>
+</head>
+<body class="w-100 sans-serif">
+    <header class="mw8 center pa4 pt5 pb4">
+        <h1 class="f1 fw8 ma0 mb2"><a href="/" class="no-underline color-vesper-fg hover-vesper-accent">Josh Vaage</a></h1>
+        <p class="f4 color-vesper-muted ma0">Software Engineer. Open Source & Projects.</p>
+    </header>
+    
+    <main class="mw8 center pa4">
+        
+<div class="mw7 center pa3 pa4-ns">
+    <a href="/" class="f6 fw5 color-vesper-muted no-underline hover-vesper-accent">← Back to Projects</a>
+    
+    <header class="flex flex-column flex-row-ns justify-between items-start items-center-ns mv4">
+        <h1 class="f2 fw8 ma0 mb2 mb0-ns color-vesper-fg">helius-sdk</h1>
+        <div class="flex gap3 f6 fw6">
+            <a href="https://github.com/nothingdao/helius-sdk" target="_blank" class="no-underline color-vesper-accent hover-vesper-fg mr3 bb border-vesper">GitHub</a></div>
+    </header><div class="w-100 mb4 border-vesper ba br3 overflow-hidden">
+        <img src="/public/social-previews/nothingdao/helius-sdk.png" alt="helius-sdk preview" class="w-100 h-auto db">
+    </div><div class="project-content">
+        <p class="f3 lh-copy color-vesper-fg mv4">
+            
+        </p>
+
+        <div class="flex flex-row justify-around bt bb border-vesper pv4 mv5 tc">
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Language</span>
+                <span class="f3 fw7 color-vesper-fg">TypeScript</span>
+            </div>
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Last Pushed</span>
+                <span class="f3 fw7 color-vesper-fg">5/22/2025</span>
+            </div>
+        </div><div class="markdown-body mt5 bt border-vesper pt5">
+            <h1>Helius Node.js SDK</h1>
+<p><a href="https://www.npmjs.org/package/helius-sdk"><img src="https://img.shields.io/npm/v/helius-sdk" alt="Version"></a>
+<img src="https://img.shields.io/npm/dm/helius-sdk" alt="Downloads"></p>
+<p>The Helius Node.js library provides access to the Helius API from JavaScript/TypeScript.</p>
+<h2>Documentation</h2>
+<p>API reference documentation is available at <a href="https://docs.helius.dev">docs.helius.dev</a>.</p>
+<h2>Contributions</h2>
+<p>Interested in contributing? Read the following <a href="https://github.com/helius-labs/helius-sdk/blob/main/CONTRIBUTING.md">contributions guide...</a>.</p>
+<h2>Installation</h2>
+<p>Using npm:</p>
+<pre><code class="language-shell">npm install helius-sdk
+</code></pre>
+<p>Using yarn:</p>
+<pre><code class="language-shell">yarn add helius-sdk
+</code></pre>
+<h2>Usage</h2>
+<p>The package needs to be configured with your account's API key, which is available in the <a href="https://dev.helius.xyz/dashboard/app">Helius Dashboard</a>.</p>
+<pre><code class="language-js">import { Helius } from 'helius-sdk';
+
+// Replace YOUR_API_KEY with the API key from your Helius dashboard
+const helius = new Helius('YOUR_API_KEY');
+
+const getAssetsByOwner = async () =&gt; {
+  const response = await helius.rpc.getAssetsByOwner({
+    ownerAddress: '86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY',
+    page: 1,
+  });
+  console.log(response.items);
+};
+
+getAssetsByOwner();
+</code></pre>
+<p><a href="https://stackblitz.com/edit/helius-node-js-sdk-xbw7t6?file=index.js"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt="Try it out"></a></p>
+<h2>Handling errors</h2>
+<p>When the API returns a non-success status code (4xx or 5xx response), an error message will be thrown:</p>
+<pre><code class="language-ts">try {
+  const response = await helius.rpc.getAssetsByOwner({
+    ownerAddress: '86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY',
+    page: 1,
+  });
+  console.log(response.items);
+} catch (error) {
+  console.log(error);
+}
+</code></pre>
+<h3>Common Error Codes</h3>
+<p>When working with the Helius SDK, you may encounter several error codes. Below is a table detailing some of the common error codes along with additional information to help you troubleshoot:</p>
+<table>
+<thead>
+<tr>
+<th>Error Code</th>
+<th>Error Message</th>
+<th>More Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>401</td>
+<td>Unauthorized</td>
+<td>This occurs when an invalid API key is provided or access is restricted due to RPC rules.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests</td>
+<td>This indicates that the user has exceeded the request limit in a given timeframe or is out of credits.</td>
+</tr>
+<tr>
+<td>5XX</td>
+<td>Internal Server Error</td>
+<td>This is a generic error message for server-side issues. Please contact Helius support for assistance.</td>
+</tr>
+</tbody>
+</table>
+<p>If you encounter any of these errors, refer to the Helius documentation for further guidance, or reach out to the Helius support team for more detailed assistance.</p>
+<h2>Using the Helius SDK</h2>
+<p>Our SDK is designed to give you a seamless experience when building on Solana. We've separated the core functionality into various segments.</p>
+<p><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#das-api-digital-asset-standard"><strong>DAS API</strong></a></p>
+<p>Comprehensive and performant API for tokens, NFTs, and compressed NFTs on Solana.</p>
+<ul>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getasset"><code>getAsset()</code></a>: Get an asset by its ID.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getassetbatch"><code>getAssetBatch()</code></a>: Get multiple assets by ID (up to 1k).</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getsignaturesforasset"><code>getSignaturesForAsset()</code></a>: Get a list of transaction signatures related to a compressed asset.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#searchassets"><code>searchAssets()</code></a>: Search for assets by a variety of parameters. Very useful for token-gating!</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getassetproof"><code>getAssetProof()</code></a>: Get a Merkle proof for a compressed asset by its ID.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getassetsbyowner"><code>getAssetsByOwner()</code></a>: Get a list of assets owned by an address. This is the fastest way to get all the NFTs and fungible tokens that are owned by a wallet on Solana.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getassetsbygroup"><code>getAssetsByGroup()</code></a>: Get a list of assets by a group key and value. This endpoint is very useful for getting the mint list for NFT Collections.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getassetsbycreator"><code>getAssetsByCreator()</code></a>: Get a list of assets created by an address.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getassetsbyauthority"><code>getAssetsByAuthority()</code></a>: Get a list of assets with a specific authority.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#gettokenaccounts"><code>getTokenAccounts()</code></a>: Get information about all token accounts for a specific mint or a specific owner.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getnfteditions"><code>getNftEditions()</code></a>: Get information about all the edition NFTs for a specific master NFT</li>
+</ul>
+<p><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#staking"><strong>Staking</strong></a></p>
+<p>The easiest way to stake with Helius programmatically.</p>
+<ul>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#createstaketransaction"><code>createStakeTransaction()</code></a>: Generate a transaction to create + delegate a new stake account to the Helius validator.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#createunstaketransaction"><code>createUnstakeTransaction()</code></a>: Generate a transaction to deactivate a stake account.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#createwithdrawtransaction"><code>createWithdrawTransaction()</code></a>: Generate a transaction to withdraw lamports from a stake account (after cooldown).</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getstakeinstructions"><code>getStakeInstructions()</code></a>: Return only the instructions for creating and delegating a stake account.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getunstakeinstruction"><code>getUnstakeInstruction()</code></a>: Return the instruction to deactivate a stake account.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getwithdrawinstruction"><code>getWithdrawInstruction()</code></a>: Return the instruction to withdraw lamports from a stake account.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getwithdrawableamount"><code>getWithdrawableAmount()</code></a>: Determine how many lamports are withdrawable (with optional rent-exempt inclusion).</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getheliusstakeaccounts"><code>getHeliusStakeAccounts()</code></a>: Return all stake accounts delegated to the Helius validator for a given wallet.</li>
+</ul>
+<p><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#mint"><strong>Mint API</strong></a></p>
+<p>The easiest way to mint compressed NFTs at scale.</p>
+<p>Note, this API has been deprecated and the relevant methods will be removed in a future release. Please refer to <a href="https://docs.helius.dev/zk-compression-and-photon-api/what-is-zk-compression-on-solana">ZK Compression</a> for all future compression-related work</p>
+<ul>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#mintcompressednft"><code>mintCompressedNft()</code></a>: Mint a new compressed NFT.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#delegatecollectionauthority-and-revokecollectionauthority"><code>delegateCollectionAuthority()</code></a>: Delegates collection authority to a new address.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#delegatecollectionauthority-and-revokecollectionauthority"><code>revokeCollectionAuthority()</code></a>: Revokes collection authority from an address.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getmintlist"><code>getMintlist()</code></a> Get all the tokens for an NFT collection.</li>
+</ul>
+<p><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#webhooks"><strong>Webhooks</strong></a></p>
+<p>Provides methods for setting up, editing, and managing webhooks, crucial for listening to on-chain Solana events (e.g., sales, listings, swaps) and triggering actions when these events happen.</p>
+<ul>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#createwebhook"><code>createWebhook()</code></a>: Creates a new webhook with the provided request.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#editwebhook"><code>editWebhook()</code></a>: Edits an existing webhook by its ID with the provided request.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#appendaddressestowebhook"><code>appendAddressesToWebhook()</code></a>: Append new addresses to an existing webhook.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#removeaddressesfromwebhook"><code>removeAddressesFromWebhook()</code></a>: Remove addresses from an existing webhook.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#deletewebhook"><code>deleteWebhook()</code></a>: Deletes a webhook by its ID.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getwebhookbyid"><code>getWebhookByID()</code></a>: Retrieves a single webhook by its ID.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getallwebhooks"><code>getAllWebhooks()</code></a>: Retrieves a list of all webhooks.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#createcollectionwebhook"><code>createCollectionWebhook()</code></a> Create a new collection webhook with the provided request.</li>
+</ul>
+<p><a href="https://docs.helius.dev/solana-rpc-nodes/sending-transactions-on-solana#sending-smart-transactions"><strong>Smart Transactions</strong></a></p>
+<ul>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#createsmarttransaction"><code>createSmartTransaction()</code></a>: Creates a smart transaction with the provided configuration</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getcomputeunits"><code>getComputeUnits()</code></a>: Simulates a transaction to get the total compute units consumed</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#polltransactionconfirmation"><code>pollTransactionConfirmation()</code></a>: Polls a transaction to check whether it has been confirmed</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#sendsmarttransaction"><code>sendSmartTransaction()</code></a>: Builds and sends an optimized transaction</li>
+</ul>
+<p><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#jito-smart-transactions-and-helper-methods"><strong>Jito Smart Transactions and Helper Methods</strong></a></p>
+<ul>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#addtipinstruction"><code>addTipInstruction()</code></a>: Adds a tip instruction as the last instruction given the provided instructions</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#createsmarttransactionwithtip"><code>createSmartTransactionWithTip()</code></a>: Creates a smart transaction with a Jito tip</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getbundlestatuses"><code>getBundleStatuses()</code></a>: Gets the status of the provided bundles</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#sendjitobundle"><code>sendJitoBundle()</code></a>: Sends a bundle of transactions to the Jito Block Engine</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#sendsmarttransactionwithtip"><code>sendSmartTransactionWithTip()</code></a>: Sends a smart transaction as a Jito bundle with a tip</li>
+</ul>
+<p><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#helper-methods"><strong>Helper Methods</strong></a></p>
+<p>Offers additional tools for various Solana-related tasks like analyzing blockchain throughput and tracking stake accounts and SPL token holders.</p>
+<ul>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getcurrenttps"><code>getCurrentTPS()</code></a>: Returns the current transactions per second (TPS) rate — including voting transactions.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#airdrop"><code>airdrop()</code></a>: Request an allocation of lamports to the specified address</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getstakeaccounts"><code>getStakeAccounts()</code></a>: Returns all the stake accounts for a given public key.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#gettokenholders"><code>getTokenHolders()</code></a>: Returns all the token accounts for a given mint address (ONLY FOR SPL TOKENS).</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#getpriorityfeeestimate"><code>getPriorityFeeEstimate()</code></a>: Returns an estimated priority fee based on a set of predefined priority levels (percentiles).</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#sendtransaction"><code>sendTransaction()</code></a>: Wrapper for <code>sendTransaction</code> RPC call that includes support for <code>validatorAcls</code> parameter.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#broadcasttransaction"><code>broadcastTransaction()</code></a>: Broadcasts a fully signed transaction (object or serialized) and polls for its confirmation.</li>
+<li><a href="https://github.com/helius-labs/helius-sdk/blob/main/examples/EXAMPLES_OVERVIEW.md#executejupiterswap"><code>executeJupiterSwap()</code></a>: Execute a token swap using Jupiter Exchange with automatic transaction optimizations including priority fees, compute unit calculation, and reliable transaction confirmation.</li>
+</ul>
+
+        </div></div>
+</div>
+
+    </main>
+
+    <footer class="mw8 center pa4 pt5 pb5">
+        <p class="f6 color-vesper-muted bt border-vesper pt4">
+            Built with 11ty. Updated: 3/14/2026 | <a href="/colophon" class="no-underline color-vesper-accent dim">Colophon</a>
+        </p>
+    </footer>
+</body>
+</html>

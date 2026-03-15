@@ -1,0 +1,72 @@
+---
+layout: layouts/base.njk
+title: Josh's Projects
+---
+
+{%- macro projectListItem(project) -%}
+<li class="flex flex-column flex-row-ns justify-between items-start items-center-ns py3 pv3-ns bb border-vesper">
+    <div class="flex flex-column w-100 w-two-thirds-ns pr3-ns mb2 mb0-ns">
+        <h3 class="f4 fw6 ma0 mb1">
+            <a href="/projects/{{ project.org }}/{{ project.name | slugify }}/" class="no-underline color-vesper-accent hover-vesper-fg">
+                {{ project.name }}
+            </a>
+        </h3>
+        <p class="f6 color-vesper-muted ma0 lh-copy">
+            {{ project.github.description | default("No description available.") | truncate(100) }}
+        </p>
+    </div>
+    <div class="flex items-center justify-end-ns w-100 w-third-ns f6 mono color-vesper-muted tr-ns">
+        <span class="mr3 mr4-ns">{{ project.github.language | default("N/A") }}</span>
+        <span>{{ project.github.pushedAt | date }}</span>
+    </div>
+</li>
+{%- endmacro -%}
+
+{# Find the whaleen/whaleen project for the profile content #}
+{%- set profileProject = projects | selectattr("org", "equalto", "whaleen") | selectattr("name", "equalto", "whaleen") | first -%}
+
+{%- if profileProject and profileProject.github.readme -%}
+<section class="mw8 center mb5">
+    <div class="markdown-body f4 lh-copy">
+        {{ profileProject.github.readme | markdown | safe }}
+    </div>
+</section>
+{%- endif -%}
+
+{%- set featured = projects | filterByTopic("portfolio") -%}
+{%- set others = projects | excludeByTopic("portfolio") -%}
+
+<div class="mw8 center">
+    {%- if featured.length > 0 -%}
+    <section class="mb5">
+        <h2 class="f5 ttu tracked color-vesper-muted bb border-vesper pb2 mb3">Featured</h2>
+        <ul class="list pl0">
+            {%- for project in featured -%}
+                {{ projectListItem(project) }}
+            {%- endfor -%}
+        </ul>
+    </section>
+    {%- endif -%}
+
+    {%- set categories = others | groupby("category") -%}
+    {%- for categoryName, categoryProjects in categories -%}
+    {# Skip the profile repo in the list since it's used as the header content #}
+    {%- set filteredProjects = [] -%}
+    {%- for p in categoryProjects -%}
+        {%- if not (p.org == "whaleen" and p.name == "whaleen") -%}
+            {%- set _ = filteredProjects.push(p) -%}
+        {%- endif -%}
+    {%- endfor -%}
+
+    {%- if filteredProjects.length > 0 -%}
+    <section class="mb5">
+        <h2 class="f5 ttu tracked color-vesper-muted bb border-vesper pb2 mb3">{{ categoryName }}</h2>
+        <ul class="list pl0">
+            {%- for project in filteredProjects -%}
+                {{ projectListItem(project) }}
+            {%- endfor -%}
+        </ul>
+    </section>
+    {%- endif -%}
+    {%- endfor -%}
+</div>

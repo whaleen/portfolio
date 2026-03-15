@@ -1,0 +1,73 @@
+<h1>Solana Bundler Detector</h1>
+<p>A foundation for building token transaction analysis tools on Solana. Provides basic bundling detection metrics with an extensible architecture for custom analysis requirements.</p>
+<h2>What It Analyzes</h2>
+<p>The tool examines token transaction patterns through four core metrics:</p>
+<h3>Timing Cluster Analysis (40% weight)</h3>
+<p>Identifies transactions occurring within suspicious time windows (30s, 1min, 5min). Groups consecutive transactions and scores based on cluster size relative to total transactions. High scores indicate potential bot or bundler coordination.</p>
+<h3>Wallet Similarity Detection (30% weight)</h3>
+<p>Analyzes behavioral patterns across wallets by examining transaction frequency distributions. Calculates coefficient of variation in transaction counts - lower variation suggests coordinated behavior from potentially related wallets.</p>
+<h3>Transaction Size Patterns (20% weight)</h3>
+<p>Detects automated buying through transaction amount analysis. Examines variance in transaction sizes and flags suspiciously similar amounts that suggest preset bot parameters rather than organic trading.</p>
+<h3>Token Distribution Concentration (10% weight)</h3>
+<p>Measures wealth concentration using Gini coefficient calculations. Evaluates how token holdings are distributed among buyers to identify potential accumulation strategies.</p>
+<h2>Data Sources</h2>
+<ul>
+<li><strong>Helius Enhanced Transactions API</strong>: Primary source for parsed transaction data</li>
+<li><strong>Solana RPC</strong>: Fallback for signature retrieval and basic account information</li>
+<li><strong>getAsset API</strong>: Token metadata extraction for UI display</li>
+</ul>
+<h2>Architecture</h2>
+<p>The codebase is structured for extensibility:</p>
+<pre><code>src/
+├── lib/analyzer.ts          # Core analysis engine
+├── components/              # Modular UI components
+└── App.tsx                  # Main application logic
+</code></pre>
+<h2>Extending the Platform</h2>
+<p>This is intentionally a starting point. Token analysis requirements vary significantly based on:</p>
+<ul>
+<li>Market conditions and trading patterns</li>
+<li>Specific token economics and distribution mechanisms</li>
+<li>Evolving manipulation techniques</li>
+<li>Regulatory and compliance needs</li>
+</ul>
+<h3>Adding New Metrics</h3>
+<ol>
+<li>Implement analysis function in <code>analyzer.ts</code></li>
+<li>Add metric to the <code>AnalysisResult</code> interface</li>
+<li>Include weighting in the overall score calculation</li>
+<li>Update UI components to display new insights</li>
+</ol>
+<h3>Suggested Extensions</h3>
+<ul>
+<li><strong>Liquidity pool manipulation detection</strong>: Analyze LP token distribution and pool creation timing</li>
+<li><strong>Cross-DEX coordination</strong>: Compare transaction patterns across different exchanges</li>
+<li><strong>Historical pattern matching</strong>: Build databases of known manipulation signatures</li>
+<li><strong>Real-time monitoring</strong>: Implement WebSocket connections for live analysis</li>
+<li><strong>Social sentiment integration</strong>: Correlate on-chain activity with social metrics</li>
+</ul>
+<h2>Technical Notes</h2>
+<ul>
+<li>Uses batch processing to respect API rate limits</li>
+<li>Implements fallback mechanisms for data retrieval failures</li>
+<li>Modular component structure allows independent feature development</li>
+<li>Statistical analysis functions are isolated for easy modification</li>
+</ul>
+<h2>Limitations</h2>
+<p>No analysis tool can detect all forms of coordination or manipulation. Sophisticated actors will always adapt techniques to circumvent detection. This tool provides a foundation for understanding basic patterns, but effective analysis requires:</p>
+<ul>
+<li>Regular metric refinement based on observed attack vectors</li>
+<li>Domain-specific customization for different token types</li>
+<li>Integration with multiple data sources and analysis techniques</li>
+<li>Continuous monitoring and pattern database updates</li>
+</ul>
+<p>The goal is not comprehensive detection but rather a starting point for building tailored analysis solutions.</p>
+<h2>Setup</h2>
+<ol>
+<li>Clone the repository</li>
+<li>Install dependencies: <code>npm install</code></li>
+<li>Get a free Helius API key from <a href="https://dashboard.helius.dev/api-keys">dashboard.helius.dev</a></li>
+<li>Configure API key in the settings panel</li>
+<li>Run development server: <code>npm run dev</code></li>
+</ol>
+<p>Built with React, TypeScript, and Tailwind CSS.</p>

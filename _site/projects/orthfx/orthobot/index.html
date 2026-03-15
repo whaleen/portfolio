@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+    <style>
+        :root {
+            --bg: #101010;
+            --fg: #ffffff;
+            --accent: #FFC799;
+            --muted: #A0A0A0;
+            --card-bg: #181818;
+            --border: #333333;
+            --tag-bg: #282828;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        /* Custom Vesper Utilities */
+        .color-vesper-bg { background-color: var(--bg); }
+        .color-vesper-fg { color: var(--fg); }
+        .color-vesper-accent { color: var(--accent); }
+        .color-vesper-muted { color: var(--muted); }
+        .bg-vesper-card { background-color: var(--card-bg); }
+        .border-vesper { border-color: var(--border); }
+        .hover-vesper-accent:hover { color: var(--accent); }
+        .hover-vesper-bg-accent:hover { background-color: var(--accent); color: var(--bg); }
+        
+        /* Markdown overrides to play nice with Vesper */
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: var(--accent); margin-top: 2rem; margin-bottom: 1rem; }
+        .markdown-body pre { background: var(--card-bg); padding: 1rem; border-radius: 4px; border: 1px solid var(--border); overflow-x: auto; }
+        .markdown-body code { font-family: monospace; background: var(--tag-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
+        .markdown-body a { color: var(--accent); text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body img { max-width: 100%; height: auto; border-radius: 4px; }
+        .markdown-body blockquote { border-left: 4px solid var(--border); padding-left: 1rem; color: var(--muted); margin-left: 0; }
+    </style>
+</head>
+<body class="w-100 sans-serif">
+    <header class="mw8 center pa4 pt5 pb4">
+        <h1 class="f1 fw8 ma0 mb2"><a href="/" class="no-underline color-vesper-fg hover-vesper-accent">Josh Vaage</a></h1>
+        <p class="f4 color-vesper-muted ma0">Software Engineer. Open Source & Projects.</p>
+    </header>
+    
+    <main class="mw8 center pa4">
+        
+<div class="mw7 center pa3 pa4-ns">
+    <a href="/" class="f6 fw5 color-vesper-muted no-underline hover-vesper-accent">← Back to Projects</a>
+    
+    <header class="flex flex-column flex-row-ns justify-between items-start items-center-ns mv4">
+        <h1 class="f2 fw8 ma0 mb2 mb0-ns color-vesper-fg">orthobot</h1>
+        <div class="flex gap3 f6 fw6">
+            <a href="https://github.com/orthfx/orthobot" target="_blank" class="no-underline color-vesper-accent hover-vesper-fg mr3 bb border-vesper">GitHub</a></div>
+    </header><div class="w-100 mb4 border-vesper ba br3 overflow-hidden">
+        <img src="/public/social-previews/orthfx/orthobot.png" alt="orthobot preview" class="w-100 h-auto db">
+    </div><div class="project-content">
+        <p class="f3 lh-copy color-vesper-fg mv4">
+            
+        </p>
+
+        <div class="flex flex-row justify-around bt bb border-vesper pv4 mv5 tc">
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Language</span>
+                <span class="f3 fw7 color-vesper-fg">JavaScript</span>
+            </div>
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Last Pushed</span>
+                <span class="f3 fw7 color-vesper-fg">8/4/2023</span>
+            </div>
+        </div><div class="markdown-body mt5 bt border-vesper pt5">
+            <h1>orthobot</h1>
+<p>A discord bot that posts ESV bible passages when referenced in chat</p>
+<p>NKJV with full Orthodox cannon coming soon...</p>
+<h2>Usage</h2>
+<p>When you type a message of one of the following categories into a text server, orthobot will respond as appropriate</p>
+<ol>
+<li>
+<p>Specific Reference (e.g. Gen 1:1)</p>
+</li>
+<li>
+<p>Whole Chapter (e.g. Gen 1)</p>
+</li>
+<li>
+<p>Range of chapters (e.g. Gen 1-2)</p>
+</li>
+<li>
+<p>Range of verses wihtin a chapter (e.g. Gen 1:1-3)</p>
+</li>
+<li>
+<p>Range of verses crossing chapters (e.g. Gen 1:1-2:3)</p>
+</li>
+</ol>
+<p>You may also provide multiple references by delimiting them with a semicolon. (e.g. Gen 1-2; John 3:16)</p>
+<h2>Instructions</h2>
+<p><strong>Step 1:</strong> Download Node.js and create a Discord account.</p>
+<ul>
+<li>Node.js is required for running your bot. Download and install it from <a href="https://nodejs.org">nodejs.org</a>.</li>
+<li>Create a Discord account and server to test your bot.</li>
+</ul>
+<p><strong>Step 2:</strong> Create a Discord application for your bot.</p>
+<ul>
+<li>Go to <a href="https://discordapp.com/developers/applications/me">discordapp.com/developers/applications/me</a> and log in.</li>
+<li>Click &quot;New Application&quot; and give your bot a name.</li>
+<li>In the right-hand menu, click &quot;Bot&quot; and then &quot;Add Bot.&quot;</li>
+<li>Obtain the bot's authorization token by clicking &quot;Click to Reveal&quot; under &quot;Token:&quot;</li>
+</ul>
+<p><strong>Step 3:</strong> Protect your bot's token and get your Client ID.</p>
+<ul>
+<li>Keep the bot's authorization token secret as it controls your bot's actions.</li>
+<li>Copy your Client ID from the &quot;App Details&quot; section.</li>
+</ul>
+<p><strong>Step 4:</strong> Invite your bot to your server.</p>
+<ul>
+<li>Use your Client ID to create an invite URL: <a href="https://discordapp.com/oauth2/authorize?&amp;client_id=CLIENTID&amp;scope=bot&amp;permissions=8">https://discordapp.com/oauth2/authorize?&amp;client_id=CLIENTID&amp;scope=bot&amp;permissions=8</a> (replacing CLIENTID in the URL with the Client ID obtained in Step 3.)</li>
+</ul>
+<p><strong>Step 5</strong> Replace YOUR_BOTS_AUTH_TOKEN in file in the root folder in the file called <code>auth.json</code> with the auth token you got in step 3 above.</p>
+<pre><code>{
+    &quot;token&quot;: &quot;YOUR_BOTS_AUTH_TOKEN&quot;
+}
+</code></pre>
+<h3>Finally</h3>
+<pre><code>npm install
+</code></pre>
+<p>And then run the server:</p>
+<pre><code>node bot.js
+</code></pre>
+<h3>Todo</h3>
+<ul>
+<li>[ ] Multiple Translations Support</li>
+<li>[ ] Slash Commands</li>
+<li>[ ] Quotes (Fathers / Saints / Etc...)</li>
+<li>[ ] Glossary of terms</li>
+<li>[ ] ?</li>
+</ul>
+
+        </div></div>
+</div>
+
+    </main>
+
+    <footer class="mw8 center pa4 pt5 pb5">
+        <p class="f6 color-vesper-muted bt border-vesper pt4">
+            Built with 11ty. Updated: 3/14/2026 | <a href="/colophon" class="no-underline color-vesper-accent dim">Colophon</a>
+        </p>
+    </footer>
+</body>
+</html>

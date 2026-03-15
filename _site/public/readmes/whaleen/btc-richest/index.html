@@ -1,0 +1,45 @@
+<p><a href="https://app.netlify.com/sites/btc-richest/deploys"><img src="https://api.netlify.com/api/v1/badges/1bb05762-e136-4d75-b370-113b0b8e14f0/deploy-status" alt="Netlify Status"></a></p>
+<h2>Production</h2>
+<p>This repository is a production code base served by Netlify.</p>
+<p>This repository is private therefore the API key and Netlify build hook in this README are kept safely.</p>
+<p>Netlify build hook:
+<code>curl -X POST -d {} https://api.netlify.com/build_hooks/5e619be169507b4365fbc9d8</code></p>
+<p>This runs the build script on Netlify. Can be run in the terminal manually. Go ahead and try it. It's fun. It is setup in .github/workflows/main.yml to run <strong>every 15 minutes</strong> so it's automatic with 'GitHub Actions'.</p>
+<h3>The build script on Netlify is:</h3>
+<p><code>https://chainz.cryptoid.info/btc/api.dws?q=rich ; curl -H 'X-CMC_PRO_API_KEY: ba9dad90-2b59-43ce-aed9-4e5c169b7901' -H 'Accept: application/json' -d 'symbol=BTC'  -G https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest -o _data/btc.json ; eleventy</code></p>
+<p>This is the combination of 3 commands. 2 which hit their respoective APIs and 1 to build eleventy. Eleventy is the page generator.</p>
+<p><strong>Note: This is an 11ty project. The templating is done with Nunjucks.</strong></p>
+<h2>Local development</h2>
+<ul>
+<li><code>git clone https://github.com/whaleen/btc-richest</code></li>
+<li><code>cd btc-richest</code></li>
+<li><code>npm install</code></li>
+<li><code>npx @11ty/eleventy --serve</code></li>
+</ul>
+<p>No data exists in the the _data folder until you run the following scripts. Each of which place data files in the _data folder (inluded in this repo for demonstration. For fresh data you'll need to run the scripts with your API key... See below.).</p>
+<h3>Bitcoin Top 1000 Hodlers</h3>
+<p><code>npm run rich</code></p>
+<ul>
+<li>Hits Chainz API for top 1000 largest bitcoin hodlers</li>
+<li>Now a file called rich.json in in the _data folder</li>
+</ul>
+<h3>Bitcoin Price</h3>
+<p><code>npm run btc</code></p>
+<ul>
+<li>Hits Coin Market Cap API with npm script</li>
+<li>Now a file called btc.json in in the _data folder</li>
+<li>Requires an API key.</li>
+<li>Replace API key in the package.json script for 'btc'</li>
+</ul>
+<h3>Demo on Netlify</h3>
+<p><a href="https://btc-richest.netlify.com">https://btc-richest.netlify.com</a></p>
+<p>Netfly provides the means to store API keys and to automate builds. Visit their docs to explore options for production. In developement you can just just run the scripts to generate the files locally and push the output to GitHub. This is how this repo is being utilized. Local edits get pushed to GitHub and Netlfy sucks them in.</p>
+<p>See <code>package.json</code> for scripts used to pull data from the APIs. All script except the 'btc' script are using and Coin Market Cap and require an API key. The rest are using Chainz. It should be evident from looking at the scripts that each is simply a CURL command which write the API results to a file so you can cook up your own recipes based on your needs.</p>
+<h3>APIs used</h3>
+<p>An account with Coing Market Cap is required to use their API.</p>
+<ul>
+<li>Coin Market Cap - https://coinmarketcap.com/api/documentation/v1/</li>
+<li>Chainz - https://chainz.cryptoid.info/api.dws</li>
+</ul>
+<p>Netfly provides the means to store API keys and to automate builds. In developement you can just just run the scripts to generate the files locally and push the output to GitHub. This is how this repo is being utilized. Local edits get pushed to GitHub and Netlfy sucks them in.</p>
+<p>See package.json for scripts used to pull data from the APIs.</p>

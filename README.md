@@ -1,48 +1,38 @@
-# Joshua Vaage - Portfolio
+# Portfolio
 
-Personal portfolio website built with React, Vite, TypeScript, Tailwind CSS, and shadcn/ui.
+Personal portfolio site built with [Eleventy](https://www.11ty.dev/). Pulls project data from GitHub and generates static pages.
 
-## Features
+## Stack
 
-- **Project Database**: Uses CSV file (`src/data/projects.csv`) as a database for all 204 repositories across GitHub organizations
-- **Resume Integration**: About page content derived from resume markdown
-- **Contact Information**: Displays contact details from resume data
-- **Responsive Design**: Mobile-first, PWA-ready
-
-## Tech Stack
-
-- **Framework**: React with Vite
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS + shadcn/ui
-- **Data Source**: CSV project database
-
-## Data Files
-
-- `src/data/projects.csv` - Complete project database with metadata (204 repos)
-- `src/data/resume.md` - Resume content for about page
+- **11ty** — Static site generator
+- **Nunjucks** — Templating
+- **Tachyons** — Utility CSS
+- **GitHub API** — Project data via `gh` CLI
 
 ## Development
 
 ```bash
-npm install
-npm run dev
+npm start        # Dev server with hot reload
+npm run build    # Production build → _site/
+npm run sync     # Sync project data from GitHub
 ```
 
-## Project Database Fields
+## Structure
 
-The CSV contains comprehensive metadata for portfolio filtering and display:
-- Basic: Repo, Language, Last Updated, GitHub Org
-- Status: Local, Updated, Status, Notes
-- Deployment: Live URL, Deployment Platform
-- Technical: PWA, Framework, Styling, Backend, Database
-- Web3: Blockchain, Wallet Integration
-- Quality: Has Tests, CI/CD, Documentation, README Quality
-- Portfolio: Resume Worthy, Featured Project, Key Tags, Demo Ready, Project Type, Archive Candidate
+```
+_data/
+  projects.json     Project metadata (synced from GitHub)
+  colophon.json     Tool references
+_includes/
+  layouts/base.njk  Base HTML template (Vesper dark theme)
+index.njk           Homepage — featured projects + categories
+project.njk         Individual project pages (pagination)
+colophon.njk        Colophon page
+scripts/
+  sync-projects.js  Fetches repos from whaleen, nothingdao, orthfx orgs
+public/             Static assets (favicons, social images)
+```
 
-## Contact
+## Data
 
-- **Name**: Joshua Vaage
-- **Phone**: 916 204 6014
-- **Location**: PST
-- **GitHub**: https://github.com/whaleen
-- **Twitter/X**: @4A_6F_73_68
+`npm run sync` pulls repos from GitHub and writes `_data/projects.json`. Projects tagged with the `portfolio` topic appear as featured on the homepage. Others are grouped by category.

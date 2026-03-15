@@ -1,0 +1,180 @@
+<h1>Orthodox Reader</h1>
+<p>A minimal, mobile-first Bible reading application featuring continuous scroll, synchronized audio narration, and a distraction-free reading experience. Built with React, TypeScript, and Tailwind CSS.</p>
+<h2>Features</h2>
+<ul>
+<li><strong>Progressive Web App</strong>: Installable on mobile and desktop with offline support</li>
+<li><strong>Offline Reading</strong>: Entire Bible text cached for reading without internet</li>
+<li><strong>Continuous Reading</strong>: Infinite scroll from Genesis to Revelation - chapters load dynamically as you read</li>
+<li><strong>Audio Narration</strong>: Synchronized audio playback with real-time verse highlighting and auto-scroll tracking</li>
+<li><strong>Smart Audio Controls</strong>: Auto-scroll follows audio playback, with &quot;Resume Tracking&quot; button when you scroll away</li>
+<li><strong>Reading Position Tracking</strong>: Automatically saves your place and offers &quot;Continue Reading&quot; on the home page</li>
+<li><strong>Smart Navigation</strong>: Dropdown navigation from header with testament tabs, expandable book lists, and chapter grids</li>
+<li><strong>Font Options</strong>: Choose from Serif, Modern Serif, Sans Serif, or Monospace (JetBrains Mono)</li>
+<li><strong>Dark/Light Mode</strong>: System-aware theme switching with smooth transitions</li>
+<li><strong>Mobile-First Design</strong>: Responsive layout optimized for all devices</li>
+<li><strong>Book Headings</strong>: Visual separators between books with cover images and testament transitions</li>
+<li><strong>Clean Interface</strong>: Minimal, distraction-free reading experience with fixed header</li>
+</ul>
+<h2>Tech Stack</h2>
+<ul>
+<li><strong>React 19</strong> with TypeScript</li>
+<li><strong>Vite</strong> for build tooling</li>
+<li><strong>React Router v7</strong> for navigation</li>
+<li><strong>Tailwind CSS v4</strong> for styling</li>
+<li><strong>Radix UI</strong> for accessible components</li>
+<li><strong>vite-plugin-pwa</strong> for Progressive Web App support</li>
+<li><strong>Workbox</strong> for service worker and caching strategies</li>
+<li><strong>Intersection Observer API</strong> for scroll tracking</li>
+<li><strong>HTML5 Audio API</strong> for synchronized narration</li>
+</ul>
+<h2>Project Structure</h2>
+<pre><code>ortho-bible/
+├── src/
+│   ├── components/       # Reusable UI components
+│   │   ├── audio-player.tsx
+│   │   ├── audio-toggle.tsx
+│   │   ├── book-navigation.tsx
+│   │   ├── font-toggle.tsx
+│   │   ├── theme-toggle.tsx
+│   │   └── logo.tsx
+│   ├── data/            # Bible text and metadata
+│   │   ├── new-testament/
+│   │   ├── old-testament/
+│   │   └── bibleBooks.ts
+│   ├── pages/           # Route pages
+│   │   ├── Home.tsx
+│   │   └── ChapterView.tsx
+│   └── lib/             # Utilities
+├── public/
+│   └── audio-timings/   # Audio synchronization data
+└── scripts/
+    └── parse-transcript.js  # YouTube transcript parser
+</code></pre>
+<h2>Data Format</h2>
+<h3>Chapter Text</h3>
+<p>Bible chapters are stored as MDX files with verses formatted as:</p>
+<pre><code>1. In the beginning God created the heavens and the earth.
+2. The earth was without form, and void...
+</code></pre>
+<h3>Audio Timings</h3>
+<p>Audio synchronization data stored as JSON:</p>
+<pre><code class="language-json">{
+  &quot;audioFile&quot;: &quot;titus.m4a&quot;,
+  &quot;chapters&quot;: {
+    &quot;1&quot;: {
+      &quot;verses&quot;: [
+        { &quot;number&quot;: 1, &quot;start&quot;: 3 },
+        { &quot;number&quot;: 2, &quot;start&quot;: 13 }
+      ]
+    }
+  }
+}
+</code></pre>
+<h2>How It Works</h2>
+<ol>
+<li><strong>Bible Data</strong>: NKJV text organized by testament/book/chapter in <code>src/data/</code></li>
+<li><strong>Metadata</strong>: <code>src/data/bibleBooks.ts</code> catalogs all 66 books with chapter counts</li>
+<li><strong>Routing</strong>: URLs follow pattern <code>/:testament/:book/:chapter</code> (e.g., <code>/new/john/3</code>)</li>
+<li><strong>Infinite Scroll</strong>: Intersection Observer tracks visibility and loads adjacent chapters dynamically (max 7 chapters in memory)</li>
+<li><strong>URL Sync</strong>: <code>history.replaceState()</code> updates URL as you scroll without reloading</li>
+<li><strong>Audio Sync</strong>: Timestamps map verses to audio playback position for real-time highlighting</li>
+<li><strong>Reading Position</strong>: localStorage saves last read chapter for &quot;Continue Reading&quot; feature</li>
+<li><strong>Theme &amp; Font</strong>: Preferences persisted in localStorage and applied via CSS classes</li>
+</ol>
+<h2>Development</h2>
+<pre><code class="language-bash">npm install
+npm run dev
+</code></pre>
+<p>Visit <code>http://localhost:5173</code> to view the app. The PWA service worker is enabled in development mode.</p>
+<h2>Building for Production</h2>
+<pre><code class="language-bash">npm run build
+npm run preview
+</code></pre>
+<p>The build process generates:</p>
+<ul>
+<li>Optimized static files in <code>dist/</code></li>
+<li>Service worker with precaching for offline support</li>
+<li>Web app manifest for PWA installation</li>
+<li>Compressed assets with gzip analysis</li>
+</ul>
+<h2>Current Status</h2>
+<ul>
+<li>✅ All 27 New Testament books available</li>
+<li>✅ 41 Old Testament books available (including deuterocanonical)</li>
+<li>✅ Continuous infinite scroll reading</li>
+<li>✅ Audio narration with synchronized highlighting and auto-scroll tracking</li>
+<li>✅ Reading position tracking and auto-resume</li>
+<li>✅ Progressive Web App with offline support</li>
+<li>✅ Installable on mobile and desktop devices</li>
+<li>⏳ Some books show &quot;Coming Soon&quot; (data not yet added)</li>
+<li>📖 Total: 1,202+ chapters available</li>
+</ul>
+<h2>PWA Installation</h2>
+<h3>Mobile (iOS/Android)</h3>
+<ol>
+<li>Open the app in Safari (iOS) or Chrome (Android)</li>
+<li>Tap the install prompt that appears at the bottom</li>
+<li>Or use browser's &quot;Add to Home Screen&quot; option</li>
+<li>App icon will appear on your home screen</li>
+</ol>
+<h3>Desktop (Chrome/Edge)</h3>
+<ol>
+<li>Look for the install icon in the address bar</li>
+<li>Click &quot;Install&quot; when prompted</li>
+<li>App opens in its own window</li>
+</ol>
+<h3>Offline Features</h3>
+<ul>
+<li><strong>Bible Text</strong>: Entire Bible cached automatically (CacheFirst strategy, 1 year)</li>
+<li><strong>Images</strong>: App icons and images cached for 30 days</li>
+<li><strong>Audio Timings</strong>: Synchronization data cached for 30 days</li>
+<li><strong>Audio Files</strong>: Available online only (manual download per book - coming soon)</li>
+</ul>
+<h2>Roadmap</h2>
+<h3>V2 Data Format</h3>
+<ul>
+<li>[ ] Migrate from MDX to JSON format for verse-level addressing</li>
+<li>[ ] Enable direct verse linking (e.g., <code>/new/john/3#16</code>)</li>
+<li>[ ] Support for cross-references between verses</li>
+<li>[ ] Footnotes and study notes per verse</li>
+<li>[ ] Better structure for search functionality</li>
+</ul>
+<h3>Features</h3>
+<ul>
+<li>[ ] Manual audio download for offline listening</li>
+<li>[ ] Search across all books and chapters</li>
+<li>[ ] Multiple Bible translations (NKJV, KJV, ESV, etc.)</li>
+<li>[ ] Verse sharing with copy/link functionality</li>
+<li>[ ] Bookmarks and highlights with sync</li>
+<li>[ ] Reading plans and daily devotionals</li>
+<li>[ ] Audio narration for all books (currently limited availability)</li>
+<li>[ ] Adjustable audio playback speed</li>
+<li>[ ] Scripture memory/flashcards</li>
+<li>[ ] Reading statistics and streaks</li>
+</ul>
+<h3>Technical Improvements</h3>
+<ul>
+<li>[ ] Full test coverage</li>
+<li>[ ] Performance optimization for very long scroll sessions</li>
+<li>[ ] Better scroll position preservation during chapter unload</li>
+<li>[ ] Accessibility audit and improvements</li>
+</ul>
+<h2>Notes</h2>
+<ul>
+<li>Chapter keys use <code>::</code> separator to support books with numbers (e.g., <code>new::1-john::1</code>)</li>
+<li>Audio player appears at bottom of screen when audio is available for current book</li>
+<li>Audio auto-scroll can be toggled; &quot;Resume Tracking&quot; button appears when manually scrolling</li>
+<li>Reading position auto-saves as you scroll using Intersection Observer</li>
+<li>Home page shows minimal centered design with logo and &quot;Continue Reading&quot; button</li>
+<li>First-time users see feature highlights; returning users see continue reading</li>
+<li>PWA install prompt appears on first visit (can be dismissed)</li>
+<li>Service worker automatically updates app when new version is available</li>
+<li>Hebrews stored in <code>src/data/old-testament/</code> but displays in New Testament navigation</li>
+</ul>
+<h2>Browser Support</h2>
+<ul>
+<li><strong>Chrome/Edge</strong>: Full PWA support with installation and offline features</li>
+<li><strong>Safari (iOS)</strong>: Full PWA support with &quot;Add to Home Screen&quot;</li>
+<li><strong>Firefox</strong>: Offline support, limited PWA installation UI</li>
+<li><strong>Modern browsers</strong>: All core reading features work without installation</li>
+</ul>

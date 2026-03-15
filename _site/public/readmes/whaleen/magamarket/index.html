@@ -1,0 +1,84 @@
+<h1>🌻 Smix</h1>
+<p><strong>A gulp-based starter for Static Site Generators, preconfigured for @11ty/eleventy and Forestry CMS</strong></p>
+<h2>Framework</h2>
+<ul>
+<li>♥ Eleventy 0.11.0 out of the box
+<ul>
+<li>Date filters for a friendly version such as <code>10 March 2020</code>, and ISO8601 (also RFC822 compatible)</li>
+<li><code>getUrl</code> shortcode similar to Jekyll's <code>post_url</code> and <code>link</code> liquid tags</li>
+<li>Custom rendering engine for HTML files - <code>Liquid v9</code>
+<ul>
+<li>Adds support for missing filters such as <code>where</code> and improves performance</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>🛋 Preconfigured for <a href="https://forestry.io/">Forestry CMS</a>.
+<ul>
+<li>Sign up, log in, look for the <code>Deploy admin</code> option.</li>
+<li>Everything else is set up for you already. :)</li>
+</ul>
+</li>
+<li>💁Indie publishing and reading experience
+<ul>
+<li>microformats2 support for <code>h-card</code>, <code>h-entry</code>, and <code>h-feed</code> out of the box</li>
+</ul>
+</li>
+<li>👩‍💻 Modern JavaScript
+<ul>
+<li>Transpilation via Babel
+<ul>
+<li>Support for <code>ES2015</code> JavaScript syntax</li>
+<li>Support for <code>ES2017</code> <code>async</code>/<code>await</code> syntax</li>
+</ul>
+</li>
+<li>Module bundling via Browserify</li>
+</ul>
+</li>
+<li>🎨 PostCSS
+<ul>
+<li>Includes: imports, nesting, purge, minification, autoprefixer</li>
+<li>TailwindCSS, configured to strip out unused classes from production builds</li>
+<li>Easily build a dark mode using the included <code>dm</code> screen type: <code>dm:bg-gray-900</code></li>
+</ul>
+</li>
+<li>🔍 SEO and more
+<ul>
+<li>Meta tags for social networks (Open Graph/Twitter)</li>
+<li>Sitemap with <code>changeFrequency</code>; <code>robots.txt</code> (please also see <a href="https://github.com/hirusi/smix-eleventy-starter/issues/7">issue #7</a>)</li>
+<li>An Atom feed with support for both <code>published</code> and <code>updated</code> dates on articles</li>
+<li>Support for <code>content-description</code> meta tag</li>
+</ul>
+</li>
+<li>📖 A sane fonts setup
+<ul>
+<li>The <code>font-sans</code> class is configured to use system-default fonts</li>
+<li>Include fonts locally for enhanced privacy of your visitors</li>
+<li><code>typeset</code> for professional looking content</li>
+</ul>
+</li>
+<li>💪 Minified assets on production</li>
+<li>📔 Prettier and editorconfig</li>
+<li>🔧 Modular gulp task files for easy configuration and modification</li>
+</ul>
+<h2>To-Do</h2>
+<ul>
+<li>Reload automatically after our assets change (filed <a href="https://github.com/11ty/eleventy/issues/1125">issue here</a>, waiting for response/PR approval). Please reload manually for now.</li>
+<li>Webmentions, incoming and outgoing, only from/to other IndieWeb sites</li>
+<li>System default serif font class</li>
+<li>Scheduled blog posts</li>
+<li>Lazy-load images</li>
+<li>Responsive images</li>
+</ul>
+<h2>How to Use</h2>
+<h3>Local Development</h3>
+<ul>
+<li><code>nvm use</code></li>
+<li><code>npm install</code></li>
+<li><code>npm run dev</code></li>
+<li>Open <code>localhost:8080</code> on your browser</li>
+</ul>
+<h3>Production</h3>
+<ul>
+<li><code>npm run prod</code></li>
+</ul>

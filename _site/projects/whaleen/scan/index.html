@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+    <style>
+        :root {
+            --bg: #101010;
+            --fg: #ffffff;
+            --accent: #FFC799;
+            --muted: #A0A0A0;
+            --card-bg: #181818;
+            --border: #333333;
+            --tag-bg: #282828;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        /* Custom Vesper Utilities */
+        .color-vesper-bg { background-color: var(--bg); }
+        .color-vesper-fg { color: var(--fg); }
+        .color-vesper-accent { color: var(--accent); }
+        .color-vesper-muted { color: var(--muted); }
+        .bg-vesper-card { background-color: var(--card-bg); }
+        .border-vesper { border-color: var(--border); }
+        .hover-vesper-accent:hover { color: var(--accent); }
+        .hover-vesper-bg-accent:hover { background-color: var(--accent); color: var(--bg); }
+        
+        /* Markdown overrides to play nice with Vesper */
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: var(--accent); margin-top: 2rem; margin-bottom: 1rem; }
+        .markdown-body pre { background: var(--card-bg); padding: 1rem; border-radius: 4px; border: 1px solid var(--border); overflow-x: auto; }
+        .markdown-body code { font-family: monospace; background: var(--tag-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
+        .markdown-body a { color: var(--accent); text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body img { max-width: 100%; height: auto; border-radius: 4px; }
+        .markdown-body blockquote { border-left: 4px solid var(--border); padding-left: 1rem; color: var(--muted); margin-left: 0; }
+    </style>
+</head>
+<body class="w-100 sans-serif">
+    <header class="mw8 center pa4 pt5 pb4">
+        <h1 class="f1 fw8 ma0 mb2"><a href="/" class="no-underline color-vesper-fg hover-vesper-accent">Josh Vaage</a></h1>
+        <p class="f4 color-vesper-muted ma0">Software Engineer. Open Source & Projects.</p>
+    </header>
+    
+    <main class="mw8 center pa4">
+        
+<div class="mw7 center pa3 pa4-ns">
+    <a href="/" class="f6 fw5 color-vesper-muted no-underline hover-vesper-accent">← Back to Projects</a>
+    
+    <header class="flex flex-column flex-row-ns justify-between items-start items-center-ns mv4">
+        <h1 class="f2 fw8 ma0 mb2 mb0-ns color-vesper-fg">scan</h1>
+        <div class="flex gap3 f6 fw6">
+            <a href="https://github.com/whaleen/scan" target="_blank" class="no-underline color-vesper-accent hover-vesper-fg mr3 bb border-vesper">GitHub</a><a href="https://scan.ndao.computer/" target="_blank" class="no-underline color-vesper-accent hover-vesper-fg bb border-vesper">Live Site</a></div>
+    </header><div class="w-100 mb4 border-vesper ba br3 overflow-hidden">
+        <img src="https://avatars.githubusercontent.com/u/133644?s=400&amp;v=4" alt="scan preview" class="w-100 h-auto db">
+    </div><div class="project-content">
+        <p class="f3 lh-copy color-vesper-fg mv4">
+            A real-time Solana token analytics dashboard built with React, integrating DEX Screener, Helius, and wallet adapters for comprehensive token and trading data.
+        </p>
+
+        <div class="flex flex-row justify-around bt bb border-vesper pv4 mv5 tc">
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Language</span>
+                <span class="f3 fw7 color-vesper-fg">TypeScript</span>
+            </div>
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Last Pushed</span>
+                <span class="f3 fw7 color-vesper-fg">11/23/2024</span>
+            </div>
+        </div><div class="mv4">
+            <div class="flex flex-wrap gap2 mt2"><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">blockchain</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">charts</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">crypto</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">daisyui</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">dex-screener</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">helius</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">netlify</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">phantom</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">postgresql</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">react</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">recharts</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">serverless</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">solana</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">tailwindcss</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">trading-pairs</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">vite</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">wallet-adapter</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">token-analytics</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">token-monitoring</span></div>
+        </div><div class="markdown-body mt5 bt border-vesper pt5">
+            <h1>Token Scanner App</h1>
+<p>A React-based application for monitoring and analyzing tokens on the Solana blockchain, integrating with DexScreener, Helius, and wallet services.</p>
+<h2>Features</h2>
+<ul>
+<li>Real-time token profile monitoring</li>
+<li>Token holder analysis with visualization</li>
+<li>Trading pair information and statistics</li>
+<li>Wallet integration via Phantom</li>
+<li>Theme switching (Light/Dark/System)</li>
+<li>User settings management with Helius API key storage</li>
+</ul>
+<h2>Tech Stack</h2>
+<ul>
+<li><strong>Frontend</strong>: React with Vite</li>
+<li><strong>Styling</strong>: TailwindCSS + DaisyUI</li>
+<li><strong>State Management</strong>: React Context</li>
+<li><strong>Charts</strong>: Recharts</li>
+<li><strong>Database</strong>: PostgreSQL (via Neon)</li>
+<li><strong>Deployment</strong>: Netlify with Serverless Functions</li>
+<li><strong>APIs</strong>:
+<ul>
+<li>DexScreener API</li>
+<li>Helius RPC API</li>
+<li>Solana Web3.js</li>
+</ul>
+</li>
+</ul>
+<h2>Project Structure</h2>
+<pre><code>├── src/
+│   ├── components/        # React components
+│   │   ├── shared/       # Reusable components
+│   │   ├── token-details/# Token detail views
+│   │   └── token-profiles/# Token profile components
+│   ├── contexts/         # React context providers
+│   ├── hooks/           # Custom React hooks
+│   │   ├── api/         # API integration hooks
+│   │   └── features/    # Feature-specific hooks
+│   ├── services/        # API services
+│   └── utils/           # Utility functions
+├── backend/             # Backend API routes
+└── netlify/             # Netlify serverless functions
+</code></pre>
+<h2>Setup and Development</h2>
+<h3>Prerequisites</h3>
+<ol>
+<li>Node.js and npm installed</li>
+<li>Netlify CLI installed globally:<pre><code class="language-bash">npm install -g netlify-cli
+</code></pre>
+</li>
+<li>A Neon PostgreSQL database</li>
+<li>A Helius API key (for token data)</li>
+</ol>
+<h3>Initial Setup</h3>
+<ol>
+<li>Clone the repository</li>
+<li>Install dependencies:<pre><code class="language-bash">npm install
+</code></pre>
+</li>
+<li>Set up environment variables in <code>.env</code>:<pre><code>DATABASE_URL=your_neon_db_url
+</code></pre>
+</li>
+<li>Link to your Netlify project (if not already linked):<pre><code class="language-bash">netlify link
+</code></pre>
+</li>
+</ol>
+<h3>Local Development</h3>
+<p>To run the application locally, you need to use Netlify Dev to ensure the serverless functions work properly:</p>
+<ol>
+<li>
+<p>Start the Netlify development server:</p>
+<pre><code class="language-bash">netlify dev
+</code></pre>
+<p>This will:</p>
+<ul>
+<li>Start the Vite development server</li>
+<li>Serve the Netlify functions locally</li>
+<li>Handle API redirects</li>
+<li>Make the app available at <code>http://localhost:8888</code></li>
+</ul>
+</li>
+<li>
+<p>If you need to run the development server with specific environment variables:</p>
+<pre><code class="language-bash">netlify dev --env .env.local
+</code></pre>
+</li>
+</ol>
+<h3>Database Setup</h3>
+<ol>
+<li>Initialize the database with the schema:<pre><code class="language-sql">psql -d your_database_name -f backend/init.sql
+</code></pre>
+</li>
+</ol>
+<p>The schema creates:</p>
+<ul>
+<li><code>users</code>: Stores wallet addresses and login timestamps</li>
+<li><code>user_settings</code>: Stores user preferences and API keys</li>
+</ul>
+<h2>API Integration</h2>
+<h3>DexScreener API</h3>
+<ul>
+<li>Token profiles fetching</li>
+<li>Trading pair information</li>
+<li>Order tracking</li>
+</ul>
+<h3>Helius API</h3>
+<ul>
+<li>Token metadata retrieval</li>
+<li>Token holder analysis</li>
+<li>Account information</li>
+</ul>
+<h3>Netlify Functions</h3>
+<p>Located in <code>netlify/functions/</code>:</p>
+<ul>
+<li><code>settings.js</code>: Handles user settings and Helius API key management</li>
+<li>API endpoints accessible via <code>/.netlify/functions/</code> or <code>/api/</code> routes</li>
+</ul>
+<h2>Deployment</h2>
+<ol>
+<li>
+<p>Ensure your Netlify site is configured:</p>
+<pre><code class="language-bash">netlify init
+</code></pre>
+</li>
+<li>
+<p>Deploy to Netlify:</p>
+<pre><code class="language-bash">netlify deploy
+</code></pre>
+</li>
+</ol>
+<p>For production deployment:</p>
+<pre><code class="language-bash">netlify deploy --prod
+</code></pre>
+<h2>Architecture</h2>
+<ul>
+<li><strong>Frontend</strong>: Single-page application with component-based architecture</li>
+<li><strong>Backend</strong>: Serverless functions for API endpoints and database operations</li>
+<li><strong>State Management</strong>: Combination of React Context and local component state</li>
+<li><strong>Data Flow</strong>: Services → Hooks → Components</li>
+</ul>
+<h2>Security Considerations</h2>
+<ul>
+<li>Helius API keys are stored securely in the database</li>
+<li>Wallet connections use Phantom's secure protocol</li>
+<li>Database SSL encryption enabled</li>
+<li>CORS policies implemented for API endpoints</li>
+</ul>
+<h2>Development Guidelines</h2>
+<ol>
+<li>Use <code>antd</code> components with DaisyUI styling</li>
+<li>Implement proper error handling and loading states</li>
+<li>Follow the existing file structure</li>
+<li>Use TypeScript for new components when possible</li>
+</ol>
+<h2>Available Scripts</h2>
+<ul>
+<li><code>netlify dev</code>: Start local development environment (recommended)</li>
+<li><code>npm run dev</code>: Start Vite development server only (limited functionality)</li>
+<li><code>npm run build</code>: Build for production</li>
+<li><code>npm run preview</code>: Preview production build</li>
+</ul>
+<h2>Troubleshooting</h2>
+<p>Common issues:</p>
+<ol>
+<li><strong>Settings not working locally</strong>: Ensure you're running <code>netlify dev</code> instead of <code>npm run dev</code></li>
+<li><strong>Database connection issues</strong>: Verify your DATABASE_URL in environment variables</li>
+<li><strong>API 404 errors</strong>: Check that Netlify function redirects are properly configured</li>
+</ol>
+<h2>Contributing</h2>
+<ol>
+<li>Create a feature branch</li>
+<li>Make changes</li>
+<li>Test with <code>netlify dev</code></li>
+<li>Submit a pull request with detailed description</li>
+</ol>
+<h2>License</h2>
+<p>MIT License</p>
+<hr>
+<p>new shit</p>
+<h1>DEX Screener Companion</h1>
+<p>A real-time Solana token analytics dashboard that integrates with DEX Screener and Helius APIs to provide comprehensive token data and market insights.</p>
+<h2>Features</h2>
+<ul>
+<li>Real-time token profile monitoring</li>
+<li>Market statistics and trading pair analysis</li>
+<li>Token holder distribution analytics</li>
+<li>Integration with multiple data sources (DEX Screener, Helius)</li>
+<li>Wallet connection support</li>
+<li>Dark/Light theme switching</li>
+<li>Responsive design</li>
+</ul>
+<h2>Tech Stack</h2>
+<ul>
+<li>React 18</li>
+<li>TypeScript</li>
+<li>Tailwind CSS</li>
+<li>DaisyUI</li>
+<li>Vite</li>
+<li>Netlify Functions</li>
+<li>Neon Database</li>
+<li>Solana Web3.js</li>
+</ul>
+<h2>Prerequisites</h2>
+<ul>
+<li>Node.js 16+</li>
+<li>npm or yarn</li>
+<li>Helius API key</li>
+<li>PostgreSQL database</li>
+</ul>
+<h2>Environment Variables</h2>
+<pre><code class="language-bash">DATABASE_URL=your_neon_db_url
+</code></pre>
+<h2>Development</h2>
+<ol>
+<li>Install dependencies:</li>
+</ol>
+<pre><code class="language-bash">npm install
+</code></pre>
+<ol start="2">
+<li>Run development server:</li>
+</ol>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<ol start="3">
+<li>Run Netlify Functions locally:</li>
+</ol>
+<pre><code class="language-bash">netlify dev
+</code></pre>
+<h2>Project Structure</h2>
+<pre><code>├── backend/          # Express backend (optional)
+├── netlify/          # Serverless functions
+├── public/           # Static assets
+└── src/
+    ├── components/   # React components
+    ├── contexts/     # React contexts
+    ├── hooks/        # Custom hooks
+    ├── services/     # API services
+    ├── types/        # TypeScript types
+    └── utils/        # Utility functions
+</code></pre>
+<h2>Build &amp; Deployment</h2>
+<pre><code class="language-bash">npm run build
+</code></pre>
+<p>Deployment is handled automatically through Netlify CI/CD.</p>
+<h2>File Extensions</h2>
+<ul>
+<li>React components use <code>.tsx</code></li>
+<li>Configuration files use <code>.cjs</code> for CommonJS modules</li>
+<li>Utility files use <code>.ts</code></li>
+<li>Style files use <code>.css</code></li>
+</ul>
+<h2>API Integration</h2>
+<p>The app integrates with:</p>
+<ul>
+<li>DEX Screener API for market data</li>
+<li>Helius API for on-chain data</li>
+<li>Neon Database for user settings</li>
+</ul>
+<h2>Contributing</h2>
+<ol>
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Submit a pull request</li>
+</ol>
+<h2>License</h2>
+<p>MIT</p>
+
+        </div></div>
+</div>
+
+    </main>
+
+    <footer class="mw8 center pa4 pt5 pb5">
+        <p class="f6 color-vesper-muted bt border-vesper pt4">
+            Built with 11ty. Updated: 3/14/2026 | <a href="/colophon" class="no-underline color-vesper-accent dim">Colophon</a>
+        </p>
+    </footer>
+</body>
+</html>

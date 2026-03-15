@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+    <style>
+        :root {
+            --bg: #101010;
+            --fg: #ffffff;
+            --accent: #FFC799;
+            --muted: #A0A0A0;
+            --card-bg: #181818;
+            --border: #333333;
+            --tag-bg: #282828;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        /* Custom Vesper Utilities */
+        .color-vesper-bg { background-color: var(--bg); }
+        .color-vesper-fg { color: var(--fg); }
+        .color-vesper-accent { color: var(--accent); }
+        .color-vesper-muted { color: var(--muted); }
+        .bg-vesper-card { background-color: var(--card-bg); }
+        .border-vesper { border-color: var(--border); }
+        .hover-vesper-accent:hover { color: var(--accent); }
+        .hover-vesper-bg-accent:hover { background-color: var(--accent); color: var(--bg); }
+        
+        /* Markdown overrides to play nice with Vesper */
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: var(--accent); margin-top: 2rem; margin-bottom: 1rem; }
+        .markdown-body pre { background: var(--card-bg); padding: 1rem; border-radius: 4px; border: 1px solid var(--border); overflow-x: auto; }
+        .markdown-body code { font-family: monospace; background: var(--tag-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
+        .markdown-body a { color: var(--accent); text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body img { max-width: 100%; height: auto; border-radius: 4px; }
+        .markdown-body blockquote { border-left: 4px solid var(--border); padding-left: 1rem; color: var(--muted); margin-left: 0; }
+    </style>
+</head>
+<body class="w-100 sans-serif">
+    <header class="mw8 center pa4 pt5 pb4">
+        <h1 class="f1 fw8 ma0 mb2"><a href="/" class="no-underline color-vesper-fg hover-vesper-accent">Josh Vaage</a></h1>
+        <p class="f4 color-vesper-muted ma0">Software Engineer. Open Source & Projects.</p>
+    </header>
+    
+    <main class="mw8 center pa4">
+        
+<div class="mw7 center pa3 pa4-ns">
+    <a href="/" class="f6 fw5 color-vesper-muted no-underline hover-vesper-accent">← Back to Projects</a>
+    
+    <header class="flex flex-column flex-row-ns justify-between items-start items-center-ns mv4">
+        <h1 class="f2 fw8 ma0 mb2 mb0-ns color-vesper-fg">api-monitor</h1>
+        <div class="flex gap3 f6 fw6">
+            <a href="https://github.com/whaleen/api-monitor" target="_blank" class="no-underline color-vesper-accent hover-vesper-fg mr3 bb border-vesper">GitHub</a></div>
+    </header><div class="w-100 mb4 border-vesper ba br3 overflow-hidden">
+        <img src="/public/social-previews/whaleen/api-monitor.png" alt="api-monitor preview" class="w-100 h-auto db">
+    </div><div class="project-content">
+        <p class="f3 lh-copy color-vesper-fg mv4">
+            A three-part system for monitoring, storing, and visualizing API/network requests. Includes a Chrome extension, a Node.js server, and a React web interface for real-time API monitoring and analysis.
+        </p>
+
+        <div class="flex flex-row justify-around bt bb border-vesper pv4 mv5 tc">
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Language</span>
+                <span class="f3 fw7 color-vesper-fg">JavaScript</span>
+            </div>
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Last Pushed</span>
+                <span class="f3 fw7 color-vesper-fg">6/20/2025</span>
+            </div>
+        </div><div class="mv4">
+            <div class="flex flex-wrap gap2 mt2"><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">api-analytics</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">api-monitor</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">chrome-extension</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">data-visualization</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">http</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">network-monitor</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">nodejs</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">react</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">real-time</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">request-logging</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">response-logging</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">server</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">tailwindcss</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">web-app</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">web-extension</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">websocket</span></div>
+        </div><div class="markdown-body mt5 bt border-vesper pt5">
+            <h1>API Monitor</h1>
+<p>A three-component system consisting of:</p>
+<p>Chrome extension that captures network requests/responses
+Server for data storage and API endpoints
+Web interface for data visualization and monitoring</p>
+<p>All components must run simultaneously. See respective directories (extension, server, web) for implementation details.</p>
+<h2>Setup</h2>
+<pre><code class="language-bash"># Install dependencies
+npm install
+</code></pre>
+<h2>Development</h2>
+<p>This project has three main components that need to be run separately in their own terminals:</p>
+<h3>1. Chrome Extension</h3>
+<pre><code class="language-bash"># Build and watch extension (run in one terminal)
+npm run dev:extension
+</code></pre>
+<p>Then:</p>
+<ol>
+<li>Open Chrome and go to <code>chrome://extensions/</code></li>
+<li>Enable &quot;Developer mode&quot; in the top right</li>
+<li>Click &quot;Load unpacked&quot; and select the <code>dist</code> folder</li>
+<li>The extension will now monitor API calls in every tab (hopefully)</li>
+</ol>
+<p>After making changes to extension code:</p>
+<ul>
+<li>The build will automatically update</li>
+<li>Click the refresh icon on the extension in <code>chrome://extensions/</code> to load the changes</li>
+</ul>
+<h3>2. Web Application</h3>
+<pre><code class="language-bash"># Run the web app development server (run in one terminal)
+npm run dev
+</code></pre>
+<p>This will start the development server at <a href="http://localhost:5173">http://localhost:5173</a></p>
+<h3>3. Server</h3>
+<pre><code class="language-bash"># Run the server (run in one terminal)
+npm run server
+
+
+## Project Structure
+
+```todo
+</code></pre>
+<h2>Scripts</h2>
+<ul>
+<li><code>npm run dev</code> - Run web app development server</li>
+<li><code>npm run dev:extension</code> - Build and watch extension</li>
+<li><code>npm run build</code> - Production build of both web app and extension</li>
+<li><code>npm run build:extension</code> - Production build of extension only</li>
+<li><code>npm run preview</code> - Preview production build</li>
+<li><code>npm run lint</code> - Run linter</li>
+<li><code>npm run cleen</code> - Remove <code>dist-extension</code> and <code>node_modules</code> folders</li>
+</ul>
+<h2>Todo</h2>
+<ul>
+<li>[ ] rename <code>lib/utils.js</code> to `lib/utils/tailwind.js and update imports.</li>
+<li>[ ] move websocket code from the App.js to the <code>hooks/use-websocket.jsx</code> file.</li>
+<li>[x] find out the best way to display favicons for each site we are displaying responses from in the web app. the google favicon api is not working which it should but our cors policy is not allowing it. at least i think that is why.</li>
+<li>[ ] normalizer - keep this as a base nomalizer and do not get too domain specefic. explore options for creating a <code>normalizer</code> lib so we can have a custom normalizer for each domain (<a href="http://claude.ai">claude.ai</a>, <a href="http://bullx.io">bullx.io</a>, <a href="http://gmgn.ai">gmgn.ai</a>, etc...).</li>
+</ul>
+
+        </div></div>
+</div>
+
+    </main>
+
+    <footer class="mw8 center pa4 pt5 pb5">
+        <p class="f6 color-vesper-muted bt border-vesper pt4">
+            Built with 11ty. Updated: 3/14/2026 | <a href="/colophon" class="no-underline color-vesper-accent dim">Colophon</a>
+        </p>
+    </footer>
+</body>
+</html>

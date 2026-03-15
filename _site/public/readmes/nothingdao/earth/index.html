@@ -1,0 +1,304 @@
+<h1>Earth 2089</h1>
+<p><strong>Web3 post-apocalyptic survival game</strong> with Solana NFT characters, real-time multiplayer, autonomous NPC system, and complex EARTH token economy.</p>
+<p><img src="public/earth-og-image.jpg" alt="Earth 2089 Banner"></p>
+<h2>Overview</h2>
+<p>Earth 2089 is a blockchain-based survival RPG set in a post-apocalyptic world where players mint NFT characters, explore a dangerous wasteland, mine resources, trade items, and build their survival empire. The game features a sophisticated economy backed by the EARTH token and powered by Solana blockchain technology.</p>
+<h2>🎮 Game Features</h2>
+<h3>Core Gameplay</h3>
+<ul>
+<li><strong>Character Creation &amp; NFT Minting</strong> - Create unique survivors with visual customization (2 SOL mint cost)</li>
+<li><strong>Post-Apocalyptic Exploration</strong> - Navigate dangerous zones on an interactive world map</li>
+<li><strong>Mining &amp; Resource Gathering</strong> - Extract valuable materials while managing energy and health</li>
+<li><strong>Real-Time Trading</strong> - Buy and sell items in dynamic player-driven markets</li>
+<li><strong>Character Progression</strong> - Level up through exploration, mining, and trading</li>
+<li><strong>Equipment System</strong> - Customize appearance with clothing, accessories, and gear</li>
+</ul>
+<h3>Web3 Integration</h3>
+<ul>
+<li><strong>Solana NFT Characters</strong> - Each character is a unique NFT with metadata and visual traits</li>
+<li><strong>EARTH Token Economy</strong> - In-game currency backed by SOL with transparent tokenomics</li>
+<li><strong>Multi-Wallet Support</strong> - Phantom, Solflare, and other Solana wallet adapters</li>
+<li><strong>Blockchain Trading</strong> - Secure, transparent item and character trading</li>
+<li><strong>Token Bridge</strong> - Exchange between in-game EARTH and external currencies</li>
+</ul>
+<h3>Multiplayer Features</h3>
+<ul>
+<li><strong>Real-Time Chat</strong> - Communicate with other players in your current location</li>
+<li><strong>Live Player Tracking</strong> - See who's active in each zone</li>
+<li><strong>Leaderboards</strong> - Compete for top rankings in wealth, level, and achievements</li>
+<li><strong>Social Economy</strong> - Player-driven markets and collaborative gameplay</li>
+</ul>
+<h3>Autonomous NPCs</h3>
+<ul>
+<li><strong>AI-Powered Characters</strong> - Autonomous NPCs that mine, trade, and interact</li>
+<li><strong>Dynamic Economy</strong> - NPCs contribute to market activity and price discovery</li>
+<li><strong>Behavioral Variety</strong> - Different NPC personalities and activity patterns</li>
+<li><strong>Real-Time Integration</strong> - NPCs operate continuously in the game world</li>
+</ul>
+<h2>🏗️ Technical Architecture</h2>
+<h3>Frontend</h3>
+<ul>
+<li><strong>React 19</strong> with TypeScript and Vite build system</li>
+<li><strong>Tailwind CSS 4</strong> with shadcn/ui component library</li>
+<li><strong>D3.js</strong> for interactive SVG world map</li>
+<li><strong>WebSocket</strong> connections for real-time features</li>
+<li><strong>React Context</strong> providers for state management</li>
+</ul>
+<h3>Backend Infrastructure</h3>
+<ul>
+<li><strong>Netlify Functions</strong> - 40+ serverless API endpoints</li>
+<li><strong>Supabase</strong> - Real-time database with live subscriptions</li>
+<li><strong>Solana Web3.js</strong> - Blockchain operations and wallet integration</li>
+<li><strong>Node.js NPC Engine</strong> - Autonomous character system</li>
+</ul>
+<h3>Database &amp; Real-Time</h3>
+<ul>
+<li><strong>PostgreSQL</strong> via Supabase with auto-generated TypeScript types</li>
+<li><strong>Real-time subscriptions</strong> for live gameplay features</li>
+<li><strong>Location-based data</strong> for world map interactions</li>
+<li><strong>Character persistence</strong> with equipment and stats</li>
+</ul>
+<h2>🎯 Getting Started</h2>
+<h3>Prerequisites</h3>
+<ul>
+<li>Node.js 22+</li>
+<li>Solana wallet (Phantom recommended)</li>
+<li>2+ SOL for character minting</li>
+<li>Android Studio (for mobile development)</li>
+</ul>
+<h3>Development Setup</h3>
+<ol>
+<li>
+<p><strong>Clone and install:</strong></p>
+<pre><code class="language-bash">git clone &lt;repository-url&gt;
+cd earth
+npm install
+</code></pre>
+</li>
+<li>
+<p><strong>Environment setup:</strong></p>
+<pre><code class="language-bash">cp .env.example .env
+# Edit .env with your actual values
+</code></pre>
+<ul>
+<li>Configure Supabase credentials</li>
+<li>Set up Solana RPC endpoints</li>
+<li>Add wallet keypairs for development</li>
+</ul>
+</li>
+<li>
+<p><strong>Development servers:</strong></p>
+<pre><code class="language-bash"># Frontend development
+npm run dev
+
+# Backend functions (optional local)
+npm run functions:dev
+
+# NPC engine
+npm run npc:dev
+
+# Generate database types
+npm run types
+</code></pre>
+</li>
+<li>
+<p><strong>Access the game:</strong></p>
+<ul>
+<li>Frontend: <code>http://localhost:5173</code></li>
+<li>Backend (deployed for dev testing): <code>https://earth.ndao.computer/.netlify/functions</code></li>
+</ul>
+</li>
+</ol>
+<h3>Dev Workflow</h3>
+<ul>
+<li>Run frontend locally with <code>npm run dev</code>.</li>
+<li>Use deployed Netlify functions for backend testing.</li>
+<li>Netlify deploys functions automatically on push.</li>
+</ul>
+<ol start="5">
+<li><strong>Android development:</strong><pre><code class="language-bash"># Build and run Android app
+npm run build
+npx cap sync android
+npx cap run android
+</code></pre>
+</li>
+</ol>
+<h2>💰 Economy &amp; Tokenomics</h2>
+<h3>Character NFT Minting</h3>
+<ul>
+<li><strong>Cost:</strong> 2 SOL per character NFT</li>
+<li><strong>Distribution:</strong>
+<ul>
+<li>1.0 SOL → EARTH token purchase</li>
+<li>0.75 SOL → Development reserve</li>
+<li>0.25 SOL → System inventory backing</li>
+</ul>
+</li>
+</ul>
+<h3>EARTH Token</h3>
+<ul>
+<li><strong>Backed Currency</strong> - Every EARTH token has SOL backing</li>
+<li><strong>Starting Amount</strong> - New characters begin with 1,200 EARTH</li>
+<li><strong>Use Cases</strong> - Mining equipment, trading, travel, items</li>
+<li><strong>Exchange Rate</strong> - 1 EARTH ≈ $1 USD equivalent</li>
+</ul>
+<h3>In-Game Economy</h3>
+<ul>
+<li><strong>Player-Driven Markets</strong> - Dynamic pricing based on supply/demand</li>
+<li><strong>Resource Scarcity</strong> - Limited resources create competitive mining</li>
+<li><strong>Economic Zones</strong> - Different areas have varying resource availability</li>
+<li><strong>NPC Market Activity</strong> - Autonomous characters contribute to liquidity</li>
+</ul>
+<h2>🗺️ World &amp; Locations</h2>
+<h3>Interactive Map</h3>
+<ul>
+<li><strong>SVG-Based Rendering</strong> - Scalable vector graphics with D3.js</li>
+<li><strong>Zone-Based Travel</strong> - Energy costs and health risks vary by region</li>
+<li><strong>Real-Time Population</strong> - See active players in each location</li>
+<li><strong>Resource Distribution</strong> - Different zones offer unique mining opportunities</li>
+</ul>
+<h3>Location Types</h3>
+<ul>
+<li><strong>Safe Zones</strong> - Low risk, basic resources, player hubs</li>
+<li><strong>Mining Regions</strong> - High-value resources, moderate danger</li>
+<li><strong>Wasteland</strong> - Extreme risk, rare materials, PvP zones</li>
+<li><strong>Trading Posts</strong> - Commercial hubs with NPC merchants</li>
+</ul>
+<h2>🤖 NPC Engine</h2>
+<h3>Autonomous Behavior</h3>
+<ul>
+<li><strong>Independent Decision Making</strong> - NPCs choose actions based on AI logic</li>
+<li><strong>Economic Participation</strong> - Buy, sell, mine, and accumulate resources</li>
+<li><strong>Social Interaction</strong> - Chat and respond to player communications</li>
+<li><strong>Realistic Simulation</strong> - Energy, health, and economic constraints</li>
+</ul>
+<h3>Configuration</h3>
+<ul>
+<li><strong>Behavior Profiles</strong> - Different NPC personality types</li>
+<li><strong>Activity Schedules</strong> - Mining, trading, and rest cycles</li>
+<li><strong>Economic Settings</strong> - Spending patterns and market participation</li>
+<li><strong>Location Preferences</strong> - Zone-specific NPC distributions</li>
+</ul>
+<h2>📱 Game Screens</h2>
+<h3>Core Views</h3>
+<ul>
+<li><strong>Character Creation</strong> - Visual customization and NFT minting</li>
+<li><strong>World Map</strong> - Interactive travel and location selection</li>
+<li><strong>Mining Interface</strong> - Resource extraction with risk/reward mechanics</li>
+<li><strong>Inventory Management</strong> - Equipment and item organization</li>
+<li><strong>Market Trading</strong> - Buy/sell interface with real-time pricing</li>
+<li><strong>Chat System</strong> - Location-based communication</li>
+<li><strong>Profile &amp; Stats</strong> - Character progression and achievements</li>
+</ul>
+<h3>Admin Dashboard</h3>
+<ul>
+<li><strong>Economy Overview</strong> - Market data and token metrics</li>
+<li><strong>Player Analytics</strong> - Activity, retention, and engagement stats</li>
+<li><strong>NPC Management</strong> - Configure autonomous character behavior</li>
+<li><strong>Content Management</strong> - Items, locations, and game balance</li>
+</ul>
+<h2>🔧 Development Commands</h2>
+<pre><code class="language-bash"># Development
+npm run dev              # Start Vite dev server
+npm run functions:dev    # Start Netlify dev with functions
+npm run npc:dev         # Run NPC engine in development
+
+# Production
+npm run build           # Build for production
+npm run functions:build # Build Netlify functions
+npm run npc:start      # Start NPC engine in production
+
+# Android Development
+npx cap sync android    # Sync web assets to Android
+npx cap run android     # Build and run Android app
+npx cap open android    # Open Android Studio
+
+# Utilities
+npm run lint           # ESLint checking
+npm run types          # Generate Supabase types
+</code></pre>
+<h2>🎨 Asset System</h2>
+<h3>Character Customization</h3>
+<ul>
+<li><strong>Layered Assets</strong> - Modular clothing and accessory system</li>
+<li><strong>Gender Options</strong> - Male and female base models</li>
+<li><strong>Equipment Variety</strong> - Clothing, outerwear, accessories, tools</li>
+<li><strong>Visual Persistence</strong> - Character appearance saved to blockchain</li>
+</ul>
+<h3>Asset Categories</h3>
+<ul>
+<li><strong>Base Models</strong> - Core character foundations</li>
+<li><strong>Clothing</strong> - T-shirts, jackets, specialized gear</li>
+<li><strong>Accessories</strong> - Sunglasses, jewelry, tools</li>
+<li><strong>Equipment</strong> - Mining gear, weapons, survival tools</li>
+</ul>
+<h2>🛠️ Technical Stack</h2>
+<ul>
+<li><strong>Frontend:</strong> React 19, TypeScript, Vite, Tailwind CSS 4</li>
+<li><strong>Mobile:</strong> Capacitor for Android app, Solana Mobile Stack compatible</li>
+<li><strong>UI Components:</strong> Radix UI, shadcn/ui</li>
+<li><strong>Blockchain:</strong> Solana Web3.js, SPL Token, Metaplex</li>
+<li><strong>Database:</strong> Supabase (PostgreSQL) with real-time subscriptions</li>
+<li><strong>Backend:</strong> Netlify Functions, Node.js NPC engine</li>
+<li><strong>Graphics:</strong> D3.js for maps, Canvas for character rendering</li>
+<li><strong>Real-Time:</strong> WebSocket connections, Supabase subscriptions</li>
+</ul>
+<h2>📄 Documentation</h2>
+<ul>
+<li><strong><a href="API.md">API Documentation</a></strong> - Complete API reference</li>
+<li><strong><a href="ANDROID.md">Android Development</a></strong> - Mobile development and Solana Mobile integration</li>
+<li><strong><a href="TOKENOMICS.md">Tokenomics</a></strong> - Economic mechanics and token design</li>
+<li><strong><a href="MAP.md">Map System</a></strong> - World geography and location details</li>
+<li><strong><a href="CLAUDE.md">Development Guide</a></strong> - Architecture and coding standards</li>
+<li><strong><a href="EARTH%202089-Seasons-Roadmap.md">Roadmap</a></strong> - Feature development timeline</li>
+</ul>
+<h2>🚀 Deployment</h2>
+<h3>Production Environment</h3>
+<ul>
+<li><strong>Frontend:</strong> Netlify static hosting</li>
+<li><strong>Functions:</strong> Netlify serverless functions</li>
+<li><strong>Database:</strong> Supabase managed PostgreSQL</li>
+<li><strong>Blockchain:</strong> Solana mainnet integration</li>
+</ul>
+<h3>Environment Variables</h3>
+<ul>
+<li><code>VITE_SUPABASE_URL</code> - Supabase project URL</li>
+<li><code>VITE_SUPABASE_ANON_KEY</code> - Supabase anonymous key</li>
+<li><code>VITE_SOLANA_RPC_URL</code> - Solana RPC endpoint</li>
+<li><code>VITE_ENVIRONMENT</code> - Environment flag (dev/prod)</li>
+</ul>
+<h2>🤝 Contributing</h2>
+<ol>
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Follow TypeScript and React best practices</li>
+<li>Test with local NPC engine</li>
+<li>Submit pull request with detailed description</li>
+</ol>
+<h2>📜 License</h2>
+<p>This project uses <strong>dual licensing</strong>:</p>
+<h3>Code License</h3>
+<p>The source code is licensed under <strong>MIT License</strong> - see <a href="LICENSE">LICENSE</a> file for details.</p>
+<ul>
+<li>✅ Free to use, modify, and distribute</li>
+<li>✅ Commercial use allowed</li>
+<li>✅ Build your own projects with this code</li>
+</ul>
+<h3>Assets License</h3>
+<p>All visual assets, artwork, and creative content are <strong>proprietary</strong> - see <a href="ASSETS_LICENSE">ASSETS_LICENSE</a> file for details.</p>
+<ul>
+<li>❌ Assets cannot be used commercially</li>
+<li>❌ Cannot create competing games with our assets</li>
+<li>❌ Character designs, logos, and branding are protected</li>
+<li>✅ Code study and local development allowed</li>
+</ul>
+<p><strong>Summary:</strong> Use our code to build amazing games, but create your own visual identity and assets!</p>
+<h2>🔗 Links</h2>
+<ul>
+<li><strong>Live Game:</strong> [Coming Soon]</li>
+<li><strong>Documentation:</strong> See <code>/docs</code> folder</li>
+<li><strong>Community:</strong> <a href="https://discord.gg/nothingdao">Discord Community</a></li>
+<li><strong>Support:</strong> GitHub Issues</li>
+</ul>
+<hr>
+<p><em>Earth 2089 - Survive the wasteland, build your empire, own your destiny.</em></p>

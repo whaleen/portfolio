@@ -1,0 +1,160 @@
+<h1>Solana Asteroids</h1>
+<p>A Web3-enabled remake of the classic Asteroids arcade game, built with React and integrated with Solana blockchain functionality. This game combines retro arcade gaming with modern web3 features, including wallet authentication and blockchain-based high score tracking.</p>
+<h2>Features</h2>
+<h3>Game Mechanics</h3>
+<ul>
+<li>Classic Asteroids gameplay with modern graphics</li>
+<li>Ship controls using WASD or arrow keys</li>
+<li>Shooting mechanics using spacebar</li>
+<li>Physics-based movement and collisions</li>
+<li>Particle effects for explosions and thrusters</li>
+<li>Progressive difficulty with increasing asteroid count</li>
+<li>Score tracking based on asteroid destruction</li>
+</ul>
+<h3>Web3 Integration</h3>
+<ul>
+<li>Solana wallet connection using Phantom Wallet</li>
+<li>&quot;Insert Quarter&quot; mechanic using wallet signatures</li>
+<li>Wallet authentication required to start game</li>
+<li>Devnet connection for testing</li>
+</ul>
+<h3>Audio System</h3>
+<ul>
+<li>Dynamic sound effects for:
+<ul>
+<li>Shooting</li>
+<li>Thrusters</li>
+<li>Explosions</li>
+<li>Quarter insertion</li>
+</ul>
+</li>
+<li>Volume control system</li>
+<li>Background music during gameplay</li>
+</ul>
+<h3>High Score System (In Development)</h3>
+<ul>
+<li>Persistent leaderboard using Netlify Blob Storage</li>
+<li>Top 10 scores tracking</li>
+<li>Player identification via wallet address</li>
+<li>Score submission on game over</li>
+<li>Real-time leaderboard updates</li>
+</ul>
+<h2>Technical Architecture</h2>
+<h3>Frontend</h3>
+<ul>
+<li>React for UI components</li>
+<li>Vite for build system and development server</li>
+<li>Canvas-based game rendering</li>
+<li>Custom game loop implementation</li>
+<li>Responsive design for different screen sizes</li>
+</ul>
+<h3>Blockchain Integration</h3>
+<ul>
+<li>Solana Web3.js for blockchain interactions</li>
+<li>Wallet adapter integration</li>
+<li>Message signing for game authentication</li>
+</ul>
+<h3>Backend (Serverless)</h3>
+<ul>
+<li>Netlify Functions for backend logic</li>
+<li>Netlify Blob Storage for score persistence</li>
+<li>CORS-enabled API endpoints</li>
+<li>Serverless function architecture</li>
+</ul>
+<h3>Project Structure</h3>
+<pre><code>.
+├── netlify/
+│   ├── blobs/         # Blob storage configuration
+│   └── functions/     # Serverless functions
+├── public/
+│   └── sounds/        # Game audio assets
+└── src/
+    ├── components/    # React components
+    ├── api/           # API integrations
+    ├── helpers/       # Utility functions
+    └── sounds/        # Audio management
+</code></pre>
+<h2>Current Development Status</h2>
+<h3>Completed Features</h3>
+<ul>
+<li>Basic game mechanics and controls</li>
+<li>Solana wallet integration</li>
+<li>Sound system implementation</li>
+<li>Score tracking during gameplay</li>
+<li>Wallet signature authentication</li>
+<li>Basic UI/UX implementation</li>
+</ul>
+<h3>In Progress</h3>
+<ul>
+<li>High score system using Netlify Blobs</li>
+<li>Leaderboard component</li>
+<li>Score persistence between sessions</li>
+<li>Function testing infrastructure</li>
+</ul>
+<h3>Planned Features</h3>
+<ul>
+<li>Global leaderboard</li>
+<li>Social sharing of high scores</li>
+<li>Additional game modes</li>
+<li>Power-ups and special abilities</li>
+<li>Mobile-responsive controls</li>
+<li>Achievement system</li>
+</ul>
+<h2>Development</h2>
+<h3>Local Development</h3>
+<pre><code class="language-bash"># Install dependencies
+pnpm install
+
+# Start development server
+pnpm start
+
+# Test serverless functions
+pnpm exec netlify functions:invoke getScores
+pnpm exec netlify functions:invoke postScore --payload '{&quot;score&quot;: 1000, &quot;walletAddress&quot;: &quot;TEST_WALLET&quot;}'
+</code></pre>
+<h3>Environment Setup</h3>
+<p>Required environment variables:</p>
+<ul>
+<li><code>BLOB_READ_WRITE_TOKEN</code>: For Netlify Blob Storage access</li>
+<li>Other environment variables are managed through Netlify's dashboard</li>
+</ul>
+<h3>Testing</h3>
+<ul>
+<li>Local function testing via Netlify CLI</li>
+<li>Blob storage integration testing</li>
+<li>Frontend component testing</li>
+</ul>
+<h2>Deployment</h2>
+<ul>
+<li>Automated deployment via Netlify</li>
+<li>Continuous integration with GitHub</li>
+<li>Environment variable management through Netlify</li>
+<li>Function and blob storage configuration via <code>netlify.toml</code></li>
+</ul>
+<h2>Technical Requirements</h2>
+<ul>
+<li>Node.js 18+</li>
+<li>pnpm package manager</li>
+<li>Phantom Wallet browser extension</li>
+<li>Modern web browser with canvas support</li>
+</ul>
+<h2>Known Issues &amp; Future Improvements</h2>
+<ol>
+<li>Score persistence during function cold starts</li>
+<li>Local development environment setup</li>
+<li>Function testing infrastructure</li>
+<li>Mobile device optimization</li>
+<li>Additional game features and power-ups</li>
+</ol>
+<h2>Contributing</h2>
+<p>Currently in active development. Contributions and suggestions are welcome for:</p>
+<ul>
+<li>Game mechanics improvements</li>
+<li>Web3 integration enhancements</li>
+<li>Performance optimizations</li>
+<li>Additional feature suggestions</li>
+</ul>
+<h2>License</h2>
+<p>TBD</p>
+<hr>
+<p><em>Note: This project is currently under active development. Features and implementations may change.</em></p>

@@ -1,0 +1,223 @@
+<h1>LLMix</h1>
+<p>When working with AI language models, sharing the right context from your codebase is crucial but often cumbersome. Developers frequently find themselves manually copying and pasting multiple files or code snippets to provide adequate context for their queries. LLMix streamlines this process by providing a visual interface to organize and prepare your code for AI interactions.</p>
+<p>With LLMix, you can create focused groups of related files from your repository, add descriptive context, and generate properly formatted content files that are optimized for AI consumption. Instead of juggling multiple files or losing track of which code snippets are relevant, you can drag and drop files into logical groups, add descriptions for better context, and generate a single, well-formatted file that contains everything an AI needs to understand your code.</p>
+<p>For example, when discussing a bug with an AI, you can quickly group your component file, its tests, and related utilities, add a description of the issue, and generate a complete context file. This ensures the AI has all the necessary information without the noise of unrelated code.</p>
+<h2>Installation</h2>
+<pre><code class="language-bash">npm install llmix
+</code></pre>
+<h2>Quick Start</h2>
+<pre><code class="language-bash">cd your-project
+npx llmix
+</code></pre>
+<p>This will start both the backend server (port 3001) and the development UI server (port 5173). The web interface will open automatically in your default browser.</p>
+<h1>Development with npm link</h1>
+<p>If you're developing or testing LLMix across different directories, you can use npm link. Here's how:</p>
+<ol>
+<li>Create a global link in the LLMix project:</li>
+</ol>
+<pre><code class="language-bash"># In the LLMix directory
+npm link
+</code></pre>
+<ol start="2">
+<li>Link LLMix in your test directory:</li>
+</ol>
+<pre><code class="language-bash"># In your test directory
+npm link llmix
+</code></pre>
+<ol start="3">
+<li>Run LLMix:</li>
+</ol>
+<pre><code class="language-bash">npx llmix
+</code></pre>
+<p>To unlink when you're done:</p>
+<pre><code class="language-bash"># In your test directory
+npm unlink llmix
+
+# In the LLMix directory
+npm unlink -g
+</code></pre>
+<h3>Development Mode</h3>
+<p>When developing LLMix, you can run it in development mode:</p>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<p>This starts:</p>
+<ul>
+<li>Backend server on port 3001</li>
+<li>Vite dev server with hot reloading on port 5173</li>
+</ul>
+<p>For production builds:</p>
+<pre><code class="language-bash">npm run build
+</code></pre>
+<h3>UI Development</h3>
+<p>You can edit the UI while llmix is running:</p>
+<ol>
+<li>Start the development servers:</li>
+</ol>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<ol start="2">
+<li>Make changes to your UI files</li>
+<li>Changes will automatically reload in your browser at http://localhost:5173</li>
+</ol>
+<h2>Configuration</h2>
+<p>LLMix works out of the box with sensible defaults. To customize its behavior, create a <code>llmix.config.js</code> (or <code>.llmixrc.json</code>) in your project root:</p>
+<pre><code class="language-javascript">module.exports = {
+  // UI settings
+  ui: {
+    port: 3001, // Backend server port
+    openBrowser: true, // Whether to open browser on startup
+  },
+
+  // Files to ignore (in addition to .gitignore)
+  ignore: [
+    'node_modules',
+    '.git',
+    'dist',
+    'build',
+    'coverage',
+    '.env*',
+    '*.log',
+  ],
+
+  // Output settings
+  output: {
+    directory: '.llmix', // Where to store generated files
+    fileNamePattern: '{name}-{timestamp}.txt', // Format: my-group-2024-03-07-12-30-45.txt
+  },
+}
+</code></pre>
+<h3>Configuration Options</h3>
+<h4><code>ui</code></h4>
+<ul>
+<li><code>port</code> (number): Port for the backend server. Defaults to 3001.</li>
+<li><code>openBrowser</code> (boolean): Whether to open browser when starting. Defaults to true.</li>
+</ul>
+<h4><code>ignore</code></h4>
+<p>Array of patterns to ignore (in addition to .gitignore). Common patterns are ignored by default:</p>
+<ul>
+<li><code>node_modules</code></li>
+<li><code>.git</code></li>
+<li><code>dist</code>/<code>build</code></li>
+<li><code>coverage</code></li>
+<li><code>.env</code> files</li>
+<li>Log files</li>
+</ul>
+<h4><code>output</code></h4>
+<ul>
+<li><code>directory</code>: Where to store generated files. Defaults to <code>.llmix</code></li>
+<li><code>fileNamePattern</code>: Pattern for generated filenames. Available variables:
+<ul>
+<li><code>{name}</code>: Group name</li>
+<li><code>{timestamp}</code>: Generation time</li>
+</ul>
+</li>
+</ul>
+<h3>Generated Files</h3>
+<p>LLMix stores all generated files and data in the <code>.llmix</code> directory:</p>
+<pre><code>your-project/
+  ├── .llmix/                   # All LLMix data
+  │   ├── content-groups.json   # Your saved groups
+  │   ├── history.json         # Generation history
+  │   └── generated/           # Generated content files
+  ├── llmix.config.js          # Optional config file
+  └── ... your project files
+</code></pre>
+<p>Tip: Add <code>.llmix</code> to your <code>.gitignore</code> if you don't want to commit generated files.</p>
+<h2>Usage</h2>
+<p>Just run <code>llmix</code> in your project directory:</p>
+<pre><code class="language-bash">npx llmix [options]
+
+Options:
+  -p, --port &lt;number&gt;  Override configured port
+  --no-open            Don't open browser automatically
+  -h, --help          Display help
+</code></pre>
+<p>The web UI will let you:</p>
+<ul>
+<li>View repository files</li>
+<li>Create content groups</li>
+<li>Drag and drop relevant files</li>
+<li>Generate formatted content for AI interactions</li>
+</ul>
+<h2>Examples</h2>
+<h3>1. Basic Usage - Bug Investigation</h3>
+<p>Let's say you're debugging an authentication issue. Create a content group with relevant files:</p>
+<ol>
+<li>Start LLMix:</li>
+</ol>
+<pre><code class="language-bash">npx llmix
+</code></pre>
+<ol start="2">
+<li>In the web UI:
+<ul>
+<li>Create a new group named &quot;Auth Bug&quot;</li>
+<li>Add relevant files:
+<ul>
+<li><code>src/auth/login.js</code></li>
+<li><code>src/auth/validate.js</code></li>
+<li><code>tests/auth.test.js</code></li>
+</ul>
+</li>
+<li>Add description: &quot;Login flow fails for users with long email addresses&quot;</li>
+<li>Click &quot;Generate&quot;</li>
+</ul>
+</li>
+</ol>
+<p>Generated output will look like:</p>
+<pre><code>###
+# Content Group: Auth Bug
+# Description: Login flow fails for users with long email addresses
+# Generated: 2024-03-07T15:30:00Z
+# Files: 3
+###
+
+### File: src/auth/login.js ###
+[file content here]
+
+### File: src/auth/validate.js ###
+[file content here]
+
+### File: tests/auth.test.js ###
+[file content here]
+</code></pre>
+<h3>2. Common Configuration Examples</h3>
+<h4>Development Server Port Conflict</h4>
+<p>If you're running a dev server on port 3000, configure a different port:</p>
+<pre><code class="language-javascript">// llmix.config.js
+module.exports = {
+  ui: {
+    port: 3999, // Use different port
+  },
+}
+</code></pre>
+<h4>Monorepo Setup</h4>
+<p>For a monorepo, you might want to ignore certain packages:</p>
+<pre><code class="language-javascript">module.exports = {
+  ignore: [
+    'packages/*/node_modules',
+    'packages/*/dist',
+    'packages/internal-*', // Ignore internal packages
+    '**/test/**', // Ignore all test directories
+    '*.test.*', // Ignore all test files
+  ],
+}
+</code></pre>
+<h4>Custom Output Organization</h4>
+<p>Organize output files by date:</p>
+<pre><code class="language-javascript">module.exports = {
+  output: {
+    directory: '.llmix',
+    // Groups files by YYYY/MM/DD
+    fileNamePattern:
+      '{timestamp:YYYY}/{timestamp:MM}/{timestamp:DD}/{name}.txt',
+  },
+}
+</code></pre>
+<h2>Best Practices</h2>
+<ol>
+<li><strong>Focused Groups</strong>: Create small, focused groups around specific features or issues</li>
+<li><strong>Clear Descriptions</strong>: Add detailed descriptions to provide context</li>
+<li><strong>Related Files</strong>: Include only directly relevant files</li>
+<li><strong>Ignore Patterns</strong>: Configure ignore patterns to exclude unnecessary files</li>
+<li><strong>File Organization</strong>: Use meaningful group names for easy reference</li>
+</ol>

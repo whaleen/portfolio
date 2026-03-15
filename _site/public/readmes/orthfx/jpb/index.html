@@ -1,0 +1,117 @@
+<h1>Jordanville Prayer Book</h1>
+<p>A digital Orthodox Christian prayer book app based on the Jordanville Prayer Book published by Holy Trinity Monastery.</p>
+<h2>Overview</h2>
+<p>This app provides an accessible, beautifully formatted digital version of traditional Orthodox prayers with modern enhancements like:</p>
+<ul>
+<li><strong>Dark/Light mode</strong> support</li>
+<li><strong>Interactive glossary</strong> - hover over Orthodox terms to see definitions</li>
+<li><strong>Rich typography</strong> - proper formatting with drop caps, headings, and spacing</li>
+<li><strong>Structured content</strong> - prayers organized by category with easy navigation</li>
+<li><strong>Mobile-friendly</strong> responsive design</li>
+</ul>
+<h2>Tech Stack</h2>
+<ul>
+<li><strong>Vite</strong> - Fast development and build tool</li>
+<li><strong>React + TypeScript</strong> - UI framework with type safety</li>
+<li><strong>Tailwind CSS</strong> - Utility-first styling</li>
+<li><strong>shadcn/ui</strong> - High-quality component library</li>
+<li><strong>Radix UI</strong> - Accessible UI primitives (tooltips, dropdowns, etc.)</li>
+</ul>
+<h2>Project Structure</h2>
+<pre><code>jpb/
+├── src/
+│   ├── components/         # React components
+│   │   ├── ui/            # shadcn/ui components
+│   │   ├── AppLayout.tsx  # Main layout with sidebar
+│   │   ├── PrayerText.tsx # Prayer rendering with annotations
+│   │   └── AnnotatedText.tsx # Glossary tooltip system
+│   ├── data/              # Prayer content
+│   │   ├── section-*.txt  # Original extracted text
+│   │   ├── section-*-cleaned.json  # Parsed and cleaned
+│   │   ├── section-*-annotated.json # With glossary annotations
+│   │   ├── prayer-index.ts # Section metadata
+│   │   └── glossary.ts    # Orthodox terminology definitions
+│   └── types/             # TypeScript type definitions
+├── scripts/               # Content processing scripts
+│   ├── parse-prayerbook.ts    # Extract sections from source
+│   ├── clean-prayers.ts       # Clean OCR errors, parse structure
+│   ├── clean-all-prayers.ts   # Batch process all sections
+│   └── add-annotations.ts     # Add glossary annotations
+└── jordanville_prayerbook.txt # Source text from PDF
+</code></pre>
+<h2>Getting Started</h2>
+<h3>Prerequisites</h3>
+<ul>
+<li>Node.js 18+</li>
+<li>npm or pnpm</li>
+</ul>
+<h3>Installation</h3>
+<pre><code class="language-bash">npm install
+</code></pre>
+<h3>Development</h3>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<h3>Build</h3>
+<pre><code class="language-bash">npm run build
+</code></pre>
+<h2>Key Features</h2>
+<h3>Content Processing Pipeline</h3>
+<ol>
+<li><strong>Source</strong>: PDF → Text extraction → <code>jordanville_prayerbook.txt</code></li>
+<li><strong>Parsing</strong>: Extract sections → <code>section-*.txt</code></li>
+<li><strong>Cleaning</strong>: Fix OCR errors, parse structure → <code>section-*-cleaned.json</code></li>
+<li><strong>Enhancement</strong>: Add glossary annotations → <code>section-*-annotated.json</code></li>
+</ol>
+<h3>Data Format</h3>
+<p>Enhanced JSON with annotations:</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;prayer&quot;,
+  &quot;content&quot;: &quot;O Lord Jesus Christ...&quot;,
+  &quot;dropCap&quot;: true,
+  &quot;annotations&quot;: [
+    {
+      &quot;term&quot;: &quot;Theotokos&quot;,
+      &quot;type&quot;: &quot;glossary&quot;,
+      &quot;definition&quot;: &quot;Greek: God-bearer, title of Mary&quot;
+    }
+  ]
+}
+</code></pre>
+<h3>Prayer Categories</h3>
+<ul>
+<li><strong>Morning Prayers</strong> - Daily morning devotions</li>
+<li><strong>Evening Prayers</strong> - Prayers before sleep</li>
+<li><strong>Liturgical Services</strong> - Vespers, Matins, Divine Liturgy</li>
+<li><strong>Canons</strong> - Devotional canons to Christ, Theotokos, Guardian Angel</li>
+<li><strong>Occasional Prayers</strong> - Prayers throughout the day</li>
+<li><strong>Special Feasts</strong> - Pascha, Passion Week, etc.</li>
+</ul>
+<h2>Current Status</h2>
+<p>✅ <strong>Completed:</strong></p>
+<ul>
+<li>Vite + React + TypeScript setup</li>
+<li>shadcn/ui component library integration</li>
+<li>Dark/light mode theming</li>
+<li>Content extraction and parsing (12 sections)</li>
+<li>OCR error correction</li>
+<li>Structured JSON format with block types</li>
+<li>Interactive glossary with tooltips</li>
+<li>Beautiful typography with drop caps</li>
+<li>Morning Prayers fully annotated</li>
+</ul>
+<p>🚧 <strong>In Progress:</strong></p>
+<ul>
+<li>Adding annotations to remaining sections</li>
+<li>Expanding glossary definitions</li>
+</ul>
+<p>📋 <strong>Planned:</strong>
+See <a href="./ROADMAP.md">ROADMAP.md</a> for future features</p>
+<h2>Documentation</h2>
+<ul>
+<li><strong><a href="./ARCHITECTURE.md">ARCHITECTURE.md</a></strong> - Technical decisions and data formats</li>
+<li><strong><a href="./DEVELOPMENT.md">DEVELOPMENT.md</a></strong> - Development guidelines for contributors</li>
+<li><strong><a href="./ROADMAP.md">ROADMAP.md</a></strong> - Future features and improvements</li>
+</ul>
+<h2>License</h2>
+<p>Content from the Jordanville Prayer Book is used under fair use for religious and educational purposes. Original content published by Holy Trinity Monastery, Jordanville, NY.</p>
+<p>Code is MIT licensed.</p>

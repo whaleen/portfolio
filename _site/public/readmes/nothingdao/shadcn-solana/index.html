@@ -1,0 +1,231 @@
+<h1>shadcn-solana</h1>
+<p>Solana components built with <a href="https://ui.shadcn.com/">shadcn/ui</a> primitives.</p>
+<h2>Installation</h2>
+<pre><code class="language-bash">npx shadcn-solana add wallet-connect
+</code></pre>
+<h2>Available Components</h2>
+<ul>
+<li><code>wallet-connect</code> - Complete wallet connection with modal and balance display</li>
+<li><code>network-selector</code> - Solana network selector (Mainnet, Testnet, Devnet)</li>
+<li><code>settings-sheet</code> - Solana settings panel for RPC, API keys, and connection preferences</li>
+</ul>
+<h2>Requirements</h2>
+<ul>
+<li>A project with <a href="https://ui.shadcn.com/">shadcn/ui</a> already set up</li>
+<li>React 18+</li>
+<li>Next.js 13+ or Vite</li>
+</ul>
+<h2>Components</h2>
+<h3>Wallet Connect</h3>
+<p>Complete wallet connection system with multi-wallet support and balance display.</p>
+<h4>Installation</h4>
+<pre><code class="language-bash">npx shadcn-solana add wallet-connect
+</code></pre>
+<h4>Basic Usage</h4>
+<pre><code class="language-tsx">import { SolanaWalletProvider } from '@/components/wallet-provider'
+import { WalletConnectButton } from '@/components/wallet-connect-button'
+
+export default function App() {
+  return (
+    &lt;SolanaWalletProvider&gt;
+      &lt;WalletConnectButton /&gt;
+    &lt;/SolanaWalletProvider&gt;
+  )
+}
+</code></pre>
+<h4>Advanced Usage</h4>
+<pre><code class="language-tsx">import { SolanaWalletProvider } from '@/components/wallet-provider'
+import { WalletConnectButton } from '@/components/wallet-connect-button'
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
+
+export default function App() {
+  return (
+    &lt;SolanaWalletProvider
+      network={WalletAdapterNetwork.Mainnet}
+      autoConnect={true}
+    &gt;
+      &lt;div className='flex items-center gap-4'&gt;
+        &lt;h1&gt;My Solana App&lt;/h1&gt;
+        &lt;WalletConnectButton className='ml-auto' /&gt;
+      &lt;/div&gt;
+    &lt;/SolanaWalletProvider&gt;
+  )
+}
+</code></pre>
+<h3>Network Selector</h3>
+<p>Switch between Solana networks (Mainnet, Testnet, Devnet) with a clean dropdown interface.</p>
+<h4>Installation</h4>
+<pre><code class="language-bash">npx shadcn-solana add network-selector
+</code></pre>
+<h4>Basic Usage</h4>
+<pre><code class="language-tsx">import { NetworkSelector } from '@/components/network-selector'
+
+export default function App() {
+  return &lt;NetworkSelector /&gt;
+}
+</code></pre>
+<h4>With State Management</h4>
+<pre><code class="language-tsx">import { NetworkSelector, useNetwork } from '@/components/network-selector'
+import { SolanaWalletProvider } from '@/components/wallet-provider'
+
+export default function App() {
+  const { network, setNetwork, endpoint } = useNetwork()
+
+  return (
+    &lt;SolanaWalletProvider
+      network={network}
+      endpoint={endpoint}
+    &gt;
+      &lt;div className='flex items-center gap-4'&gt;
+        &lt;NetworkSelector
+          value={network}
+          onValueChange={setNetwork}
+        /&gt;
+        &lt;WalletConnectButton /&gt;
+      &lt;/div&gt;
+    &lt;/SolanaWalletProvider&gt;
+  )
+}
+</code></pre>
+<h4>Props</h4>
+<ul>
+<li><code>value</code> - Current network (controlled)</li>
+<li><code>onValueChange</code> - Network change callback</li>
+<li><code>className</code> - Additional CSS classes</li>
+<li><code>showBadge</code> - Show network badge (default: true)</li>
+</ul>
+<h3>Settings Sheet</h3>
+<p>Configuration panel for RPC endpoints, API keys, and connection preferences.</p>
+<h4>Installation</h4>
+<pre><code class="language-bash">npx shadcn-solana add settings-sheet
+</code></pre>
+<h4>Basic Usage</h4>
+<pre><code class="language-tsx">import { SettingsSheet } from '@/components/settings-sheet'
+
+export default function App() {
+  return &lt;SettingsSheet /&gt;
+}
+</code></pre>
+<h4>With State Management</h4>
+<pre><code class="language-tsx">import { SettingsSheet, useSolanaSettings } from '@/components/settings-sheet'
+import { SolanaWalletProvider } from '@/components/wallet-provider'
+
+export default function App() {
+  const settings = useSolanaSettings()
+
+  return (
+    &lt;SolanaWalletProvider
+      endpoint={settings.rpcUrl}
+      autoConnect={settings.autoConnect}
+    &gt;
+      &lt;div className='flex items-center gap-4'&gt;
+        &lt;h1&gt;My App&lt;/h1&gt;
+        &lt;SettingsSheet {...settings} /&gt;
+        &lt;WalletConnectButton /&gt;
+      &lt;/div&gt;
+    &lt;/SolanaWalletProvider&gt;
+  )
+}
+</code></pre>
+<h4>Advanced Usage (Custom Storage)</h4>
+<pre><code class="language-tsx">import { SettingsSheet } from '@/components/settings-sheet'
+
+export default function App() {
+  const [rpcUrl, setRpcUrl] = useState(myCustomRpc)
+  const [apiKey, setApiKey] = useState('')
+
+  return (
+    &lt;SettingsSheet
+      rpcUrl={rpcUrl}
+      onRpcUrlChange={(url) =&gt; {
+        setRpcUrl(url)
+        // Update your connection provider
+      }}
+      heliusApiKey={apiKey}
+      onHeliusApiKeyChange={(key) =&gt; {
+        setApiKey(key)
+        // Store securely (not in localStorage)
+      }}
+    /&gt;
+  )
+}
+</code></pre>
+<h4>Props</h4>
+<ul>
+<li><code>rpcUrl</code> - Current RPC endpoint</li>
+<li><code>onRpcUrlChange</code> - RPC URL change callback</li>
+<li><code>heliusApiKey</code> - Helius API key</li>
+<li><code>onHeliusApiKeyChange</code> - API key change callback</li>
+<li><code>autoConnect</code> - Auto-connect wallet setting</li>
+<li><code>onAutoConnectChange</code> - Auto-connect change callback</li>
+<li><code>commitment</code> - Transaction commitment level</li>
+<li><code>onCommitmentChange</code> - Commitment change callback</li>
+</ul>
+<h2>Usage Commands</h2>
+<pre><code class="language-bash"># Add specific component
+npx shadcn-solana add wallet-connect
+npx shadcn-solana add network-selector
+npx shadcn-solana add settings-sheet
+
+# List all available components
+npx shadcn-solana list
+</code></pre>
+<h2>Complete Example</h2>
+<p>Here's a complete example using all three components together:</p>
+<pre><code class="language-tsx">// app/layout.tsx
+import { SolanaWalletProvider } from '@/components/wallet-provider'
+import { useSolanaSettings } from '@/components/settings-sheet'
+
+export default function RootLayout({ children }) {
+  return (
+    &lt;html lang='en'&gt;
+      &lt;body&gt;
+        &lt;AppWithProviders&gt;{children}&lt;/AppWithProviders&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  )
+}
+
+function AppWithProviders({ children }) {
+  const settings = useSolanaSettings()
+
+  return (
+    &lt;SolanaWalletProvider
+      endpoint={settings.rpcUrl}
+      autoConnect={settings.autoConnect}
+    &gt;
+      {children}
+    &lt;/SolanaWalletProvider&gt;
+  )
+}
+</code></pre>
+<pre><code class="language-tsx">// app/page.tsx
+import { WalletConnectButton } from '@/components/wallet-connect-button'
+import { NetworkSelector, useNetwork } from '@/components/network-selector'
+import { SettingsSheet, useSolanaSettings } from '@/components/settings-sheet'
+
+export default function Home() {
+  const { network, setNetwork } = useNetwork()
+  const settings = useSolanaSettings()
+
+  return (
+    &lt;main className='container mx-auto p-8'&gt;
+      &lt;div className='flex items-center justify-between mb-8'&gt;
+        &lt;h1 className='text-2xl font-bold'&gt;My Solana App&lt;/h1&gt;
+        &lt;div className='flex items-center gap-4'&gt;
+          &lt;NetworkSelector
+            value={network}
+            onValueChange={setNetwork}
+          /&gt;
+          &lt;SettingsSheet {...settings} /&gt;
+          &lt;WalletConnectButton /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      {/* Your app content */}
+    &lt;/main&gt;
+  )
+}
+</code></pre>
+<h2>License</h2>
+<p>MIT</p>

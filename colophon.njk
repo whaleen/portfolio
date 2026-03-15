@@ -1,0 +1,67 @@
+---
+layout: layouts/base.njk
+title: Colophon | Josh's Portfolio
+---
+
+<div class="mw8 center pa3 pa4-ns">
+    <header class="tc mv5">
+        <h1 class="f2 fw8 ma0 mb2 color-vesper-fg">Colophon</h1>
+        <p class="f4 color-vesper-muted ma0">The technical stack and setup behind my work.</p>
+    </header>
+
+    <section class="mb5">
+        <h2 class="f4 ttu tracked color-vesper-muted bb border-vesper pb2 mb4">Development Stack</h2>
+        <p class="f5 color-vesper-fg mb4">My development environment is version-controlled and managed via <a href="https://github.com/whaleen/dotfiles" target="_blank" class="color-vesper-accent underline dim">whaleen/dotfiles</a>. Below is a snapshot of my primary toolset and global configuration.</p>
+        
+        <div class="flex flex-column gap4">
+            {%- if colophon.brew -%}
+            <div class="mb4">
+                <h3 class="f6 ttu tracked color-vesper-muted mb2">Homebrew</h3>
+                <pre class="f7 code bg-vesper-card border-vesper ba pa3 br3 overflow-auto max-h-400"><code>{{ colophon.brew }}</code></pre>
+            </div>
+            {%- endif -%}
+
+            {%- if colophon.npm -%}
+            <div class="mb4">
+                <h3 class="f6 ttu tracked color-vesper-muted mb2">Global NPM</h3>
+                <pre class="f7 code bg-vesper-card border-vesper ba pa3 br3 overflow-auto max-h-400"><code>{{ colophon.npm }}</code></pre>
+            </div>
+            {%- endif -%}
+
+            {%- if colophon.cargo -%}
+            <div class="mb4">
+                <h3 class="f6 ttu tracked color-vesper-muted mb2">Global Cargo</h3>
+                <pre class="f7 code bg-vesper-card border-vesper ba pa3 br3 overflow-auto max-h-400"><code>{{ colophon.cargo }}</code></pre>
+            </div>
+            {%- endif -%}
+        </div>
+    </section>
+
+    <section class="mb5">
+        <h2 class="f4 ttu tracked color-vesper-muted bb border-vesper pb2 mb4">Terminal & Aesthetic</h2>
+        <p class="f5 color-vesper-fg mb4">The site's visual theme is directly derived from my <strong>Ghostty</strong> terminal configuration, specifically the <em>Vesper</em> theme parity.</p>
+        {%- if colophon.ghostty -%}
+        <div>
+            <h3 class="f6 ttu tracked color-vesper-muted mb2">Ghostty Config</h3>
+            <pre class="f7 code bg-vesper-card border-vesper ba pa3 br3 overflow-auto max-h-400"><code>{{ colophon.ghostty }}</code></pre>
+        </div>
+        {%- endif -%}
+    </section>
+
+    <section class="mb5 tc">
+        <h2 class="f4 ttu tracked color-vesper-muted bb border-vesper pb2 mb4">Architecture</h2>
+        <ul class="list pl0 f5 color-vesper-fg">
+            <li class="pv2"><strong>Generator:</strong> <a href="https://www.11ty.dev/" target="_blank" class="color-vesper-accent underline dim">Eleventy (11ty)</a></li>
+            <li class="pv2"><strong>Data Source:</strong> GitHub API</li>
+            <li class="pv2"><strong>Styling:</strong> Tachyons CSS (Ghostty Palette)</li>
+            <li class="pv2"><strong>Deployment:</strong> Netlify</li>
+        </ul>
+    </section>
+</div>
+
+<style>
+    .max-h-400 { max-height: 400px; }
+    .gap2 { gap: 0.5rem; }
+    .gap3 { gap: 1rem; }
+    .gap4 { gap: 2rem; }
+</style>

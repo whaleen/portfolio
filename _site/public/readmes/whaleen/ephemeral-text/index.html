@@ -1,0 +1,80 @@
+<h1>ephemeral-text</h1>
+<p>A minimalist, ephemeral text editor built with Tauri. It intentionally never auto-saves and never prompts you to save on close. Your text only persists when you explicitly export it.</p>
+<p>Legacy Electron snapshot:</p>
+<ul>
+<li>https://github.com/whaleen/ephemeral-text/tree/legacy-electron-snapshot</li>
+</ul>
+<h2>Core Philosophy</h2>
+<ul>
+<li>No auto-saving</li>
+<li>No save prompts on close/quit</li>
+<li>Manual export only</li>
+<li>Non-destructive exports (auto-incremented filenames)</li>
+<li>Zero configuration to start writing</li>
+</ul>
+<h2>Features</h2>
+<ul>
+<li>Dark/light theme toggle</li>
+<li>Rich Markdown editor with live formatting (TipTap)</li>
+<li>Rich keyboard shortcuts for formatting</li>
+<li>Export to <code>.txt</code> or <code>.md</code></li>
+<li>Configurable export directory</li>
+<li>Non-destructive file exports</li>
+<li>Last export display with quick reveal in Finder</li>
+<li>Custom title bar controls (minimize/maximize/close)</li>
+<li>Harper grammar checks with inline suggestions</li>
+</ul>
+<h2>Keyboard Shortcuts</h2>
+<ul>
+<li>Save: <code>Cmd/Ctrl + S</code></li>
+<li>Bold: <code>Cmd/Ctrl + B</code></li>
+<li>Italic: <code>Cmd/Ctrl + I</code></li>
+<li>Headings: <code>Cmd/Ctrl + 1-6</code></li>
+<li>Links: <code>Cmd/Ctrl + K</code></li>
+<li>Code Block: <code>Cmd/Ctrl + Shift + C</code></li>
+<li>Blockquote: <code>Cmd/Ctrl + Shift + Q</code></li>
+<li>Strikethrough: <code>Cmd/Ctrl + Shift + S</code></li>
+<li>List: <code>Cmd/Ctrl + Shift + L</code></li>
+<li>Ordered List: <code>Cmd/Ctrl + Shift + O</code></li>
+<li>Task List: <code>Cmd/Ctrl + Shift + T</code></li>
+<li>Horizontal Rule: <code>Cmd/Ctrl + Shift + H</code></li>
+<li>Image: <code>Cmd/Ctrl + Shift + I</code></li>
+<li>Table: <code>Cmd/Ctrl + Shift + X</code></li>
+</ul>
+<h2>Development</h2>
+<h3>Prerequisites</h3>
+<ul>
+<li>Node.js (LTS)</li>
+<li>Bun</li>
+<li>Rust toolchain (for Tauri)</li>
+</ul>
+<h3>Install</h3>
+<pre><code class="language-bash">bun install
+</code></pre>
+<h3>Run (Desktop)</h3>
+<pre><code class="language-bash">bun run tauri dev
+</code></pre>
+<h3>Run (Web only)</h3>
+<pre><code class="language-bash">bun run dev
+</code></pre>
+<h3>Build (Desktop)</h3>
+<pre><code class="language-bash">bun run tauri build
+</code></pre>
+<h2>Bun Notes</h2>
+<ul>
+<li>This project uses Bun for JS deps and scripts.</li>
+</ul>
+<h2>Notes</h2>
+<ul>
+<li>Export directory selection uses a native folder picker.</li>
+</ul>
+<h2>Project Structure</h2>
+<pre><code>.
+├── index.html
+├── src/
+│   ├── main.ts
+│   ├── components/
+│   └── services/
+└── src-tauri/
+    └── src/
+</code></pre>

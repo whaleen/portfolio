@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+    <style>
+        :root {
+            --bg: #101010;
+            --fg: #ffffff;
+            --accent: #FFC799;
+            --muted: #A0A0A0;
+            --card-bg: #181818;
+            --border: #333333;
+            --tag-bg: #282828;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        /* Custom Vesper Utilities */
+        .color-vesper-bg { background-color: var(--bg); }
+        .color-vesper-fg { color: var(--fg); }
+        .color-vesper-accent { color: var(--accent); }
+        .color-vesper-muted { color: var(--muted); }
+        .bg-vesper-card { background-color: var(--card-bg); }
+        .border-vesper { border-color: var(--border); }
+        .hover-vesper-accent:hover { color: var(--accent); }
+        .hover-vesper-bg-accent:hover { background-color: var(--accent); color: var(--bg); }
+        
+        /* Markdown overrides to play nice with Vesper */
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: var(--accent); margin-top: 2rem; margin-bottom: 1rem; }
+        .markdown-body pre { background: var(--card-bg); padding: 1rem; border-radius: 4px; border: 1px solid var(--border); overflow-x: auto; }
+        .markdown-body code { font-family: monospace; background: var(--tag-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
+        .markdown-body a { color: var(--accent); text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body img { max-width: 100%; height: auto; border-radius: 4px; }
+        .markdown-body blockquote { border-left: 4px solid var(--border); padding-left: 1rem; color: var(--muted); margin-left: 0; }
+    </style>
+</head>
+<body class="w-100 sans-serif">
+    <header class="mw8 center pa4 pt5 pb4">
+        <h1 class="f1 fw8 ma0 mb2"><a href="/" class="no-underline color-vesper-fg hover-vesper-accent">Josh Vaage</a></h1>
+        <p class="f4 color-vesper-muted ma0">Software Engineer. Open Source & Projects.</p>
+    </header>
+    
+    <main class="mw8 center pa4">
+        
+<div class="mw7 center pa3 pa4-ns">
+    <a href="/" class="f6 fw5 color-vesper-muted no-underline hover-vesper-accent">← Back to Projects</a>
+    
+    <header class="flex flex-column flex-row-ns justify-between items-start items-center-ns mv4">
+        <h1 class="f2 fw8 ma0 mb2 mb0-ns color-vesper-fg">solana-wallet-ui-branded</h1>
+        <div class="flex gap3 f6 fw6">
+            <a href="https://github.com/nothingdao/solana-wallet-ui-branded" target="_blank" class="no-underline color-vesper-accent hover-vesper-fg mr3 bb border-vesper">GitHub</a><a href="https://solana-wallet-ui-branded.ndao.computer/" target="_blank" class="no-underline color-vesper-accent hover-vesper-fg bb border-vesper">Live Site</a></div>
+    </header><div class="w-100 mb4 border-vesper ba br3 overflow-hidden">
+        <img src="/public/social-previews/nothingdao/solana-wallet-ui-branded.png" alt="solana-wallet-ui-branded preview" class="w-100 h-auto db">
+    </div><div class="project-content">
+        <p class="f3 lh-copy color-vesper-fg mv4">
+            A customizable Solana wallet UI kit for React, providing full control over wallet adapter components and themes. Built with TailwindCSS, DaisyUI, and Solana wallet adapters.
+        </p>
+
+        <div class="flex flex-row justify-around bt bb border-vesper pv4 mv5 tc">
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Language</span>
+                <span class="f3 fw7 color-vesper-fg">TypeScript</span>
+            </div>
+            <div class="flex flex-column items-center">
+                <span class="f7 ttu tracked color-vesper-muted mb1">Last Pushed</span>
+                <span class="f3 fw7 color-vesper-fg">12/7/2024</span>
+            </div>
+        </div><div class="mv4">
+            <div class="flex flex-wrap gap2 mt2"><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">solana</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">web3</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">blockchain</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">component-library</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">connect-wallet</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">crypto</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">customizable</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">daisyui</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">modal</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">phantom</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">react</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">solflare</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">tailwindcss</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">theme</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">typescript</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">ui-kit</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">vite</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">wallet</span><span class="f7 fw6 ph2 pv1 br2 bg-vesper-card color-vesper-fg mr1 mb1">wallet-adapter</span></div>
+        </div><div class="markdown-body mt5 bt border-vesper pt5">
+            <h1>Solana Wallet UI Branded</h1>
+<img width="1436" alt="Screen Shot 2024-12-07 at 5 08 11 PM" src="https://github.com/user-attachments/assets/fc81cd3e-9fa5-4fa0-9fe7-404bac77f646">
+<p>Take full control over your Solana wallet UI components. This repo demonstrates how to style the wallet adapter while maintaining clean separation of concerns.</p>
+<h2>Overview</h2>
+<p>Instead of wrestling with the default Solana wallet UI styles buried in node_modules, this implementation provides direct control over every component. Includes several theme presets demonstrating the styling possibilities.</p>
+<h2>Using This Repository</h2>
+<p>There are three ways to use this codebase:</p>
+<h3>Option 1: Quick Start with create-solana-dapp</h3>
+<p>The fastest way to get started:</p>
+<pre><code class="language-bash">npx create-solana-dapp@latest --template nothingdao/solana-wallet-ui-branded
+</code></pre>
+<p>This will create a new project with all dependencies installed and ready to run.</p>
+<p>Made possible by the excellent work from:</p>
+<ul>
+<li><a href="https://github.com/solana-developers/create-solana-dapp">create-solana-dapp</a> by <a href="https://twitter.com/solana_devs">@solana_devs</a></li>
+<li><a href="https://github.com/solana-developers">Solana Developers</a></li>
+</ul>
+<h3>Option 2: Clone and Run</h3>
+<p>If you want to run this repo directly:</p>
+<ol>
+<li>Clone the repository:</li>
+</ol>
+<pre><code class="language-bash">git clone https://github.com/nothingdao/solana-wallet-ui-branded
+cd solana-wallet-ui-branded
+</code></pre>
+<ol start="2">
+<li>Install dependencies:</li>
+</ol>
+<pre><code class="language-bash">npm install
+</code></pre>
+<ol start="3">
+<li>Start the development server:</li>
+</ol>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<h3>Option 3: Implementing in Your Existing Project</h3>
+<p>To integrate these components into your project:</p>
+<ol>
+<li>Install required dependencies:</li>
+</ol>
+<pre><code class="language-bash">npm install @solana/web3.js @solana/wallet-adapter-react @solana/wallet-adapter-wallets
+</code></pre>
+<ol start="2">
+<li>Copy the core components from <code>src/components</code>:</li>
+</ol>
+<ul>
+<li>WalletContext.tsx</li>
+<li>WalletConnection.tsx</li>
+<li>WalletModal.tsx</li>
+<li>StyleContext.tsx (optional - for theme support)</li>
+<li>StyleSwitcher.tsx (optional - for theme support)</li>
+</ul>
+<ol start="3">
+<li>Set up the providers in your app:</li>
+</ol>
+<pre><code class="language-tsx">import { WalletContextProvider } from './components/WalletContext'
+import { StyleProvider } from './components/StyleContext' // optional
+
+function App() {
+  return (
+    &lt;StyleProvider&gt;
+      &lt;WalletContextProvider&gt;
+        &lt;YourApp /&gt;
+      &lt;/WalletContextProvider&gt;
+    &lt;/StyleProvider&gt;
+  )
+}
+</code></pre>
+<h2>Components</h2>
+<h3>WalletConnection.tsx</h3>
+<ul>
+<li>Main connection button</li>
+<li>Shows &quot;Connect Wallet&quot; or truncated address</li>
+<li>Manages dropdown menu when connected</li>
+</ul>
+<h3>WalletModal.tsx</h3>
+<ul>
+<li>Wallet selection modal</li>
+<li>Lists available wallets</li>
+<li>Shows installation status</li>
+</ul>
+<h3>WalletContext.tsx</h3>
+<ul>
+<li>Sets up wallet providers</li>
+<li>Configures network connection</li>
+<li>Manages available wallets</li>
+</ul>
+<h3>Style Components (Optional)</h3>
+<ul>
+<li>StyleContext.tsx: Theme state management</li>
+<li>StyleSwitcher.tsx: Theme preset selection</li>
+</ul>
+<h2>Theme Showcase</h2>
+<p>The demo includes five distinct themes showing the styling possibilities:</p>
+<h3>Corporate</h3>
+<p>Professional design with clean lines and subtle shadows.</p>
+<h3>Cyberpunk</h3>
+<p>Neon gradients, glowing effects, and dark contrasts.</p>
+<h3>Minimal</h3>
+<p>Black and white, clean typography, no decorative elements.</p>
+<h3>Playful</h3>
+<p>Soft shadows, rounded corners, friendly animations.</p>
+<h3>Brutalist</h3>
+<p>Raw HTML aesthetic with aggressive styling.</p>
+<h2>Styling System</h2>
+<p>The demo uses Tailwind CSS and DaisyUI but works with any styling approach:</p>
+<pre><code class="language-jsx">// With CSS Modules
+&lt;button className={styles.walletButton}&gt;
+
+// With styled-components
+const WalletButton = styled.button`
+  your-styles-here
+`
+
+// With plain CSS
+&lt;button className=&quot;wallet-button&quot;&gt;
+</code></pre>
+<h2>Customization</h2>
+<h3>Wallet Adapters</h3>
+<pre><code class="language-jsx">const wallets = [
+  new PhantomWalletAdapter(),
+  new SolflareWalletAdapter(),
+  // Add more wallets
+]
+</code></pre>
+<h3>Network Configuration</h3>
+<pre><code class="language-jsx">const endpoint = clusterApiUrl('mainnet-beta')
+</code></pre>
+<h3>Behavior</h3>
+<ul>
+<li>Auto-connect settings</li>
+<li>Address display format</li>
+<li>Modal animations</li>
+<li>Theme persistence</li>
+</ul>
+<h2>Contributing</h2>
+<p>Contributions welcome! Please feel free to submit a Pull Request.</p>
+<h2>License</h2>
+<p>MIT License - use freely in your own projects.</p>
+
+        </div></div>
+</div>
+
+    </main>
+
+    <footer class="mw8 center pa4 pt5 pb5">
+        <p class="f6 color-vesper-muted bt border-vesper pt4">
+            Built with 11ty. Updated: 3/14/2026 | <a href="/colophon" class="no-underline color-vesper-accent dim">Colophon</a>
+        </p>
+    </footer>
+</body>
+</html>

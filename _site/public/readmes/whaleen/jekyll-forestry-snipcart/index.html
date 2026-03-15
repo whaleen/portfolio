@@ -1,0 +1,44 @@
+<p><a href="https://app.netlify.com/sites/jekyll-forestry-snipcart/deploys"><img src="https://api.netlify.com/api/v1/badges/cea885a8-e83a-4168-8f06-a50c84696017/deploy-status" alt="Netlify Status"></a></p>
+<p>Don't use this ... yet.</p>
+<p>Features</p>
+<p>Products</p>
+<ul>
+<li>Custom</li>
+<li>T-shirts</li>
+<li>Digital Downloads
+Conference Ticket Sales</li>
+</ul>
+<p>Snipcart integration.</p>
+<h3>Developing in the Browser</h3>
+<p>Serve and re-build on the fly</p>
+<pre><code class="language-bundle"></code></pre>
+<p>reload browser when rebuild occurs</p>
+<pre><code class="language-browser-sync"></code></pre>
+<h3>Creating a new Collection</h3>
+<p>In this case we make the Products collection.
+Add to /_config.yml</p>
+<pre><code>collections:
+  products:
+    output: true
+    permalink: &quot;/products/:path/&quot;
+</code></pre>
+<h4>Forestry.io setup</h4>
+<p>Add Products section to /.forestry/settings.yml</p>
+<pre><code>sections:
+- type: directory
+  path: _products
+  label: Products
+  create: all
+  match: &quot;*&quot;
+  templates:
+  - product
+</code></pre>
+<p>Note above that templates calls for 'products'. This needs to be created and will reside in /.forestry/front_matter/templates/products.yml</p>
+<p>I suggest you build this frontmatter template using the forestry gui.</p>
+<p>You will need to create a new layout for the collection and provide this as a hidden field with the default value using it's name.</p>
+<p>In this case:</p>
+<p>/_layouts/products.html</p>
+<p>placeholder images:
+https://www.pexels.com/search/exhibition/</p>
+<p>placeholder copy:
+https://www.descriptionari.com/quotes/the-girl-with-no-name/?h=fashion</p>

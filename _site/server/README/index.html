@@ -1,0 +1,32 @@
+<h1>API Server</h1>
+<p>Simple Express server to run GitHub data fetch script from the frontend.</p>
+<h2>Setup</h2>
+<ol>
+<li>Install dependencies:</li>
+</ol>
+<pre><code class="language-bash">npm install
+</code></pre>
+<ol start="2">
+<li>Start the server:</li>
+</ol>
+<pre><code class="language-bash">npm run dev:server
+</code></pre>
+<p>Or run both frontend and server together:</p>
+<pre><code class="language-bash">npm run dev:all
+</code></pre>
+<h2>API Endpoints</h2>
+<h3>Update Single Repo</h3>
+<pre><code class="language-bash">POST /api/github/update
+Body: { &quot;repo&quot;: &quot;whaleen/astrds&quot; }
+</code></pre>
+<h3>Update All Repos</h3>
+<pre><code class="language-bash">POST /api/github/update-all
+Body: {}
+</code></pre>
+<h2>Development</h2>
+<p>The server runs on <code>http://localhost:3001</code> by default. The Vite dev server proxies <code>/api</code> requests to this server automatically.</p>
+<h2>Requirements</h2>
+<ul>
+<li>Python 3 with <code>gh</code> CLI installed and authenticated</li>
+<li>Node.js with npm</li>
+</ul>

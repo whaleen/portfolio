@@ -1,0 +1,82 @@
+<h1>LaunchPad - Official Strapi Demo</h1>
+<p><img src="./LaunchPad.jpg" alt="LaunchPad"></p>
+<p>Welcome aboard <strong>LaunchPad</strong>, the official Strapi demo application, where we launch your content into the stratosphere at the speed of <em>&quot;we-can't-even-measure-it!&quot;</em>.
+This repository contains the following:</p>
+<ul>
+<li>A Strapi project with content-types and data already onboard</li>
+<li>A Next.js client that's primed and ready to fetch the content from Strapi faster than you can say &quot;blast off!&quot;</li>
+</ul>
+<h2>🌌 Get started</h2>
+<p>Strap yourself in! You can get started with this project on your local machine by following the instructions below, or you can <a href="https://strapi.io/demo">request a private instance on our website</a></p>
+<h2>1. Clone Launchpad</h2>
+<p>To infinity and beyond! 🚀 Clone the repo with this command:</p>
+<pre><code>git clone https://github.com/strapi/launchpad.git
+</code></pre>
+<ul>
+<li>Navigate to your project folder by running <code>cd launchpad</code>.</li>
+</ul>
+<h2>2. Set up environment variables</h2>
+<p>Before you take off, set up the required environment variables for both Strapi and Next.js.</p>
+<p>To create the Strapi .env file, copy the content of the <code>./strapi/.env.example</code> file into a new file named <code>./strapi/.env</code>, then modify the values to match your setup:</p>
+<pre><code class="language-sh">cp ./strapi/.env.example ./strapi/.env
+</code></pre>
+<p>Then do the same for the Next.js .env file, and modify it too:</p>
+<pre><code class="language-sh">cp ./next/.env.example ./next/.env
+</code></pre>
+<h2>3. Start Strapi</h2>
+<p>Take a deep breath. It's time to power up the Strapi engines. Navigate to your ./my-projects/launchpad/strapi folder by running:</p>
+<p>Navigate to your <code>./my-projects/launchpad/strapi</code> folder by running <code>cd strapi</code> from your command line.</p>
+<ul>
+<li>Run the following command in your <code>./launchpad/strapi</code> folder:</li>
+</ul>
+<pre><code>yarn &amp;&amp; yarn seed &amp;&amp; yarn develop
+</code></pre>
+<p>This will install dependencies, sprinkle in some data magic, and run the server. (You can run these commands separately, but why not be efficient?)</p>
+<h2>4. Start Next.js</h2>
+<p>We're almost ready for lift-off! Next.js is your sleek, futuristic interface for getting all that glorious content out into the world. 🚀</p>
+<p>Open a new terminal tab or window to leave Strapi running, and navigate to your <code>./my-projects/launchpad/next</code> folder by running <code>cd next</code>.</p>
+<ul>
+<li>Run the following command in your <code>./launchpad/next</code> folder</li>
+</ul>
+<pre><code>yarn &amp;&amp; yarn build &amp;&amp; yarn start
+</code></pre>
+<p>This installs dependencies, builds your project, and starts your server. You’re now a spacefaring content master!</p>
+<h2>Features Overview ✨</h2>
+<h3>User</h3>
+<br />
+<p><strong>An intuitive, minimal editor</strong> The editor allows you to pull in dynamic blocks of content. It’s 100% open-source, and it’s fully extensible.<br />
+<strong>Media Library</strong> Upload images, video or any files and crop and optimize their sizes, without quality loss.<br />
+<strong>Flexible content management</strong> Build any type of category, section, format or flow to adapt to your needs. <br />
+<strong>Sort and Filter</strong> Built-in sorting and filtering: you can manage thousands of entries without effort.<br />
+<strong>User-friendly interface</strong> The most user-friendly open-source interface on the market.<br />
+<strong>SEO optimized</strong> Easily manage your SEO metadata with a repeatable field and use our Media Library to add captions, notes, and custom filenames to optimize the SEO of media assets.<br /><br /></p>
+<h3>Global</h3>
+<br />
+<p><a href="https://strapi.io/features/customizable-api">Customizable API</a>: Automatically build out the schema, models, controllers for your API from the editor. Get REST or GraphQL API out of the box without writing a single line of code.<br />
+<a href="https://strapi.io/features/media-library">Media Library</a>: The media library allows you to store your images, videos and files in your Strapi admin panel with many ways to visualize and manage them.<br />
+<a href="https://strapi.io/features/custom-roles-and-permissions">Role-Based Access Control (RBAC)</a>: Role-Based Access Control is a feature available in the Administration Panel settings that let your team members have access rights only to the information they need.<br />
+<a href="https://strapi.io/features/internationalization">Internationalization (i18n)</a>: Internationalization (i18n) lets you create many content versions, also called locales, in different languages and for different countries.<br />
+<a href="https://strapi.io/blog/reasons-and-best-practices-for-using-audit-logs-in-your-application">Audit Logs</a>The Audit Logs section provides a searchable and filterable display of all activities performed by users of the Strapi application<br />
+<a href="https://strapi.io/blog/importing-exporting-and-transferring-data-with-the-strapi-cli">Data transfer</a> Streams your data from one Strapi instance to another Strapi instance.<br />
+<a href="https://docs.strapi.io/user-docs/settings/review-workflows">Review Worfklows</a> Create and manage any desired review stages for your content, enabling your team to collaborate in the content creation flow from draft to publication. <br /></p>
+<h2>Resources</h2>
+<p><a href="https://docs.strapi.io">Docs</a> • <a href="https://strapi.io/demo">Demo</a> • <a href="https://forum.strapi.io/">Forum</a> • <a href="https://discord.strapi.io">Discord</a> • <a href="https://www.youtube.com/c/Strapi/featured">Youtube</a> • <a href="https://design-system.strapi.io/">Strapi Design System</a> • <a href="https://market.strapi.io/">Marketplace</a> • <a href="https://cloud.strapi.io">Cloud Free Trial</a></p>
+<h2>Todo</h2>
+<ul>
+<li>[ ] Implement the official Strapi SEO plugin</li>
+<li>[ ] Implement the community Strapi preview plugin</li>
+<li>[ ] Create localized content for the pricing plans and products</li>
+<li>[ ] Populate creator fields when it'll work on Strapi 5 (article authors information are missing)</li>
+</ul>
+<h2>Customization</h2>
+<ul>
+<li>
+<p>The Strapi application contains a custom population middleware in order to populate more data than what it is set by default. You can find it in the <code>./strapi/src/middlewares/deepPopulate.ts</code> file.</p>
+</li>
+<li>
+<p>The Strapi application contains a postinstall script that will regenerate an uuid for the project in order to get some anonymous usage information concerning this demo. You can disable it by removing the uuid inside the <code>./strapi/packages.json</code> file.</p>
+</li>
+<li>
+<p>The Strapi application contains a patch for the @strapi/admin package. It is only necessary for the hosted demos since we automatically create the Super Admin users for them when they request this demo on our website.</p>
+</li>
+</ul>

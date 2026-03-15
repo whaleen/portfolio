@@ -1,0 +1,35 @@
+<h1>Scope</h1>
+<p>To run the Scope, first install the npm dependencies:</p>
+<pre><code class="language-bash">pnpm install
+</code></pre>
+<p>Next, run the development server:</p>
+<pre><code class="language-bash">pnpm run dev
+</code></pre>
+<p>Finally, open <a href="http://localhost:3000">http://localhost:3000</a> in your browser to view the website.</p>
+<p>graph TD
+A[Next.js App]
+B[NextAuth.js]
+C[Supabase Database]
+D[Twilio (SMS)]
+E[SendGrid (Email)]
+F[Nex Health API]
+G[Appointment Data]
+H[Providers &amp; Institutions]
+I[Patients]</p>
+<p>%% Authentication
+A --&gt;|Uses| B
+B --&gt;|Authenticates| H
+B --&gt;|Authenticates| I</p>
+<p>%% Data Storage
+A --&gt;|Stores Data| C
+C --&gt;|Holds Appointment Data| G</p>
+<p>%% Data Flow from Nex Health
+F --&gt;|Fetch Daily Data| G
+G --&gt;|Data for Communication| A</p>
+<p>%% Communication Flow
+A --&gt;|Sends SMS| D
+A --&gt;|Sends Email| E</p>
+<p>%% Interaction for Follow-up
+G --&gt;|For Follow-up Actions| A
+A --&gt;|Communicates with Providers &amp; Patients| H
+A --&gt;|Communicates with Patients| I</p>

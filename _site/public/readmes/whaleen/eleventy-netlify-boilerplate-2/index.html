@@ -1,0 +1,80 @@
+<p><a href="https://app.netlify.com/sites/eleventy-netlify-boilerplate/deploys"><img src="https://api.netlify.com/api/v1/badges/bbf28a84-4bdb-407b-a2fa-32628d27fa3d/deploy-status" alt="Netlify Status"></a></p>
+<h1>Eleventy Netlify Boilerplate</h1>
+<h2><a href="https://eleventy-netlify-boilerplate.netlify.app/">Demo Site</a></h2>
+<h2>What is it?</h2>
+<p>A simple template for building a fast, pre-generated HTML website using the <a href="https://www.11ty.io/">Eleventy</a> static site generator. With <a href="https://www.netlifycms.org/">Netlify CMS</a> baked-in, ready to deploy to <a href="https://www.netlify.com">Netlify</a> in a couple of clicks.</p>
+<p>Use it as a starter for your own JAMstack projects, or as an easy way to get started building websites with Eleventy.</p>
+<p>Based on the <a href="https://github.com/11ty/eleventy-base-blog">Eleventy Base Blog</a> repo (see there for additional info on Eleventy usage).</p>
+<p>🔥 <strong>This project is featured on Netlify's official <a href="https://templates.netlify.com/template/eleventy-netlify-boilerplate/">template showcase</a></strong> 🔥</p>
+<h2>Features</h2>
+<ul>
+<li>NEW: Added maintenance-free post author archives</li>
+<li>Uses the official <a href="https://www.11ty.dev/docs/plugins/navigation/">Eleventy Navigation</a> plugin to build menus</li>
+<li>Sample pages and a blog with tag support</li>
+<li>Netlify CMS with editor previews (thanks <a href="https://github.com/biilmann">@biilmann</a>!)</li>
+<li>Includes a working contact form</li>
+<li>CSS 2kb minified, inlined for fastest page render</li>
+<li>Optional pipeline for minified inline JS</li>
+<li>Pre-builds and minifies your HTML too</li>
+<li>Uses Markdown files for content</li>
+<li>Uses Nunjucks (or Liquid) templates for layout</li>
+<li>100% Javascript framework free</li>
+<li>Continuous Deployment workflow via Netlify</li>
+</ul>
+<h2>Want to try it out now?</h2>
+<p><a href="https://app.netlify.com/start/deploy?repository=https://github.com/danurbanowicz/eleventy-netlify-boilerplate&amp;stack=cms"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a></p>
+<p>Clicking the button above will deploy a copy of the demo website to your Netlify
+account (you can create an account during this process if you don't have one)
+and everything needed for running the CMS:</p>
+<ul>
+<li>A new repository in your GitHub account with the code</li>
+<li>Full Continuous Deployment to Netlify's global CDN network</li>
+<li>Control users and access with Netlify Identity</li>
+<li>Manage content with Netlify CMS</li>
+<li>Process form data with Netlify Forms</li>
+</ul>
+<h3>Setup authentication</h3>
+<p>After deploying this project, Netlify Identity will add you as a CMS user and
+will email you an invite. It is not necessary to accept this invite if you wish
+to use an
+<a href="https://www.netlify.com/docs/identity/#external-provider-login">OAuth provider</a>
+(e.g. Github) to manage authentication for your CMS.
+It is recommended to use this method of authentication as it removes the need
+for an email &amp; password to log in to the CMS and is generally more secure. You
+will need to add an OAuth provider in your Netlify app settings under
+&quot;Settings&quot; &gt; &quot;Identity&quot; &gt; &quot;External providers&quot;.</p>
+<p>Once you've added an OAuth provider, navigate to <code>/admin</code> on your site, select your provider from the
+list, and you should then be logged into your CMS. Cool huh?</p>
+<p>Now you're all set, and you can start editing content!</p>
+<h2>Gotchas</h2>
+<p>If you change the repo that was created at deploy time from public to private, you'll need to regenerate your token,
+as the token generated using the deploy to Netlify button can only access public repositories. To
+regenerate your token, head to &quot;Settings&quot; in your Netlify site dashboard, go to the &quot;Identity&quot;
+section, then scroll to &quot;Services&quot; where you'll see an &quot;Edit settings&quot; button. Click that and you'll
+see a text link to &quot;Generate access token in GitHub&quot;.</p>
+<p>If you need any help with setting up Netlify CMS, you can reach out to the Netlify team in the <a href="https://gitter.im/netlify/netlifycms">Netlify CMS Gitter</a>.</p>
+<h2>Local development</h2>
+<h3>1. Clone this repository:</h3>
+<pre><code>git clone https://github.com/danurbanowicz/eleventy-netlify-boilerplate.git my-blog-name
+</code></pre>
+<h3>2. Navigate to the directory</h3>
+<pre><code>cd my-blog-name
+</code></pre>
+<p>Specifically have a look at <code>.eleventy.js</code> to see if you want to configure any Eleventy options differently.</p>
+<h3>3. Install dependencies locally</h3>
+<pre><code>npm install @11ty/eleventy
+</code></pre>
+<h3>4. Edit _data/metadata.json</h3>
+<p>This file contains your site title and author details, and can be used to store any other commonly used site data.</p>
+<h3>5. Run Eleventy (builds the site)</h3>
+<pre><code>npx @11ty/eleventy
+</code></pre>
+<p>Or build automatically when a template changes:</p>
+<pre><code>npx @11ty/eleventy --watch
+</code></pre>
+<p>Or in debug mode:</p>
+<pre><code>DEBUG=* npx @11ty/eleventy
+</code></pre>
+<h2>Bug reports, feature requests, etc</h2>
+<p>This is an ongoing project and I welcome contributions and suggestions! Feel free to submit a PR.</p>
+<p>If you need any help with setting up Netlify CMS, you can reach out to the Netlify team in the <a href="https://gitter.im/netlify/netlifycms">Netlify CMS Gitter</a>.</p>
